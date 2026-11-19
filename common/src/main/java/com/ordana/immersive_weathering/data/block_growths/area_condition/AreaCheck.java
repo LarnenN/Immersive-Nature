@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.ordana.immersive_weathering.data.block_growths.growths.ConfigurableBlockGrowth;
 import com.ordana.immersive_weathering.util.StrOpt;
-import com.ordana.immersive_weathering.util.WeatheringHelper;
+import com.ordana.immersive_weathering.util.AreaTemplates;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.RegistryCodecs;
@@ -44,29 +44,53 @@ record AreaCheck(int rX, int rY, int rZ, int requiredAmount, Optional<Integer> y
     @Override
     public boolean test(BlockPos pos, Level level, ConfigurableBlockGrowth config) {
         if (yOffset.isPresent()) pos = pos.above(yOffset.get());
+        // Immersive Nature: same checks in the same order as before, without building and shuffling
+        // a new position list and RandomSource every time (see AreaTemplates)
+        RandomSource random = AreaTemplates.randomSource(Mth.getSeed(pos));
+        Scan scan = new Scan(this, level, config, random);
+        AreaTemplates.forEachRandomly(pos, rX, rY, rZ, scan);
+        return !scan.failed && scan.hasRequirement;
+    }
+
+    private static final class Scan implements AreaTemplates.Visitor {
+        final AreaCheck check;
+        final Level level;
+        final ConfigurableBlockGrowth config;
+        final RandomSource random;
         int count = 0;
-        RandomSource random = RandomSource.create(Mth.getSeed(pos));
-        boolean hasRequirement = this.mustHavePredicate.isEmpty();
-        //shuffling. provides way better result that iterating through it conventionally
-        //if(hasRequirement && requiredAmount == -1)return true;
-        var list = WeatheringHelper.grabBlocksAroundRandomly(pos, rX, rY, rZ);
-        for (BlockPos p : list) {
+        boolean hasRequirement;
+        boolean failed = false;
+
+        Scan(AreaCheck check, Level level, ConfigurableBlockGrowth config, RandomSource random) {
+            this.check = check;
+            this.level = level;
+            this.config = config;
+            this.random = random;
+            this.hasRequirement = check.mustHavePredicate.isEmpty();
+        }
+
+        @Override
+        public boolean visit(BlockPos.MutableBlockPos p) {
             BlockState state = level.getBlockState(p);
             if (config.getPossibleBlocks().contains(state.getBlock()) ||
-                    (extraIncluded.isPresent() && state.is(extraIncluded.get()))) count += 1;
+                    (check.extraIncluded.isPresent() && state.is(check.extraIncluded.get()))) count += 1;
             if (!hasRequirement &&
-                    mustHavePredicate.get().test(state, random)) {
+                    check.mustHavePredicate.get().test(state, random)) {
                 hasRequirement = true;
                 // if -1 means it can accept any number so we exit early
-                if (requiredAmount == -1) {
-                    break;
+                if (check.requiredAmount == -1) {
+                    return true;
                 }
-            } else if (mustNotHavePredicate.isPresent() && mustNotHavePredicate.get().test(state, random)) {
-                return false;
+            } else if (check.mustNotHavePredicate.isPresent() && check.mustNotHavePredicate.get().test(state, random)) {
+                failed = true;
+                return true;
             }
-            if (count >= requiredAmount) return false;
+            if (count >= check.requiredAmount) {
+                failed = true;
+                return true;
+            }
+            return false;
         }
-        return hasRequirement;
     }
 
     @Override

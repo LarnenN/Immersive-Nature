@@ -323,6 +323,7 @@ public class WeatheringHelper {
      *
      * @param centerPos center pos
      */
+    /** Original implementation, kept as the reference that AreaTemplates reproduces exactly. */
     public static List<BlockPos> grabBlocksAroundRandomly(BlockPos centerPos, int radiusX, int radiusY, int radiusZ) {
         var list = new ArrayList<>(BlockPos.withinManhattanStream(centerPos, radiusX, radiusY, radiusZ)
                 .map(BlockPos::new)
@@ -343,15 +344,12 @@ public class WeatheringHelper {
     public static boolean hasEnoughBlocksAround(BlockPos centerPos, int radiusX, int radiusY, int radiusZ, Level level,
                                                 Predicate<BlockState> blockPredicate, int requiredAmount) {
 
-        var lis = grabBlocksAroundRandomly(centerPos, radiusX, radiusY, radiusZ);
-
-        int count = 0;
-        for (BlockPos pos : lis) {
-            if (blockPredicate.test(level.getBlockState(pos))) count += 1;
-            if (count >= requiredAmount) return true;
-        }
-
-        return false;
+        // Immersive Nature: same order as grabBlocksAroundRandomly, without building a new list
+        int[] count = {0};
+        return AreaTemplates.forEachRandomly(centerPos, radiusX, radiusY, radiusZ, pos -> {
+            if (blockPredicate.test(level.getBlockState(pos))) count[0] += 1;
+            return count[0] >= requiredAmount;
+        });
     }
 
 
@@ -365,15 +363,27 @@ public class WeatheringHelper {
                                                   Predicate<BlockState> blockPredicate, int requiredAmount) {
         int count = 0;
         //shuffling. provides way better result that iterating through it conventionally
-        List<Direction> list = new ArrayList<>(List.of(Direction.values()));
-        Collections.shuffle(list, new Random(Mth.getSeed(centerPos)));
-        for (Direction dir : list) {
-            BlockPos pos = centerPos.relative(dir);
+        // Immersive Nature: same shuffle as Collections.shuffle(list, new Random(seed)), on a reused array
+        Direction[] dirs = FACING_ORDER.get();
+        System.arraycopy(DIRECTIONS, 0, dirs, 0, dirs.length);
+        Random rnd = AreaTemplates.random(Mth.getSeed(centerPos));
+        for (int i = dirs.length; i > 1; i--) {
+            int j = rnd.nextInt(i);
+            Direction t = dirs[i - 1];
+            dirs[i - 1] = dirs[j];
+            dirs[j] = t;
+        }
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        for (Direction dir : dirs) {
+            pos.setWithOffset(centerPos, dir);
             if (blockPredicate.test(level.getBlockState(pos))) count += 1;
             if (count >= requiredAmount) return true;
         }
         return false;
     }
+
+    private static final Direction[] DIRECTIONS = Direction.values();
+    private static final ThreadLocal<Direction[]> FACING_ORDER = ThreadLocal.withInitial(() -> new Direction[DIRECTIONS.length]);
 
     public static boolean isLog(BlockState state) {
         if (isDynamicBranch(state)) return true;
@@ -384,17 +394,16 @@ public class WeatheringHelper {
 
     public static boolean isIciclePos(BlockPos pos) {
         int rarity = CommonConfigs.ICICLE_RARITY.get();
-        Random posRandom = new Random(Mth.getSeed(pos));
         if (CommonConfigs.DISABLE_ICICLES.get()) return false;
-        else return posRandom.nextInt(rarity) == 0;
+        Random posRandom = AreaTemplates.random(Mth.getSeed(pos));
+        return posRandom.nextInt(rarity) == 0;
     }
 
     /**
      * @return used to randomize weathering in certain position. 1/6 on average will be true
      */
     public static boolean isRandomWeatheringPos(BlockPos pos) {
-        Random posRandom = new Random(Mth.getSeed(pos));
-        return posRandom.nextInt(6) == 0;
+        return AreaTemplates.random(Mth.getSeed(pos)).nextInt(6) == 0;
     }
 
     public static void onFireExpired(ServerLevel serverLevel, BlockPos pos, BlockState state) {
