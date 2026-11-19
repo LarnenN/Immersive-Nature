@@ -25,7 +25,6 @@ public class ServerConfiguration extends AbstractConfiguration
     public final ForgeConfigSpec.IntValue anvilsand;
     public final ForgeConfigSpec.IntValue spiderwebs;
     public final ForgeConfigSpec.IntValue byepath;
-    public final ForgeConfigSpec.IntValue createpath;
     public final ForgeConfigSpec.IntValue entityspawn;
     public final ForgeConfigSpec.IntValue spreadnylium;
     public final ForgeConfigSpec.BooleanValue caveentities;
@@ -55,7 +54,6 @@ public class ServerConfiguration extends AbstractConfiguration
         entityspawn = defineInteger(builder, "entityspawn", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Entity Spawning handling", 23, 0, 1000);
         spreadnylium = defineInteger(builder, "spreadnylium", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Nylium Spread handling", 24, 0, 1000);
 
-        createpath = defineInteger(builder, "createpath", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Entities leaving handling", 100, 0, 1000);
 
         caveentities = defineBoolean(builder, "caveentities", "Allow neutral animals to spawn in caves.", "Allow Cave Entities", false);
 

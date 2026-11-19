@@ -37,6 +37,6 @@ public final class Overgrowth {
 
         config = new Configuration();
 
-        MinecraftForge.EVENT_BUS.register(EntityHandling.class);
+        // Entity paths are handled by Immersive Nature's Desire Paths (grass, podzol, sand)
     }
 }

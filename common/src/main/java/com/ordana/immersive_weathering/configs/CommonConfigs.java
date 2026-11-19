@@ -31,7 +31,9 @@ public class CommonConfigs {
     public static final Supplier<Boolean> WATER_SOAKING_GRASS_DIES_COARSE;
     public static final Supplier<List<String>> WATER_SOAKING_TRANSFORMATIONS;
     public static final Supplier<Boolean> DESIRE_PATHS;
-    public static final Supplier<Double> DESIRE_PATHS_CHANCE;
+    public static final Supplier<Integer> DESIRE_PATHS_WEAR;
+    public static final Supplier<Boolean> DESIRE_PATHS_MOBS;
+    public static final Supplier<Integer> DESIRE_PATHS_FORGET;
     public static final Supplier<Boolean> DESIRE_PATHS_SPEED_BASED;
     public static final Supplier<Double> DESIRE_PATHS_FEATHER_FALLING;
     public static final Supplier<Boolean> DESIRE_PATHS_CROUCH_PREVENTS;
@@ -280,20 +282,29 @@ public class CommonConfigs {
         builder.pop();
 
         builder.push("desire_paths");
-        DESIRE_PATHS = builder.comment("Walking over grass slowly wears it down into dirt and then coarse dirt, forming trails where you walk often")
+        DESIRE_PATHS = builder.comment("Walking over grass, podzol and sand slowly wears it down (grass into dirt and then coarse dirt, sand into sandstone), forming trails where people and mobs walk often")
                 .define("enabled", true);
-        DESIRE_PATHS_CHANCE = builder.comment("Chance per tick, for each block under a walking player, to wear down one step")
-                .define("chance", 0.008, 0, 1);
-        DESIRE_PATHS_SPEED_BASED = builder.comment("Sprinting wears paths faster, sneaking-speed movement slower (the chance above is for walking speed)")
+        DESIRE_PATHS_WEAR = builder.comment("Every block remembers how much it was walked on. Each tick someone walks on it adds 1 (sprinting more, sneaking less); at this amount it wears down one step. About 5 ticks = one walk across a block")
+                .define("wear_to_change", 100, 1, 100000);
+        DESIRE_PATHS_MOBS = builder.comment("Mobs wear down paths too (except the ones in the entity tag immersive_nature:no_desire_paths, sheep by default). If false, only players and mobs in immersive_nature:makes_desire_paths do")
+                .define("mobs_make_paths", true);
+        DESIRE_PATHS_FORGET = builder.comment("Minutes after which a block forgets that it was walked on, if nobody walks on it again")
+                .define("forget_after_minutes", 20, 1, 100000);
+        DESIRE_PATHS_SPEED_BASED = builder.comment("Sprinting wears paths faster, sneaking-speed movement slower (walking adds 1 per tick)")
                 .define("speed_based", true);
-        DESIRE_PATHS_FEATHER_FALLING = builder.comment("Each level of Feather Falling on your boots lowers the chance by this part (0.25 = Feather Falling IV stops it)")
+        DESIRE_PATHS_FEATHER_FALLING = builder.comment("Each level of Feather Falling on your boots lowers the wear by this part (0.25 = Feather Falling IV stops it)")
                 .define("feather_falling_reduction", 0.25, 0, 1);
         DESIRE_PATHS_CROUCH_PREVENTS = builder.comment("Crouching does not wear down the ground")
                 .define("crouch_prevents", true);
         DESIRE_PATHS_BREAK_TALL_GRASS = builder.comment("Grass and ferns on top get trampled when the block below wears down")
                 .define("break_tall_grass", true);
-        DESIRE_PATHS_TRANSFORMATIONS = builder.comment("What wears into what, as \"from,to\". From can be a block id or a #block_tag. Mobs in the entity tag immersive_nature:makes_desire_paths make paths too")
-                .define("transformations", List.of("minecraft:grass_block,minecraft:dirt", "minecraft:dirt,minecraft:coarse_dirt"));
+        DESIRE_PATHS_TRANSFORMATIONS = builder.comment("What wears into what, as \"from,to\". From can be a block id or a #block_tag")
+                .define("transformations", List.of(
+                        "minecraft:grass_block,minecraft:dirt",
+                        "minecraft:podzol,minecraft:dirt",
+                        "minecraft:dirt,minecraft:coarse_dirt",
+                        "minecraft:sand,minecraft:sandstone",
+                        "minecraft:red_sand,minecraft:red_sandstone"));
         builder.pop();
 
         SERVER_SPEC = builder.buildAndRegister();
