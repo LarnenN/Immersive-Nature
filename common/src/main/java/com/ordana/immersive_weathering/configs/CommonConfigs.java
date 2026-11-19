@@ -127,7 +127,7 @@ public class CommonConfigs {
                         "Check the mod data folder for the required names. Requires resource reload (/data reload)")
                 .define("block_growth_blacklist", new ArrayList<>());
         PLANT_GROWTH_MULTIPLIER = builder.comment("Speeds up grass, ferns, flowers and other plants growing on grass blocks (1 = original Immersive Weathering speed). Plants grow next to other grass plants")
-                .define("plant_growth_multiplier", 4.0, 0, 100);
+                .define("plant_growth_multiplier", 1.0, 0, 100);
         WET_CLAY_WATER_LEVELS = builder.comment("How many water levels wet earthen clay leaves behind when broken (0 = none, 8 = a full water block). Uses Flowing Fluids levels")
                 .define("wet_earthen_clay_water_levels", 4, 0, 8);
         CREATIVE_TAB = builder.define("creative_tab", false);

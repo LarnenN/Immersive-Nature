@@ -1,0 +1,31 @@
+{
+  "area_condition": {
+    "radiusX": 2,
+    "radiusY": 1,
+    "radiusZ": 2,
+    "requiredAmount": 1,
+    "type": "generate_if_not_too_many",
+    "includes": "#immersive_nature:small_plants"
+  },
+  "growth_chance": 0.0005,
+  "growth_for_face": [
+    {
+      "direction": "up",
+      "growth": [
+        {
+          "data": {
+            "block": {
+              "Name": "minecraft:grass"
+            }
+          },
+          "weight": 1
+        }
+      ]
+    }
+  ],
+  "owners": "#immersive_nature:grassy_blocks",
+  "replacing_target": {
+    "block": "minecraft:air",
+    "predicate_type": "minecraft:block_match"
+  }
+}
