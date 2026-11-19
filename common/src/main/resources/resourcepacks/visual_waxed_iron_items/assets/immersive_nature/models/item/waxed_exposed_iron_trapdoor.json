@@ -1,0 +1,7 @@
+{
+	"parent": "immersive_nature:item/waxed_trapdoor",
+	"textures": {
+		"top": "immersive_nature:block/waxed_exposed_iron_trapdoor_top",
+		"side": "immersive_nature:block/waxed_exposed_iron_trapdoor_side"
+	}
+}

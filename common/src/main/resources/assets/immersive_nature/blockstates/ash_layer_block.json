@@ -1,0 +1,52 @@
+{
+  "variants": {
+    "layers=1,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block2"
+    },
+    "layers=1,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block2"
+    },
+    "layers=2,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block4"
+    },
+    "layers=2,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block4"
+    },
+    "layers=3,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block6"
+    },
+    "layers=3,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block6"
+    },
+    "layers=4,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block8"
+    },
+    "layers=4,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block8"
+    },
+    "layers=5,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block10"
+    },
+    "layers=5,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block10"
+    },
+    "layers=6,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block12"
+    },
+    "layers=6,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block12"
+    },
+    "layers=7,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block14"
+    },
+    "layers=7,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block14"
+    },
+    "layers=8,smoldering=false": {
+      "model": "immersive_nature:block/ash_layer_block16"
+    },
+    "layers=8,smoldering=true": {
+      "model": "immersive_nature:block/ash_layer_block16"
+    }
+  }
+}

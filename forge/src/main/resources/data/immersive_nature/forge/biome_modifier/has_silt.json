@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#immersive_nature:has_silt",
+  "features": [
+    "immersive_nature:silt"
+  ],
+  "step": "raw_generation"
+}

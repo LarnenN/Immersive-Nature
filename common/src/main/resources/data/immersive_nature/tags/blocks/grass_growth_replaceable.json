@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:soot",
+    "minecraft:snow",
+    "minecraft:air",
+    "#immersive_nature:leaf_piles"
+  ]
+}

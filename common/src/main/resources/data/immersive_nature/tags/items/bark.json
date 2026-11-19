@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:oak_bark",
+    "immersive_nature:spruce_bark",
+    "immersive_nature:birch_bark",
+    "immersive_nature:jungle_bark",
+    "immersive_nature:acacia_bark",
+    "immersive_nature:mangrove_bark",
+    "immersive_nature:dark_oak_bark"
+  ]
+}

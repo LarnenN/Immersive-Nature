@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.ordana.immersive_weathering.mixins.forge",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "AccessorBlockColor",
+    "AccessorItemColor"
+  ],
+  "mixins": [
+    "FluidInteractionRegistryMixin",
+    "SelfRustableMixin",
+    "WebMixin",
+    "OvergrowthChunkTickMixin",
+    "OvergrowthAnimalMixin",
+    "OvergrowthWaterAnimalMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

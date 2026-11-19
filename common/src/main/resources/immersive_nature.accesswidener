@@ -1,0 +1,27 @@
+accessWidener   v2  named
+
+accessible field net/minecraft/world/item/HoneycombItem WAXABLES Ljava/util/function/Supplier;
+accessible field net/minecraft/world/item/HoneycombItem WAX_OFF_BY_BLOCK Ljava/util/function/Supplier;
+mutable field net/minecraft/world/item/HoneycombItem WAXABLES Ljava/util/function/Supplier;
+mutable field net/minecraft/world/item/HoneycombItem WAX_OFF_BY_BLOCK Ljava/util/function/Supplier;
+
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isRandomlyTicking Z
+
+accessible method net/minecraft/world/level/biome/Biome getTemperature (Lnet/minecraft/core/BlockPos;)F
+
+accessible method net/minecraft/world/level/block/SpreadingSnowyDirtBlock canPropagate (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+accessible method net/minecraft/world/level/block/SpreadingSnowyDirtBlock canBeGrass (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/LevelReader;Lnet/minecraft/core/BlockPos;)Z
+# Overgrowth (entity spawning)
+accessible field net/minecraft/server/level/ChunkMap visibleChunkMap Lit/unimi/dsi/fastutil/longs/Long2ObjectLinkedOpenHashMap;
+accessible field net/minecraft/server/level/ServerLevel entityManager Lnet/minecraft/world/level/entity/PersistentEntitySectionManager;
+accessible field net/minecraft/util/ClassInstanceMultiMap byClass Ljava/util/Map;
+accessible field net/minecraft/world/level/entity/EntitySection storage Lnet/minecraft/util/ClassInstanceMultiMap;
+accessible field net/minecraft/world/level/entity/LevelEntityGetterAdapter sectionStorage Lnet/minecraft/world/level/entity/EntitySectionStorage;
+
+# Snow! Real Magic
+accessible class net/minecraft/client/resources/model/ModelBakery$ModelBakerImpl
+accessible class net/minecraft/client/resources/model/ModelBakery$BakedCacheKey
+accessible field net/minecraft/client/resources/model/ModelBakery bakedCache Ljava/util/Map;
+accessible field net/minecraft/world/level/storage/loot/LootContext params Lnet/minecraft/world/level/storage/loot/LootParams;
+accessible field net/minecraft/world/level/storage/loot/LootParams params Ljava/util/Map;
+accessible field net/minecraft/world/entity/Entity dimensions Lnet/minecraft/world/entity/EntityDimensions;

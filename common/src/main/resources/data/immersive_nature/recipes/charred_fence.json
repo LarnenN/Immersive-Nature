@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "immersive_nature:flammable_fences"
+  },
+  "result": "immersive_nature:charred_fence",
+  "experience": 0.15,
+  "cookingtime": 200
+}

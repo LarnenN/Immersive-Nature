@@ -1,0 +1,122 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "rolls": 1,
+      "bonus_rolls": 0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "immersive_nature:soot",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "immersive_nature:soot",
+                  "properties": {
+                    "east": "true"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "immersive_nature:soot",
+                  "properties": {
+                    "west": "true"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "immersive_nature:soot",
+                  "properties": {
+                    "north": "true"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "immersive_nature:soot",
+                  "properties": {
+                    "south": "true"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "immersive_nature:soot",
+                  "properties": {
+                    "up": "true"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": 1,
+              "add": true,
+              "conditions": [
+                {
+                  "condition": "minecraft:block_state_property",
+                  "block": "immersive_nature:soot",
+                  "properties": {
+                    "down": "true"
+                  }
+                }
+              ]
+            },
+            {
+              "function": "minecraft:set_count",
+              "count": -1,
+              "add": true
+            }
+          ]
+        }
+      ],
+      "conditions": [
+        {
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "enchantments": [
+              {
+                "enchantment": "minecraft:silk_touch",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+

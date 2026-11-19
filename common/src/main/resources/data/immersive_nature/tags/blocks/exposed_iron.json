@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:exposed_plate_iron",
+    "immersive_nature:exposed_plate_iron_stairs",
+    "immersive_nature:exposed_plate_iron_slab",
+    "immersive_nature:exposed_cut_iron",
+    "immersive_nature:exposed_cut_iron_stairs",
+    "immersive_nature:exposed_cut_iron_slab",
+    "immersive_nature:exposed_iron_door",
+    "immersive_nature:exposed_iron_trapdoor",
+    "immersive_nature:exposed_iron_bars"
+  ]
+}

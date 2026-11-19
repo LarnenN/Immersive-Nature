@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "immersive_nature:block/earthen_clay_top",
+    "bottom": "immersive_nature:block/earthen_clay_bottom",
+    "side": "immersive_nature:block/earthen_clay_side"
+  }
+}

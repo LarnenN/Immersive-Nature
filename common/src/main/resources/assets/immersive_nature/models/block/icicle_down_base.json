@@ -1,0 +1,6 @@
+{
+  "parent": "immersive_nature:block/icicle",
+  "textures": {
+    "cross": "immersive_nature:block/icicle_down_base"
+  }
+}

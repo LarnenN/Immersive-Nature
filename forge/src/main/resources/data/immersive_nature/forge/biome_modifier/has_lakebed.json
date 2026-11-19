@@ -1,0 +1,9 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#immersive_nature:has_lakebed",
+  "features": [
+    "immersive_nature:dry_lakebed",
+    "immersive_nature:dry_lakebed_large"
+  ],
+  "step": "raw_generation"
+}

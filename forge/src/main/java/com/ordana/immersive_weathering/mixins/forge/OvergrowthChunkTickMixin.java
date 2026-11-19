@@ -1,0 +1,79 @@
+// Ported from Overgrowth by ldtteam (https://github.com/ldtteam/Overgrowth), GPL-3.0. Modified for Immersive Nature.
+package com.ordana.immersive_weathering.mixins.forge;
+
+import com.ordana.immersive_weathering.forge.overgrowth.Overgrowth;
+import com.ordana.immersive_weathering.forge.overgrowth.handlers.ITransformationHandler;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.LevelChunk;
+import net.minecraft.world.level.chunk.LevelChunkSection;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+@Mixin(ServerLevel.class)
+public abstract class OvergrowthChunkTickMixin
+{
+    /**
+     * Moving random value.
+     */
+    @org.spongepowered.asm.mixin.Unique
+    private int randValue = RandomSource.create().nextInt();
+
+    @Inject(method = "tickChunk", at = @At("HEAD"))
+    public void overgrowthTickChunk(final LevelChunk chunk, final int k, final CallbackInfo ci)
+    {
+        int configValue = Overgrowth.config.getServer().globalspeed.get();
+        if (k <= 0 || chunk.getLevel().getGameTime() != 0 && chunk.getLevel().getRandom().nextInt(configValue) != 1)
+        {
+            return;
+        }
+
+        LevelChunkSection[] chunkSections = chunk.getSections();
+
+        for (int sectionId = 0; sectionId < chunkSections.length; sectionId++)
+        {
+            LevelChunkSection levelchunksection = chunkSections[sectionId];
+
+            for (int times = 0; times < k; times++)
+            {
+                if (chunk.getLevel().getRandom().nextInt(configValue) == 1)
+                {
+                    final BlockPos randomPos = this.overgrowthGetBlockRandomPos();
+                    for (ITransformationHandler handler : ITransformationHandler.HANDLERS)
+                    {
+                        BlockState randomState = levelchunksection.getBlockState(randomPos.getX(), randomPos.getY(), randomPos.getZ());
+
+                        if (handler.transforms(randomState) && handler.ready(chunk.getLevel().getGameTime() + times, chunk))
+                        {
+                            try
+                            {
+                                handler.transformBlock(randomPos, chunk, sectionId, randomState);
+                            }
+                            catch (final Exception ex)
+                            {
+                                Overgrowth.LOGGER.warn("Oopsy", ex);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Calculate a pseudo-random block position based on vanilla.
+     *
+     * @return the random position.
+     */
+    @org.spongepowered.asm.mixin.Unique
+    private BlockPos overgrowthGetBlockRandomPos()
+    {
+        this.randValue = this.randValue * 3 + 1013904223;
+        int i = this.randValue >> 2;
+        return new BlockPos((i & 15), (i >> 16 & 15), (i >> 8 & 15));
+    }
+}

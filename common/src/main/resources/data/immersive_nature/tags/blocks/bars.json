@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:iron_bars",
+    "immersive_nature:waxed_iron_bars",
+    "immersive_nature:exposed_iron_bars",
+    "immersive_nature:waxed_exposed_iron_bars",
+    "immersive_nature:weathered_iron_bars",
+    "immersive_nature:waxed_weathered_iron_bars",
+    "immersive_nature:rusted_iron_bars",
+    "immersive_nature:waxed_rusted_iron_bars"
+  ]
+}

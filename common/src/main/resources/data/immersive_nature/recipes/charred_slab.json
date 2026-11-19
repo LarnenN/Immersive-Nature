@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "immersive_nature:flammable_slabs"
+  },
+  "result": "immersive_nature:charred_slab",
+  "experience": 0.15,
+  "cookingtime": 200
+}

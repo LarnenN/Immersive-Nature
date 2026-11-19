@@ -1,0 +1,85 @@
+modLoader = "javafml"
+loaderVersion = "[40,)"
+license = "GPL-3.0-or-later"
+
+[[mods]]
+modId = "immersive_nature"
+version = "${version}"
+displayName = "Immersive Nature"
+authors = "Admin; based on Immersive Weathering (Ordana, MehVahdJukaar, Keybounce), Water Erosion (13rac1), Overgrowth (ldtteam), Snow! Real Magic (Snownee)"
+credits = "Immersive Weathering (LGPL-3.0), Water Erosion (GPL-3.0), Overgrowth (GPL-3.0), Snow! Real Magic (MIT)"
+logoFile = "icon.png"
+description = '''
+A living, realistic world: weathering, falling leaves, ash, water erosion and slowly overgrowing nature.
+Combines Immersive Weathering, Water Erosion, Overgrowth and Snow! Real Magic, with compatibility for Dynamic Trees and Flowing Fluids.
+'''
+
+[[dependencies.immersive_nature]]
+modId = "forge"
+mandatory = true
+versionRange = "[40,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.immersive_nature]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.20.1]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.immersive_nature]]
+modId = "moonlight"
+mandatory = true
+versionRange = "[1.20-2.16.0,]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.immersive_nature]]
+modId = "dynamictrees"
+mandatory = false
+versionRange = "*"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.immersive_nature]]
+modId = "flowing_fluids"
+mandatory = false
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.immersive_nature]]
+modId = "kiwi"
+mandatory = true
+versionRange = "[11, 12)"
+ordering = "NONE"
+side = "BOTH"
+
+# Immersive Nature replaces these mods - having both installed would run every mechanic twice
+[[dependencies.immersive_nature]]
+modId = "immersive_weathering"
+mandatory = false
+type = "incompatible"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+# Snow! Real Magic by Snownee (MIT), built into Immersive Nature.
+# Keeps its own mod id so snow in existing worlds and its config stay as they are.
+[[mods]]
+modId = "snowrealmagic"
+version = "10.7.0"
+displayName = "Snow! Real Magic! (in Immersive Nature)"
+authors = "Snownee, minzhi, WZD"
+description = "Tweaks vanilla snow layer. Built into Immersive Nature."
+
+[[dependencies.snowrealmagic]]
+modId = "kiwi"
+mandatory = true
+versionRange = "[11, 12)"
+ordering = "NONE"
+side = "BOTH"
+
+[modproperties.snowrealmagic]
+catalogueItemIcon = "minecraft:snow_block"

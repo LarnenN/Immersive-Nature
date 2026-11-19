@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:farmland",
+    "immersive_nature:silty_farmland",
+    "immersive_nature:earthen_clay_farmland",
+    "immersive_nature:sandy_farmland",
+    "immersive_nature:loamy_farmland"
+  ]
+}

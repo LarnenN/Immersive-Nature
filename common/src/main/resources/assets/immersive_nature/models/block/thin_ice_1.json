@@ -1,0 +1,6 @@
+{
+    "parent": "immersive_nature:block/thin_ice_template",
+    "textures": {
+        "texture": "immersive_nature:block/thin_ice_1"
+    }
+}

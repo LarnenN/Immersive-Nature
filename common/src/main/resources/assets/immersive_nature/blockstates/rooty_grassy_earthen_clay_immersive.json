@@ -1,0 +1,14 @@
+{
+  "multipart": [
+    {
+      "apply": {
+        "model": "immersive_nature:block/grassy_earthen_clay"
+      }
+    },
+    {
+      "apply": {
+        "model": "dynamictrees:block/roots_tint_2"
+      }
+    }
+  ]
+}

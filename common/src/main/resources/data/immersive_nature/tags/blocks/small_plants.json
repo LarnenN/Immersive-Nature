@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:flowers",
+    "minecraft:grass",
+    "minecraft:fern",
+    "immersive_nature:frosty_grass",
+    "immersive_nature:frosty_fern",
+    "#immersive_nature:leaf_piles"
+  ]
+}

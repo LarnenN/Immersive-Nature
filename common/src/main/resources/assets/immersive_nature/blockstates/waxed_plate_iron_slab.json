@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "immersive_nature:block/plate_iron_slab"
+    },
+    "type=double": {
+      "model": "immersive_nature:block/plate_iron"
+    },
+    "type=top": {
+      "model": "immersive_nature:block/plate_iron_slab_top"
+    }
+  }
+}

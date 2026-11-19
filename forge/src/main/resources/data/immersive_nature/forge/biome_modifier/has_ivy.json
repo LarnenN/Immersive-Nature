@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#immersive_nature:has_ivy",
+  "features": [
+    "immersive_nature:ivy_patch"
+  ],
+  "step": "vegetal_decoration"
+}

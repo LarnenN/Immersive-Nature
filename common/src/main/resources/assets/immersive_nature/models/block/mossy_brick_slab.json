@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "immersive_nature:block/mossy_bricks",
+    "top": "immersive_nature:block/mossy_bricks",
+    "side": "immersive_nature:block/mossy_bricks"
+  }
+}

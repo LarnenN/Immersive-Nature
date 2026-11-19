@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "soaked=false,waterlogged=false": {
+      "model": "immersive_nature:block/mulch_block"
+    },
+    "soaked=true,waterlogged=false": {
+      "model": "immersive_nature:block/mulch_block_soaked"
+    },
+    "soaked=false,waterlogged=true": {
+      "model": "immersive_nature:block/mulch_block_soaked"
+    },
+    "soaked=true,waterlogged=true": {
+      "model": "immersive_nature:block/mulch_block_soaked"
+    }
+  }
+}

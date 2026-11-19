@@ -1,0 +1,15 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:oak_leaf_pile",
+    "immersive_nature:birch_leaf_pile",
+    "immersive_nature:spruce_leaf_pile",
+    "immersive_nature:jungle_leaf_pile",
+    "immersive_nature:acacia_leaf_pile",
+    "immersive_nature:dark_oak_leaf_pile",
+    "immersive_nature:mangrove_leaf_pile",
+    "immersive_nature:cherry_leaf_pile",
+    "immersive_nature:azalea_leaf_pile",
+    "immersive_nature:flowering_azalea_leaf_pile"
+  ]
+}

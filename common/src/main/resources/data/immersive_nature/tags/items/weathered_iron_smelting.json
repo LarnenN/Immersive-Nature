@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:weathered_plate_iron",
+    "immersive_nature:weathered_plate_iron_stairs",
+    "immersive_nature:weathered_plate_iron_slab",
+    "immersive_nature:weathered_cut_iron",
+    "immersive_nature:weathered_cut_iron_stairs",
+    "immersive_nature:weathered_cut_iron_slab",
+    "immersive_nature:weathered_iron_door",
+    "immersive_nature:weathered_iron_trapdoor"
+  ]
+}

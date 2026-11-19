@@ -1,0 +1,6 @@
+{
+  "parent": "immersive_nature:block/cut_iron",
+  "textures": {
+    "all": "immersive_nature:block/waxed_plate_iron"
+  }
+}

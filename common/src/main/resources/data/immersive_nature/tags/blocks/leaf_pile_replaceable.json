@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:soot",
+    "immersive_nature:ivy",
+    "#immersive_nature:small_plants",
+    "minecraft:air"
+  ]
+}

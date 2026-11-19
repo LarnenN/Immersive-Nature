@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "immersive_nature:block/charred_log_top_lit",
+    "side": "immersive_nature:block/charred_log_lit"
+  }
+}

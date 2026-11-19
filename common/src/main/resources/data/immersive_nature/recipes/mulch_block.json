@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C#",
+    "#C"
+  ],
+  "key": {
+    "#": {
+      "tag": "immersive_nature:bark"
+    },
+    "C": {
+      "item": "minecraft:dirt"
+    }
+  },
+  "result": {
+    "item": "immersive_nature:mulch_block",
+    "count": 4
+  }
+}

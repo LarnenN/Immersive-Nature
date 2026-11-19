@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#immersive_nature:has_permafrost",
+  "features": [
+    "immersive_nature:permafrost"
+  ],
+  "step": "raw_generation"
+}

@@ -1,0 +1,5 @@
+{
+  "only_if_loaded": "immersive_nature",
+  "primitive_soil": "immersive_nature:loam",
+  "acceptable_soils": [ "dirt_like" ]
+}

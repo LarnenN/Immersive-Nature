@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:hanging_roots",
+    "immersive_nature:hanging_roots_wall",
+    "immersive_nature:ivy"
+  ]
+}

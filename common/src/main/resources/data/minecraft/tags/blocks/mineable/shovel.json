@@ -1,0 +1,25 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:mulch_block",
+    "immersive_nature:nulch_block",
+    "immersive_nature:rooted_grass_block",
+    "immersive_nature:sand_layer_block",
+    "immersive_nature:red_sand_layer_block",
+    "immersive_nature:earthen_clay",
+    "immersive_nature:permafrost",
+    "immersive_nature:silt",
+    "immersive_nature:loam",
+    "immersive_nature:sandy_dirt",
+    "immersive_nature:grassy_earthen_clay",
+    "immersive_nature:grassy_permafrost",
+    "immersive_nature:grassy_silt",
+    "immersive_nature:grassy_sandy_dirt",
+    "immersive_nature:earthen_clay_farmland",
+    "immersive_nature:silty_farmland",
+    "immersive_nature:loamy_farmland",
+    "immersive_nature:sandy_farmland",
+    "immersive_nature:ash_layer_block",
+    "snowrealmagic:snow"
+  ]
+}

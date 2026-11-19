@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:plate_iron",
+    "immersive_nature:plate_iron_stairs",
+    "immersive_nature:plate_iron_slab",
+    "immersive_nature:cut_iron",
+    "immersive_nature:cut_iron_stairs",
+    "immersive_nature:cut_iron_slab",
+    "minecraft:iron_door",
+    "minecraft:iron_trapdoor"
+  ]
+}

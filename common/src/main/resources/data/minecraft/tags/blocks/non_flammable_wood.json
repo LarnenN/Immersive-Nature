@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:charred_log",
+    "immersive_nature:charred_planks",
+    "immersive_nature:charred_slab",
+    "immersive_nature:charred_stairs",
+    "immersive_nature:charred_fence",
+    "immersive_nature:charred_fence_gate"
+  ]
+}

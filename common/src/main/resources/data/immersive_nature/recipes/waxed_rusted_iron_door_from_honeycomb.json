@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "immersive_nature:rusted_iron_door"
+    },
+    {
+      "tag": "immersive_nature:wax"
+    }
+  ],
+  "result": {
+    "item": "immersive_nature:waxed_rusted_iron_door"
+  }
+}

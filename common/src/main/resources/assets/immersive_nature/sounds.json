@@ -1,0 +1,9 @@
+{
+  "icicle_crack": {
+    "subtitle": "sound.immersive_nature.ice.crack",
+    "sounds": [
+      "immersive_nature:icicles_crack_0",
+      "immersive_nature:icicles_crack_1"
+    ]
+  }
+}

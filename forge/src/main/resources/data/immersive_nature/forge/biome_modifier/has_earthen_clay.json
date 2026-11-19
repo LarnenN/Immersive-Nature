@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#immersive_nature:has_earthen_clay",
+  "features": [
+    "immersive_nature:earthen_clay"
+  ],
+  "step": "raw_generation"
+}

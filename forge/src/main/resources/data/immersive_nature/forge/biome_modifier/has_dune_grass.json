@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#immersive_nature:has_dune_grass",
+  "features": [
+    "immersive_nature:dune_grass_patch"
+  ],
+  "step": "vegetal_decoration"
+}

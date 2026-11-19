@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "immersive_nature:cut_iron"
+  },
+  "result": "immersive_nature:cut_iron_slab",
+  "count": 2
+}

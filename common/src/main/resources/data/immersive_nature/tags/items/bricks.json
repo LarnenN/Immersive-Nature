@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:stone_brick",
+    "immersive_nature:end_stone_brick",
+    "immersive_nature:deepslate_brick",
+    "immersive_nature:deepslate_tile",
+    "immersive_nature:blackstone_brick",
+    "minecraft:brick",
+    "minecraft:nether_brick",
+    "immersive_nature:prismarine_brick"
+  ]
+}

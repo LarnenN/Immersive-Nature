@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "tag": "immersive_nature:flammable_stairs"
+  },
+  "result": "immersive_nature:charred_stairs",
+  "experience": 0.15,
+  "cookingtime": 200
+}

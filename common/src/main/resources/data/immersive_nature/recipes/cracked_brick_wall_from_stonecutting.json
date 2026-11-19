@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "immersive_nature:cracked_bricks"
+  },
+  "result": "immersive_nature:cracked_brick_wall",
+  "count": 1
+}

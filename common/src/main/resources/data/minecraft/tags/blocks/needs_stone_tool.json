@@ -1,0 +1,86 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:icicle",
+
+    "immersive_nature:cut_iron",
+    "immersive_nature:exposed_cut_iron",
+    "immersive_nature:weathered_cut_iron",
+    "immersive_nature:rusted_cut_iron",
+    "immersive_nature:cut_iron_stairs",
+    "immersive_nature:exposed_cut_iron_stairs",
+    "immersive_nature:weathered_cut_iron_stairs",
+    "immersive_nature:rusted_cut_iron_stairs",
+    "immersive_nature:cut_iron_slab",
+    "immersive_nature:exposed_cut_iron_slab",
+    "immersive_nature:weathered_cut_iron_slab",
+    "immersive_nature:rusted_cut_iron_slab",
+
+    "immersive_nature:waxed_cut_iron",
+    "immersive_nature:waxed_exposed_cut_iron",
+    "immersive_nature:waxed_weathered_cut_iron",
+    "immersive_nature:waxed_rusted_cut_iron",
+    "immersive_nature:waxed_cut_iron_stairs",
+    "immersive_nature:waxed_exposed_cut_iron_stairs",
+    "immersive_nature:waxed_weathered_cut_iron_stairs",
+    "immersive_nature:waxed_rusted_cut_iron_stairs",
+    "immersive_nature:waxed_cut_iron_slab",
+    "immersive_nature:waxed_exposed_cut_iron_slab",
+    "immersive_nature:waxed_weathered_cut_iron_slab",
+    "immersive_nature:waxed_rusted_cut_iron_slab",
+
+    "immersive_nature:plate_iron",
+    "immersive_nature:exposed_plate_iron",
+    "immersive_nature:weathered_plate_iron",
+    "immersive_nature:rusted_plate_iron",
+    "immersive_nature:plate_iron_stairs",
+    "immersive_nature:exposed_plate_iron_stairs",
+    "immersive_nature:weathered_plate_iron_stairs",
+    "immersive_nature:rusted_plate_iron_stairs",
+    "immersive_nature:plate_iron_slab",
+    "immersive_nature:exposed_plate_iron_slab",
+    "immersive_nature:weathered_plate_iron_slab",
+    "immersive_nature:rusted_plate_iron_slab",
+
+    "immersive_nature:waxed_plate_iron",
+    "immersive_nature:waxed_exposed_plate_iron",
+    "immersive_nature:waxed_weathered_plate_iron",
+    "immersive_nature:waxed_rusted_plate_iron",
+    "immersive_nature:waxed_plate_iron_stairs",
+    "immersive_nature:waxed_exposed_plate_iron_stairs",
+    "immersive_nature:waxed_weathered_plate_iron_stairs",
+    "immersive_nature:waxed_rusted_plate_iron_stairs",
+    "immersive_nature:waxed_plate_iron_slab",
+    "immersive_nature:waxed_exposed_plate_iron_slab",
+    "immersive_nature:waxed_weathered_plate_iron_slab",
+    "immersive_nature:waxed_rusted_plate_iron_slab",
+
+    "immersive_nature:exposed_iron_door",
+    "immersive_nature:exposed_iron_trapdoor",
+    "immersive_nature:exposed_iron_bars",
+
+    "immersive_nature:weathered_iron_door",
+    "immersive_nature:weathered_iron_trapdoor",
+    "immersive_nature:weathered_iron_bars",
+
+    "immersive_nature:rusted_iron_door",
+    "immersive_nature:rusted_iron_trapdoor",
+    "immersive_nature:rusted_iron_bars",
+
+    "immersive_nature:waxed_iron_door",
+    "immersive_nature:waxed_iron_trapdoor",
+    "immersive_nature:waxed_iron_bars",
+
+    "immersive_nature:waxed_exposed_iron_door",
+    "immersive_nature:waxed_exposed_iron_trapdoor",
+    "immersive_nature:waxed_exposed_iron_bars",
+
+    "immersive_nature:waxed_weathered_iron_door",
+    "immersive_nature:waxed_weathered_iron_trapdoor",
+    "immersive_nature:waxed_weathered_iron_bars",
+
+    "immersive_nature:waxed_rusted_iron_door",
+    "immersive_nature:waxed_rusted_iron_trapdoor",
+    "immersive_nature:waxed_rusted_iron_bars"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "type": "forge:add_features",
+  "biomes": "#immersive_nature:has_moss",
+  "features": [
+    "immersive_nature:moss_patch"
+  ],
+  "step": "vegetal_decoration"
+}

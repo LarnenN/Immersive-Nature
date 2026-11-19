@@ -1,0 +1,18 @@
+# Immersive Nature
+
+Forge 1.20.1 mod that makes the world feel alive: weathering, falling leaves, ash, water erosion and nature slowly reclaiming the land.
+
+## Built from
+| Mod | Author | License | What was taken |
+|---|---|---|---|
+| [Immersive Weathering](https://github.com/Silversmith-Mods/Immersive-Weathering) | Ordana, MehVahdJukaar, Keybounce | LGPL-3.0 | base of the mod |
+| [Water Erosion](https://github.com/13rac1/Minecraft-Water-Erosion) | 13rac1 | GPL-3.0 | water erosion (`erosion` package) |
+| [Overgrowth](https://github.com/ldtteam/Overgrowth) | ldtteam | GPL-3.0 (per its mods.toml) | world decay/overgrowth handlers (`forge/overgrowth`) |
+| [Snow! Real Magic](https://github.com/Snownee/SnowRealMagic) | Snownee | MIT | whole mod, kept as mod id `snowrealmagic` inside the jar (`snownee.snow`) |
+
+Optional compatibility (no code copied): Dynamic Trees, Flowing Fluids.
+Required separately: Moonlight Lib, Kiwi.
+
+## License
+GPL-3.0-or-later, including all original code (see `LICENSE`). Original licenses of the included mods are in `licenses/`.
+Modified files carry a note saying where they come from.

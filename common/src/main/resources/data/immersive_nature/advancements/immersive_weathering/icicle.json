@@ -1,0 +1,42 @@
+{
+  "display": {
+    "icon": {
+      "item": "immersive_nature:icicle"
+    },
+    "title": {
+      "translate": "advancements.immersive_nature.icicle.title",
+      "bold": false
+    },
+    "description": {
+      "translate": "advancements.immersive_nature.icicle.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "parent": "minecraft:husbandry/root",
+  "criteria": {
+    "apple": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "items": [
+            "immersive_nature:icicle"
+          ]
+        }
+      }
+    }
+  },
+  "requirements": [
+    [
+      "apple"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "immersive_nature:ice_sickle"
+    ],
+    "experience": 100
+  }
+}

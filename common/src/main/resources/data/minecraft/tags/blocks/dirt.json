@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "immersive_nature:mulch_block",
+    "immersive_nature:rooted_grass_block",
+    "immersive_nature:loam",
+    "immersive_nature:silt",
+    "immersive_nature:earthen_clay",
+    "immersive_nature:sandy_dirt",
+    "immersive_nature:permafrost",
+
+    "immersive_nature:grassy_silt",
+    "immersive_nature:grassy_earthen_clay",
+    "immersive_nature:grassy_sandy_dirt",
+    "immersive_nature:grassy_permafrost"
+  ]
+}

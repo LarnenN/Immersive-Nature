@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:polished_blackstone"
+  },
+  "result": "immersive_nature:blackstone_brick",
+  "count": 16
+}

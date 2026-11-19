@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "immersive_nature:block/cracked_end_stone_bricks"
+  }
+}
