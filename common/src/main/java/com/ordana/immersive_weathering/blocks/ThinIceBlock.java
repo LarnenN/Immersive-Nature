@@ -92,10 +92,8 @@ public class ThinIceBlock extends IceBlock implements LiquidBlockContainer {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        //TODO: move to block growth
         /*
         if (state.getValue(HAS_ICE)) {
-            //TODO: use common logic here for cold and hot
             if (level.getBlockState(pos.above()).is(Blocks.AIR) && (level.isRaining() || level.isNight())
                     && level.getBiome(pos).is(ModTags.ICY) && isDimEnoughToForm(state, level, pos)) {
                 for (Direction direction : Direction.values()) {
@@ -106,12 +104,10 @@ public class ThinIceBlock extends IceBlock implements LiquidBlockContainer {
             }
         }*/
 
-        //TODO: group in a single method
         if (level.getBrightness(LightLayer.BLOCK, pos) > 11 - state.getLightBlock(level, pos)) {
             this.melt(state, level, pos);
         }
 
-        //TODO: also move to growths
         if (CommonConfigs.THIN_ICE_MELTING.get()) {
             if (level.dimensionType().ultraWarm() || (!level.isRaining() && level.isDay()) || !isDimEnoughToForm(state, level, pos)) {
                 level.setBlockAndUpdate(pos, Blocks.WATER.defaultBlockState());
@@ -160,7 +156,6 @@ public class ThinIceBlock extends IceBlock implements LiquidBlockContainer {
             return;
         }
         if (!level.isClientSide && (entity instanceof Player || level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) && entity.getBbWidth() * entity.getBbWidth() * entity.getBbHeight() > 0.512f) {
-            //TODO: merge check and optimize
             if (level.random.nextInt(15) == 0) {
                 int i = state.getValue(CRACKED);
                 if (i < 3) {

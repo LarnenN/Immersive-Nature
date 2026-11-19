@@ -160,7 +160,6 @@ public interface Sandy {
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(), stack);
             level.playSound(null, pos, SoundEvents.SAND_BREAK, SoundSource.BLOCKS, 1.0f, 1.0f);
 
-            //TODO make falling sand particles spawn on block faces
             if (level instanceof ServerLevel serverLevel) serverLevel.sendParticles(new BlockParticleOption(ParticleTypes.FALLING_DUST, Blocks.SAND.defaultBlockState()),
                     pos.getX() + 0.5D,
                     pos.getY() + 0.5D,

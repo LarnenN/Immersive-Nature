@@ -56,11 +56,9 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
         return Optional.ofNullable(GROWTH_FOR_BLOCK.get(source)).map(m -> m.get(block));
     }
 
-    //TODO: change event for lighting
     public static void tickBlock(TickSource source, BlockState state, ServerLevel level, BlockPos pos) {
         if (!CommonConfigs.BLOCK_GROWTHS.get()) return;
 
-        //TODO: move this line to data pack self predicate
         if (state.getBlock() instanceof IConditionalGrowingBlock cb && !cb.canGrow(state)) return;
 
         var universalGroup = UNIVERSAL_GROWTHS.get(source);

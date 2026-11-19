@@ -2,10 +2,9 @@ package com.ordana.immersive_weathering.forge.desirepaths;
 
 import com.ordana.immersive_weathering.ImmersiveWeathering;
 import com.ordana.immersive_weathering.configs.CommonConfigs;
+import com.ordana.immersive_weathering.util.BlockRules;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
@@ -23,11 +22,9 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 
 import it.unimi.dsi.fastutil.longs.Long2FloatOpenHashMap;
 import it.unimi.dsi.fastutil.longs.Long2LongOpenHashMap;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Desire paths: grass and podzol under walking feet slowly wear down into dirt and coarse dirt.
@@ -45,15 +42,7 @@ public final class DesirePaths {
     /** Normal walking moves about this many blocks per tick; used to scale the chance by speed. */
     private static final float WALK_SPEED = 0.12F;
 
-    private static List<String> parsedFrom = null;
-    private static List<String> parsedFromRef = null;
-    private static List<Rule> rules = List.of();
-
-    private record Rule(Block block, TagKey<Block> tag, Block result) {
-        boolean matches(BlockState state) {
-            return tag != null ? state.is(tag) : state.is(block);
-        }
-    }
+    private static final BlockRules RULES = new BlockRules("Desire paths", () -> CommonConfigs.DESIRE_PATHS_TRANSFORMATIONS.get(), 1);
 
     private DesirePaths() {
     }
@@ -116,7 +105,7 @@ public final class DesirePaths {
         // standing still wears nothing
         float moved = entity.walkDist - entity.walkDistO;
         if (moved <= 0) return;
-        List<Rule> rules = rules();
+        List<BlockRules.Rule> rules = RULES.get();
         if (rules.isEmpty()) return;
 
         float add = CommonConfigs.DESIRE_PATHS_SPEED_BASED.get() ? moved / WALK_SPEED : 1F;
@@ -137,7 +126,7 @@ public final class DesirePaths {
             for (int z = Mth.floor(box.minZ); z < box.maxZ; z++) {
                 pos.set(x, y, z);
                 BlockState ground = level.getBlockState(pos);
-                for (Rule rule : rules) {
+                for (BlockRules.Rule rule : rules) {
                     if (!rule.matches(ground)) continue;
                     if (wear == null) wear = wear(level);
                     long key = pos.asLong();
@@ -156,49 +145,5 @@ public final class DesirePaths {
                 }
             }
         }
-    }
-
-    /** Rules from the config, re-read whenever the config list changes. */
-    private static List<Rule> rules() {
-        List<String> lines = CommonConfigs.DESIRE_PATHS_TRANSFORMATIONS.get();
-        // same list object = config not reloaded, skip the line-by-line compare
-        if (lines != parsedFromRef && !Objects.equals(lines, parsedFrom)) {
-            List<Rule> parsed = new ArrayList<>();
-            for (String line : lines) {
-                Rule rule = parse(line);
-                if (rule != null) parsed.add(rule);
-            }
-            rules = List.copyOf(parsed);
-            parsedFrom = List.copyOf(lines);
-        }
-        parsedFromRef = lines;
-        return rules;
-    }
-
-    private static Rule parse(String line) {
-        String[] parts = line.split(",");
-        if (parts.length != 2) {
-            ImmersiveWeathering.LOGGER.warn("Desire paths: ignoring \"{}\", expected \"from,to\"", line);
-            return null;
-        }
-        String from = parts[0].trim();
-        ResourceLocation toId = ResourceLocation.tryParse(parts[1].trim());
-        Block to = toId == null ? null : BuiltInRegistries.BLOCK.getOptional(toId).orElse(null);
-        if (to == null) {
-            ImmersiveWeathering.LOGGER.warn("Desire paths: unknown block \"{}\" in \"{}\"", parts[1].trim(), line);
-            return null;
-        }
-        if (from.startsWith("#")) {
-            ResourceLocation tagId = ResourceLocation.tryParse(from.substring(1));
-            if (tagId == null) return null;
-            return new Rule(null, TagKey.create(Registries.BLOCK, tagId), to);
-        }
-        ResourceLocation fromId = ResourceLocation.tryParse(from);
-        Block block = fromId == null ? null : BuiltInRegistries.BLOCK.getOptional(fromId).orElse(null);
-        if (block == null) {
-            ImmersiveWeathering.LOGGER.warn("Desire paths: unknown block \"{}\" in \"{}\"", from, line);
-            return null;
-        }
-        return new Rule(block, null, to);
     }
 }

@@ -39,7 +39,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Objects;
 
 public class NulchBlock extends Block {
-    //TODO: merge with Mulch
     public static final BooleanProperty MOLTEN = ModBlockProperties.MOLTEN;
 
     public NulchBlock(Properties settings) {

@@ -1,14 +1,10 @@
 package com.ordana.immersive_weathering.erosion;
 
-import com.ordana.immersive_weathering.ImmersiveWeathering;
 import com.ordana.immersive_weathering.configs.CommonConfigs;
+import com.ordana.immersive_weathering.util.BlockRules;
 import net.mehvahdjukaar.moonlight.api.platform.PlatHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -16,9 +12,6 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.SnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 /**
  * Immersive Nature: water standing on soil slowly soaks into it.
@@ -29,15 +22,7 @@ public final class WaterSoaking {
 
     private static final boolean FLOWING_FLUIDS = PlatHelper.isModLoaded("flowing_fluids");
 
-    private record Rule(Block block, TagKey<Block> tag, Block result, double chance) {
-        boolean matches(BlockState state) {
-            return tag != null ? state.is(tag) : state.is(block);
-        }
-    }
-
-    private static List<String> parsedFrom = null;
-    private static List<String> parsedFromRef = null;
-    private static List<Rule> rules = List.of();
+    private static final BlockRules RULES = new BlockRules("Water soaking", () -> CommonConfigs.WATER_SOAKING_TRANSFORMATIONS.get(), 0.05);
 
     private WaterSoaking() {
     }
@@ -53,7 +38,7 @@ public final class WaterSoaking {
         double roll = random.nextDouble();
         double sum = 0;
         Block result = null;
-        for (Rule rule : rules()) {
+        for (BlockRules.Rule rule : RULES.get()) {
             if (!rule.matches(below) || below.is(rule.result())) continue;
             sum += rule.chance();
             if (roll < sum) {
@@ -85,66 +70,14 @@ public final class WaterSoaking {
     public static BlockState drownedGrassResult(BlockState grass, RandomSource random) {
         if (!CommonConfigs.WATER_SOAKING.get() || !CommonConfigs.WATER_SOAKING_GRASS_DIES_COARSE.get()) return null;
         double total = 0;
-        for (Rule rule : rules()) if (rule.matches(grass) && !grass.is(rule.result())) total += rule.chance();
+        for (BlockRules.Rule rule : RULES.get()) if (rule.matches(grass) && !grass.is(rule.result())) total += rule.chance();
         if (total <= 0) return null;
         double roll = random.nextDouble() * total;
-        for (Rule rule : rules()) {
+        for (BlockRules.Rule rule : RULES.get()) {
             if (!rule.matches(grass) || grass.is(rule.result())) continue;
             roll -= rule.chance();
             if (roll < 0) return rule.result().defaultBlockState();
         }
         return null;
-    }
-
-    private static List<Rule> rules() {
-        List<String> lines = CommonConfigs.WATER_SOAKING_TRANSFORMATIONS.get();
-        // same list object = config not reloaded, skip the line-by-line compare
-        if (lines != parsedFromRef && !Objects.equals(lines, parsedFrom)) {
-            List<Rule> parsed = new ArrayList<>();
-            for (String line : lines) {
-                Rule rule = parse(line);
-                if (rule != null) parsed.add(rule);
-            }
-            rules = List.copyOf(parsed);
-            parsedFrom = List.copyOf(lines);
-        }
-        parsedFromRef = lines;
-        return rules;
-    }
-
-    private static Rule parse(String line) {
-        String[] parts = line.split(",");
-        if (parts.length != 2 && parts.length != 3) {
-            ImmersiveWeathering.LOGGER.warn("Water soaking: ignoring \"{}\", expected \"from,to,chance\"", line);
-            return null;
-        }
-        double chance = 0.05;
-        if (parts.length == 3) {
-            try {
-                chance = Double.parseDouble(parts[2].trim());
-            } catch (NumberFormatException e) {
-                ImmersiveWeathering.LOGGER.warn("Water soaking: bad chance \"{}\" in \"{}\"", parts[2].trim(), line);
-                return null;
-            }
-        }
-        String from = parts[0].trim();
-        ResourceLocation toId = ResourceLocation.tryParse(parts[1].trim());
-        Block to = toId == null ? null : BuiltInRegistries.BLOCK.getOptional(toId).orElse(null);
-        if (to == null) {
-            ImmersiveWeathering.LOGGER.warn("Water soaking: unknown block \"{}\" in \"{}\"", parts[1].trim(), line);
-            return null;
-        }
-        if (from.startsWith("#")) {
-            ResourceLocation tagId = ResourceLocation.tryParse(from.substring(1));
-            if (tagId == null) return null;
-            return new Rule(null, TagKey.create(Registries.BLOCK, tagId), to, chance);
-        }
-        ResourceLocation fromId = ResourceLocation.tryParse(from);
-        Block block = fromId == null ? null : BuiltInRegistries.BLOCK.getOptional(fromId).orElse(null);
-        if (block == null) {
-            ImmersiveWeathering.LOGGER.warn("Water soaking: unknown block \"{}\" in \"{}\"", from, line);
-            return null;
-        }
-        return new Rule(block, null, to, chance);
     }
 }

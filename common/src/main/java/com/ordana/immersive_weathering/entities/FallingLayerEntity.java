@@ -105,9 +105,6 @@ public class FallingLayerEntity extends FallingBlockEntity {
                 if(block instanceof LeafPileBlock && onState.is(Blocks.WATER) && block.getLayers(blockState)==1){
                     blockState = blockState.setValue(block.layerProperty(),0);
                 }
-                //TODO: fix placing on water. this is a mess
-             //   //TODO: fix underwater
-                //                        discardAndDrop(blockState,pos);
              //   return;
             }
             if (this.getDeltaMovement().lengthSqr() > 1.0D) {
@@ -184,7 +181,6 @@ public class FallingLayerEntity extends FallingBlockEntity {
         }
     }
 
-    //TODO: merge these two
     private void discardAndDrop(BlockState state, BlockPos pos) {
         // a leaf pile falling onto snow just vanishes, the snow stays
         if (com.ordana.immersive_weathering.util.SnowLeafCompat.landOnSnow(this, state, pos)) return;

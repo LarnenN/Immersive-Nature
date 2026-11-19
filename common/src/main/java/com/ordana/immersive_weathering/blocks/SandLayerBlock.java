@@ -44,5 +44,4 @@ public class SandLayerBlock extends LayerBlock {
                 Mth.randomBetween(level.random, -1.0F, 1.0F) * 0.083333336F);
     }
 
-    //TODO: check and merge properly
 }

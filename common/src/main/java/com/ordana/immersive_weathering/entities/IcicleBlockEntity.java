@@ -22,7 +22,6 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener 
     public static final Object2IntMap<GameEvent> VOLUME_FOR_EVENT = Object2IntMaps.unmodifiable(Util.make(new Object2IntOpenHashMap<>(), (map) -> {
         map.put(GameEvent.HIT_GROUND, 2);
         map.put(GameEvent.BLOCK_DESTROY, 1);
-        //TODO: revisit
         map.put(GameEvent.INSTRUMENT_PLAY, 4);
         map.put(GameEvent.BLOCK_CHANGE, 1);
         map.put(GameEvent.BLOCK_CLOSE, 6);

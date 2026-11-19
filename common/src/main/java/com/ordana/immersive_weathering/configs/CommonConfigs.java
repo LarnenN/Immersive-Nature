@@ -331,7 +331,6 @@ public class CommonConfigs {
     }
 
 
-    //TODO: fix campfire soot onto non burnable
     //fire stuff
 
 

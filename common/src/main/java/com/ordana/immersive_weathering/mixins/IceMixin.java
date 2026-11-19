@@ -19,7 +19,6 @@ public abstract class IceMixin extends Block {
         super(settings);
     }
 
-    //TODO: is day is broken on client side
     @Unique
     private boolean canMelt(BlockState state, Level level, BlockPos pos) {
         return level.dimensionType().ultraWarm() || (!level.getBiome(pos).value().coldEnoughToSnow(pos) && level.isDay()) ||

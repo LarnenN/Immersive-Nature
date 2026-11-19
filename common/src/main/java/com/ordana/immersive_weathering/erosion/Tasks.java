@@ -26,21 +26,8 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.tags.BlockTags;
 
-// TODO: Add Menu to allow disable of some features:
-// https://www.curseforge.com/minecraft/mc-mods/modmenu
 
-// IDEA: Turn upper edge blocks add a mud block?
-// IDEA: IRL streams have rocks. Minecraft world gen doesn't place these rocks.
 // Can they be added to world gen? Could large flows find/place stones?
-// IDEA: Source with non-zero flow velocity should erode under to make the start of waterfalls more realistic.
-// IDEA: Actual sea level can erode if there is open air nearby.
-// IDEA: Instead of just distance, rate the entire flow line. Score it. Turn to the best score. Most water or air. Water weighed more than air.
-// MCBUG-FIX: Check for air next to source blocks and flow there. Maybe just call update()? Solve the problem of watergen leaving water not flowing where it should be.
-// IDEA: Recalc the flow math for the water blocks around, then do the math and reset the height instead of deleting. MIGHT fix random holes on incline flows.
-// IDEA: Falling8: If air in front, water/or solid (non-air) below, then any non-clear block in front of that, then create source block. This is a way to fill steep pools. Look up to  7 blocks forward.
-// IDEA: Source breaks should count number of flowing7 in the break direction plane, and only break when it will not cause entire sides of lakes to disappear.
-// IDEA: Source blocks check 3-4 blocks under for air and erode straight down. Flood the caves, but also made them more obvious.
-// IDEA: Return "Reasons" for not eroding, which can be unit tested for the correct reason not just any.
 
 public class Tasks {
   private static final Logger LOGGER = LogManager.getFormatterLogger(Tasks.class);
@@ -177,7 +164,6 @@ public class Tasks {
       }
       BlockState water = Blocks.WATER.defaultBlockState().setValue(LiquidBlock.LEVEL, underBlocklevel);
       world.setBlockAndUpdate(underPos, water);
-      LOGGER.debug("ErodeEdge '%s' => water", underBlock);
     } else {
       // Decay the block and do nothing else.
       BlockState newState = decayBlock.defaultBlockState();
@@ -188,7 +174,6 @@ public class Tasks {
         propertiesCopied = true;
       }
       world.setBlockAndUpdate(underPos, newState);
-      LOGGER.debug("ErodeEdge '%s' => '%s', copied properties: %s", underBlock, decayBlock, propertiesCopied);
       return true;
     }
     // Don't delete source blocks
@@ -230,11 +215,8 @@ public class Tasks {
       Block underBlock = getBlock(world, underPos);
 
       if (!isFluidBlock(underBlock)) {
-        // System.out.println("Did not find side under water block: " +
-        // underBlock.getClass().getName());
         continue;
       }
-      // System.out.println("Found side under water block");
 
       return true;
     }
@@ -328,12 +310,10 @@ public class Tasks {
       return false;
     }
 
-    // TODO: decay walls? Problem is it'll slow down the wall breaks a lot, which
     // means the flows will not go as far as blocks erode below. Perhaps this is
     // more realistic limits.
     // Block decayBlock = ErodableBlocks.maybeDecay(rand, wallBlock);
     // world.setBlockState(flowPos, decayBlock.getDefaultState());
-    // TODO: Place a water block with correct level instead of assuming
     // it will flow. Should resolve holes.
     world.setBlockAndUpdate(flowPos, Blocks.AIR.defaultBlockState());
     return true;
@@ -440,10 +420,8 @@ public class Tasks {
     // Blocks near an erodable surface only.
     List<Vec3i> listDirection = Arrays.asList(VECTOR_NORTH, VECTOR_SOUTH, VECTOR_EAST, VECTOR_WEST);
     // Randomize the list each run.
-    // TODO: Consider randomizing again
     // Collections.shuffle(listDirection);
 
-    // TODO: break the inner loop out for more detailed tests
     for (Vec3i dir : listDirection) {
       BlockPos sidePos = pos.offset(dir);
 
@@ -479,23 +457,18 @@ public class Tasks {
       int waterFound = 0;
       for (int waterMultipler : Arrays.asList(1, 2, 3)) {
         Vec3i waterDirection = new Vec3i(-dir.getX() * waterMultipler, dir.getY(), -dir.getZ() * waterMultipler);
-        // System.out.println("maybewaterdir:" + waterDirection);
         BlockPos maybeWaterPos = pos.offset(waterDirection);
         BlockState maybeWaterState = world.getBlockState(maybeWaterPos);
         if (maybeWaterState.getBlock() != Blocks.WATER) {
-          // TODO: Must be source water block
           break;
         }
         waterFound++;
       }
       if (waterFound < 1) {
         // Skip if not enough sequential water blocks found behind.
-        // System.out.println("not enough water");
         continue;
       }
-      // TODO: Better odds for waterFound > 1.
 
-      // System.out.println(
       // "Removing block to source side:" +
       // world.getBlockState(sidePos).getBlock().getName().asFormattedString());
       world.setBlockAndUpdate(sidePos, Blocks.AIR.defaultBlockState());
@@ -576,7 +549,6 @@ public class Tasks {
   }
 
   protected boolean maybeDecayUnder(Level world, BlockState state, BlockPos pos, RandomSource rand, Integer level, Vec3[] flow) {
-    // TODO: Should we be using rand?
     // return if water is source or falling or FLOW7
     if (level == FluidLevel.SOURCE || level > FluidLevel.FLOW7) {
       return false;
@@ -589,7 +561,6 @@ public class Tasks {
     if (!ErodableBlocks.canErode(underBlock)) {
       return false;
     }
-    // TODO: return if is edge?
 
     // calculate decayto for block below
     Block decayBlock = ErodableBlocks.decayTo(underBlock);
@@ -628,7 +599,6 @@ public class Tasks {
       newState = copyProperties(underState, newState);
       propertiesCopied = true;
     }
-    LOGGER.debug("DecayUnder '%s' => '%s', copied properties: %s", underBlock, decayBlock, propertiesCopied);
     world.setBlockAndUpdate(underPos, newState);
     return true;
   }
@@ -653,15 +623,8 @@ public class Tasks {
   // Returns true when a change is made.
   protected boolean maybeAddMoss(Level world, BlockPos pos, RandomSource rand) {
     List<Vec3i> listDirection = posEightAround;
-    // TODO: Add one level above the water line?
-    // listDirection.addAll(posEightAroundUp);
-    // TODO: Add Moss Carpet in low light levels near water?
-    // https://minecraft.fandom.com/wiki/Moss_Carpet
-    // TODO: Should some dirt blocks turn into moss blocks in low light levels?
-    // https://minecraft.fandom.com/wiki/Moss_Block
 
     // Randomize the list each run.
-    // TODO: Just pick a random number since every path returns now.
     // Immersive Nature: the loop always stops on its first direction, so pick one at random
     // (same odds as shuffling, without reordering the shared static list every tick)
     Vec3i randomDir = listDirection.get(rand.nextInt(listDirection.size()));
@@ -695,7 +658,6 @@ public class Tasks {
       if (mossState == null) {
         throw new NullPointerException("mossState cannot be null");
       }
-      LOGGER.debug("AddMoss '%s' => '%s'", sideBlock, mossBlock);
 
       world.setBlockAndUpdate(sidePos, mossState);
       return true; // Stop the loop

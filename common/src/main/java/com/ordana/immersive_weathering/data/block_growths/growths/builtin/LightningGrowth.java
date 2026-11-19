@@ -31,7 +31,6 @@ public class LightningGrowth extends BuiltinBlockGrowth {
         super(name, owners, sources, chance);
     }
 
-    //TODO: move to data
     @Override
     public @Nullable Iterable<Block> getOwners() {
         List<Block> blocks = new ArrayList<>();

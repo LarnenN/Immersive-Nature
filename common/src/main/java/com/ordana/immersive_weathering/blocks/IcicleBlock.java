@@ -116,7 +116,6 @@ public class IcicleBlock extends PointedDripstoneBlock implements EntityBlock {
                 var optional = getFluidAboveStalactite(level, pos, state);
                 if (optional.filter(fluid -> (isValidDripFluid(fluid) ||
                         (!level.getBiome(pos).value().coldEnoughToSnow(pos) && f < 0.02f))).isPresent()) {
-                    //TODO: make lava above melt icicle and remove particle
                     spawnDripParticle(level, pos, state, optional.get());
                 }
             }
@@ -206,7 +205,6 @@ public class IcicleBlock extends PointedDripstoneBlock implements EntityBlock {
             }
             mutable.move(Direction.DOWN);
         }
-        //TODO: maybe make it so it always fall as a whole because here sometimes if lower part gets ticked it just falls as is
 
         mutable = pos.mutable();
 

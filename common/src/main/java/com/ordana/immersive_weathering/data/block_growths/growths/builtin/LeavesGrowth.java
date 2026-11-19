@@ -34,7 +34,6 @@ public class LeavesGrowth extends BuiltinBlockGrowth {
         super(name, owners, sources, chance);
     }
 
-    //TODO: add particles here too
     @Override
     public void tryGrowing(BlockPos pos, BlockState state, ServerLevel level, Supplier<Holder<Biome>> biome) {
         if (!(growthChance == 1 || level.random.nextFloat() < growthChance)) return;
@@ -50,7 +49,6 @@ public class LeavesGrowth extends BuiltinBlockGrowth {
 
 
                 //also spawns icicles
-                //TODO: move out of here to data
                 if (random.nextBoolean() && WeatheringHelper.isIciclePos(pos) && level.getBiome(pos).value().coldEnoughToSnow(pos)) {
                     level.setBlock(pos.below(), ModBlocks.ICICLE.get().defaultBlockState()
                             .setValue(PointedDripstoneBlock.TIP_DIRECTION, Direction.DOWN), 2);

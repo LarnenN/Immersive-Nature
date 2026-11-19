@@ -397,7 +397,6 @@ public class WeatheringHelper {
         return posRandom.nextInt(6) == 0;
     }
 
-    //TODO spawn soot?
     public static void onFireExpired(ServerLevel serverLevel, BlockPos pos, BlockState state) {
     }
 
@@ -449,7 +448,6 @@ public class WeatheringHelper {
     }
 
 
-    //TODO: add serene seasons compat
     public static float getTemp(Level level, BlockPos pos) {
         Biome biome = level.getBiome(pos).value();
         return ((BiomeAccessor) (Object) biome).invokeGetTemperature(pos);

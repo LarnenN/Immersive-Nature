@@ -60,7 +60,6 @@ public interface Charred extends ILightable, Fallable {
         }
         if (temperature < 0 || isTouchingWater) {
             if (isLitUp(state)) {
-                //TODO: extinguish
                 level.setBlockAndUpdate(pos, state.setValue(SMOLDERING, false));
             }
         } else if (temperature > 0 && !state.getValue(SMOLDERING)) {

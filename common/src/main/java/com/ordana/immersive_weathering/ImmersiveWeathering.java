@@ -74,15 +74,12 @@ public class ImmersiveWeathering {
     }
 
     // dispenser interactions like de rusting
-    //TODO: disabled conditional growth. add command system
     //figure out thin ice situation
     //thin ice repair and solidify when snow??
     //CHARRED stuff falling in water
     //thin ice melts receiding
     //block sounds
     //thin ice crack sounds
-    //TODO: add wet test
-//biome and season dependent leaf piles (tags)
 
     {
         //stuff for temp test:

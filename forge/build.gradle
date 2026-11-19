@@ -143,3 +143,5 @@ dependencies {
 
     modLocalRuntime "dev.emi:emi-forge:${rootProject.emi_version}"
 }
+
+apply from: rootProject.file("gradle/minify-json.gradle")

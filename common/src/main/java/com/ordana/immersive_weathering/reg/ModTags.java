@@ -91,7 +91,6 @@ public final class ModTags {
     public static final TagKey<EntityType<?>> TRAMPLES_PATHS = registerEntityTag("tramples_paths");
 
     //fabric only.
-    //TODO: remove unneded from forge
     public static final TagKey<Block> RAW_LOGS = registerBlockTag("raw_logs");
     public static final TagKey<Block> STRIPPED_LOGS = registerBlockTag("stripped_logs");
 

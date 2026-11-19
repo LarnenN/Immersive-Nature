@@ -59,7 +59,6 @@ public class ServerDynamicResourcesHandler extends DynServerResourcesGenerator {
 
                 String leavesId = Utils.getID(leafType.leaves).toString();
 
-                //TODO: use new system
                 try {
                     addLeafPileJson(Objects.requireNonNull(lootTable), id, leavesId);
                 } catch (Exception ex) {

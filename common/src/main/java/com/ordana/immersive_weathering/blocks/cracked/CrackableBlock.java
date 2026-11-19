@@ -53,7 +53,6 @@ public class CrackableBlock extends CrackedBlock {
     }
 
     /*
-    //TODO: debug
 
     @Override
     public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int i, int p_60494_) {

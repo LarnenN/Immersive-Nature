@@ -63,8 +63,6 @@ public class ImmersiveWeatheringForge {
          * leaf layer
          */
 
-        //TODO: fix layers texture generation
-        //TODO: fix grass growth replacing double plants and add tag
     }
 
     public void registerOverrides(RegisterEvent event) {
@@ -87,7 +85,6 @@ public class ImmersiveWeatheringForge {
     }
 
 
-    //TODO: add back on setup
     private static void registerWaxables() {
         try {
             var oldWaxables = HoneycombItem.WAXABLES.get();

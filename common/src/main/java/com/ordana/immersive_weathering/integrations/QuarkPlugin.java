@@ -11,5 +11,4 @@ import java.util.function.Supplier;
 public class QuarkPlugin {
 
 
-    //TODO: add back. im sure there are still things that could use direct compat (vertical slabs mainly)
 }

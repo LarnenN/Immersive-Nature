@@ -32,3 +32,5 @@ publishing {
 repositories {
     maven { url "https://maven.terraformersmc.com/releases" }
 }
+
+apply from: rootProject.file("gradle/minify-json.gradle")
