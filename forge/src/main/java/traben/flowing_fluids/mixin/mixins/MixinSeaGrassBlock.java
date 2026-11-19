@@ -1,0 +1,34 @@
+// Flowing Fluids by Traben (https://github.com/Traben-0/flowing_fluids), LGPL-3.0. Built into Immersive Nature.
+package traben.flowing_fluids.mixin.mixins;
+
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.SeagrassBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.material.Fluids;
+import org.spongepowered.asm.mixin.Mixin;
+import traben.flowing_fluids.FFFluidUtils;
+import traben.flowing_fluids.FlowingFluids;
+
+@Mixin({SeagrassBlock.class})
+public abstract class MixinSeaGrassBlock extends BushBlock {
+   protected MixinSeaGrassBlock(Properties properties) {
+      super(properties);
+   }
+
+   public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+      boolean canSurvive = super.canSurvive(state, level, pos);
+      if (canSurvive
+         && FlowingFluids.config.enableMod
+         && FlowingFluids.config.isWaterAllowed()
+         && level instanceof LevelAccessor accessor
+         && FFFluidUtils.canFluidFlowToNeighbourFromPos(accessor, pos, Fluids.WATER, 8)) {
+         return false;
+      }
+
+      return canSurvive;
+   }
+}

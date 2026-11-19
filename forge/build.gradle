@@ -18,6 +18,7 @@ loom {
         mixinConfig  "immersive_weathering-common.mixins.json"
         mixinConfig  "immersive_weathering.mixins.json"
         mixinConfig  "snowrealmagic.mixins.json"
+        mixinConfig  "flowing_fluids.mixins.json"
 
     }
 }
@@ -131,6 +132,14 @@ dependencies {
     include(modImplementation("dev.su5ed.sinytra.fabric-api:fabric-api-base:0.4.32+ef105b4977"))
     include(modImplementation("dev.su5ed.sinytra.fabric-api:fabric-renderer-api-v1:3.2.2+cf68abbe77"))
     include(modImplementation("dev.su5ed.sinytra.fabric-api:fabric-renderer-indigo:1.5.3+b5b2da4177"))
+
+    // Flowing Fluids (built into Immersive Nature, LGPL-3.0, Traben)
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
+    include(implementation("io.github.llamalad7:mixinextras-forge:0.4.1"))
+    modCompileOnly("maven.modrinth:create:1.20.1-6.0.6")
+    modCompileOnly("maven.modrinth:embeddium:0.3.31+mc1.20.1")
+    // Ponder/catnip ships inside the Create jar; extracted here only to compile the Create compat
+    modCompileOnly(files("compile_libs/Ponder-Forge-1.20.1-1.0.80.jar"))
 
     modLocalRuntime "dev.emi:emi-forge:${rootProject.emi_version}"
 }

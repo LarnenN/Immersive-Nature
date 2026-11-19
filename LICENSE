@@ -69,11 +69,24 @@ THIRD-PARTY CODE INCLUDED IN IMMERSIVE NATURE
    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
    SOFTWARE.
 
-5. Fabric API modules (bundled inside the jar, unmodified)
+5. Flowing Fluids
+   Copyright (C) 2024 Traben
+   https://github.com/Traben-0/flowing_fluids
+   License: GNU LGPL-3.0 (see licenses/FlowingFluids-LGPL-3.0.txt).
+   Distributed here under the GNU GPL-3.0 as permitted by section 2(b) of the
+   LGPL-3.0. Source of version 1.0.8 for Forge 1.20.1, restored from the
+   official release; three mixin targets given explicit signatures.
+   Kept as mod id "flowing_fluids" inside the jar.
+   Location: package traben.flowing_fluids, assets/flowing_fluids
+
+6. Fabric API modules (bundled inside the jar, unmodified)
    fabric-api-base, fabric-renderer-api-v1, fabric-renderer-indigo
    Copyright (c) FabricMC; Forge port by Sinytra. License: Apache-2.0.
 
-Not included, only optional compatibility: Dynamic Trees, Flowing Fluids.
+7. MixinExtras (bundled inside the jar, unmodified)
+   Copyright (c) LlamaLad7. License: MIT.
+
+Not included, only optional compatibility: Dynamic Trees, Create, Embeddium.
 Required separately: Moonlight Lib, Kiwi.
 
 ==========================================================================

@@ -6,12 +6,12 @@ license = "GPL-3.0-or-later"
 modId = "immersive_nature"
 version = "${version}"
 displayName = "Immersive Nature"
-authors = "Admin; based on Immersive Weathering (Ordana, MehVahdJukaar, Keybounce), Water Erosion (13rac1), Overgrowth (ldtteam), Snow! Real Magic (Snownee)"
-credits = "Immersive Weathering (LGPL-3.0), Water Erosion (GPL-3.0), Overgrowth (GPL-3.0), Snow! Real Magic (MIT)"
+authors = "Admin; based on Immersive Weathering (Ordana, MehVahdJukaar, Keybounce), Water Erosion (13rac1), Overgrowth (ldtteam), Snow! Real Magic (Snownee), Flowing Fluids (Traben)"
+credits = "Immersive Weathering (LGPL-3.0), Water Erosion (GPL-3.0), Overgrowth (GPL-3.0), Snow! Real Magic (MIT), Flowing Fluids (LGPL-3.0)"
 logoFile = "icon.png"
 description = '''
 A living, realistic world: weathering, falling leaves, ash, water erosion and slowly overgrowing nature.
-Combines Immersive Weathering, Water Erosion, Overgrowth and Snow! Real Magic, with compatibility for Dynamic Trees and Flowing Fluids.
+Combines Immersive Weathering, Water Erosion, Overgrowth, Snow! Real Magic and Flowing Fluids, with compatibility for Dynamic Trees.
 '''
 
 [[dependencies.immersive_nature]]
@@ -40,13 +40,6 @@ modId = "dynamictrees"
 mandatory = false
 versionRange = "*"
 ordering = "AFTER"
-side = "BOTH"
-
-[[dependencies.immersive_nature]]
-modId = "flowing_fluids"
-mandatory = false
-versionRange = "*"
-ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.immersive_nature]]
@@ -83,3 +76,26 @@ side = "BOTH"
 
 [modproperties.snowrealmagic]
 catalogueItemIcon = "minecraft:snow_block"
+
+# Flowing Fluids by Traben (LGPL-3.0), built into Immersive Nature.
+# Keeps its own mod id so its config, commands and network packets stay as they are.
+[[mods]]
+modId = "flowing_fluids"
+version = "1.0.8"
+displayName = "Flowing Fluids (in Immersive Nature)"
+authors = "Traben"
+description = '''
+Gives fluids realistic flowing physics, making them mostly finite. Built into Immersive Nature.
+'''
+logoFile = "assets/flowing_fluids/icon.png"
+
+[[dependencies.flowing_fluids]]
+modId = "create"
+mandatory = false
+versionRange = "[0.6,)"
+ordering = "NONE"
+side = "BOTH"
+
+#https://github.com/CaffeineMC/lithium/wiki/Disabling-Lithium's-Mixins-using-your-mod's-fabric.mod.json-or-neoforge.mods.toml
+["lithium:options"]
+"mixin.world.chunk_ticking.spread_ice" = false

@@ -9,8 +9,9 @@ Forge 1.20.1 mod that makes the world feel alive: weathering, falling leaves, as
 | [Water Erosion](https://github.com/13rac1/Minecraft-Water-Erosion) | 13rac1 | GPL-3.0 | water erosion (`erosion` package) |
 | [Overgrowth](https://github.com/ldtteam/Overgrowth) | ldtteam | GPL-3.0 (per its mods.toml) | world decay/overgrowth handlers (`forge/overgrowth`) |
 | [Snow! Real Magic](https://github.com/Snownee/SnowRealMagic) | Snownee | MIT | whole mod, kept as mod id `snowrealmagic` inside the jar (`snownee.snow`) |
+| [Flowing Fluids](https://github.com/Traben-0/flowing_fluids) | Traben | LGPL-3.0 | whole mod 1.0.8, kept as mod id `flowing_fluids` inside the jar (`traben.flowing_fluids`) |
 
-Optional compatibility (no code copied): Dynamic Trees, Flowing Fluids.
+Optional compatibility (no code copied): Dynamic Trees.
 Required separately: Moonlight Lib, Kiwi.
 
 ## License
