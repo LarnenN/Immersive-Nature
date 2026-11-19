@@ -29,7 +29,7 @@ public final class WaterSoaking {
 
     private static final boolean FLOWING_FLUIDS = PlatHelper.isModLoaded("flowing_fluids");
 
-    private record Rule(Block block, TagKey<Block> tag, Block result) {
+    private record Rule(Block block, TagKey<Block> tag, Block result, double chance) {
         boolean matches(BlockState state) {
             return tag != null ? state.is(tag) : state.is(block);
         }
@@ -43,20 +43,24 @@ public final class WaterSoaking {
 
     public static void tick(BlockState water, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!CommonConfigs.WATER_SOAKING.get()) return;
-        if (random.nextDouble() >= CommonConfigs.WATER_SOAKING_CHANCE.get()) return;
 
         BlockPos belowPos = pos.below();
         BlockState below = level.getBlockState(belowPos);
         if (!below.getFluidState().isEmpty()) return;
 
+        // Each rule has its own chance; one roll decides which result (if any) happens
+        double roll = random.nextDouble();
+        double sum = 0;
         Block result = null;
         for (Rule rule : rules()) {
-            if (rule.matches(below)) {
+            if (!rule.matches(below) || below.is(rule.result())) continue;
+            sum += rule.chance();
+            if (roll < sum) {
                 result = rule.result();
                 break;
             }
         }
-        if (result == null || below.is(result)) return;
+        if (result == null) return;
 
         BlockState newState = result.defaultBlockState();
         if (newState.hasProperty(SnowyDirtBlock.SNOWY) && below.hasProperty(SnowyDirtBlock.SNOWY)) {
@@ -76,6 +80,21 @@ public final class WaterSoaking {
         }
     }
 
+    /** Grass dying under deep water: pick a result from the grass rules by their chances, null = keep vanilla dirt. */
+    public static BlockState drownedGrassResult(BlockState grass, RandomSource random) {
+        if (!CommonConfigs.WATER_SOAKING.get() || !CommonConfigs.WATER_SOAKING_GRASS_DIES_COARSE.get()) return null;
+        double total = 0;
+        for (Rule rule : rules()) if (rule.matches(grass) && !grass.is(rule.result())) total += rule.chance();
+        if (total <= 0) return null;
+        double roll = random.nextDouble() * total;
+        for (Rule rule : rules()) {
+            if (!rule.matches(grass) || grass.is(rule.result())) continue;
+            roll -= rule.chance();
+            if (roll < 0) return rule.result().defaultBlockState();
+        }
+        return null;
+    }
+
     private static List<Rule> rules() {
         List<String> lines = CommonConfigs.WATER_SOAKING_TRANSFORMATIONS.get();
         if (!Objects.equals(lines, parsedFrom)) {
@@ -92,9 +111,18 @@ public final class WaterSoaking {
 
     private static Rule parse(String line) {
         String[] parts = line.split(",");
-        if (parts.length != 2) {
-            ImmersiveWeathering.LOGGER.warn("Water soaking: ignoring \"{}\", expected \"from,to\"", line);
+        if (parts.length != 2 && parts.length != 3) {
+            ImmersiveWeathering.LOGGER.warn("Water soaking: ignoring \"{}\", expected \"from,to,chance\"", line);
             return null;
+        }
+        double chance = 0.05;
+        if (parts.length == 3) {
+            try {
+                chance = Double.parseDouble(parts[2].trim());
+            } catch (NumberFormatException e) {
+                ImmersiveWeathering.LOGGER.warn("Water soaking: bad chance \"{}\" in \"{}\"", parts[2].trim(), line);
+                return null;
+            }
         }
         String from = parts[0].trim();
         ResourceLocation toId = ResourceLocation.tryParse(parts[1].trim());
@@ -106,7 +134,7 @@ public final class WaterSoaking {
         if (from.startsWith("#")) {
             ResourceLocation tagId = ResourceLocation.tryParse(from.substring(1));
             if (tagId == null) return null;
-            return new Rule(null, TagKey.create(Registries.BLOCK, tagId), to);
+            return new Rule(null, TagKey.create(Registries.BLOCK, tagId), to, chance);
         }
         ResourceLocation fromId = ResourceLocation.tryParse(from);
         Block block = fromId == null ? null : BuiltInRegistries.BLOCK.getOptional(fromId).orElse(null);
@@ -114,6 +142,6 @@ public final class WaterSoaking {
             ImmersiveWeathering.LOGGER.warn("Water soaking: unknown block \"{}\" in \"{}\"", from, line);
             return null;
         }
-        return new Rule(block, null, to);
+        return new Rule(block, null, to, chance);
     }
 }

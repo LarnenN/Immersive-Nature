@@ -27,7 +27,6 @@ public class CommonConfigs {
     public static final Supplier<Boolean> RAIN_WATER_OTHER_DIMENSIONS;
     public static final Supplier<Boolean> RAIN_WATER_CAN_DISABLE;
     public static final Supplier<Boolean> WATER_SOAKING;
-    public static final Supplier<Double> WATER_SOAKING_CHANCE;
     public static final Supplier<Boolean> WATER_SOAKING_CONSUME;
     public static final Supplier<Boolean> WATER_SOAKING_GRASS_DIES_COARSE;
     public static final Supplier<List<String>> WATER_SOAKING_TRANSFORMATIONS;
@@ -250,8 +249,8 @@ public class CommonConfigs {
                 .define("chance", 200, 1, 100000);
         RAIN_WATER_RADIUS = builder.comment("How far from the player (in blocks) rain water can appear")
                 .define("radius", 25, 1, 128);
-        RAIN_WATER_AMOUNT = builder.comment("How much water appears at once: 8 = a full water source, 1 = a thin puddle (Flowing Fluids levels)")
-                .define("amount", 8, 1, 8);
+        RAIN_WATER_AMOUNT = builder.comment("How many water levels each raindrop spot adds (1-8, Flowing Fluids levels): 8 = a full water block, 1 = a thin puddle. The water then flows by Flowing Fluids physics")
+                .define("amount", 3, 1, 8);
         RAIN_WATER_OTHER_DIMENSIONS = builder.comment("Also gather rain water in dimensions other than the Overworld")
                 .define("other_dimensions", false);
         RAIN_WATER_CAN_DISABLE = builder.comment("Allow players to switch rain water off for themselves with /disable_enable_rain_water")
@@ -261,14 +260,17 @@ public class CommonConfigs {
         builder.push("water_soaking");
         WATER_SOAKING = builder.comment("Water standing on soil slowly soaks into it and changes the block below")
                 .define("enabled", true);
-        WATER_SOAKING_CHANCE = builder.comment("Chance on each random tick of a water block that it soaks into the block below")
-                .define("chance", 0.2, 0, 1);
         WATER_SOAKING_CONSUME = builder.comment("Soaking uses up one water level (only with Flowing Fluids, so puddles slowly dry into the ground)")
                 .define("consume_water", true);
-        WATER_SOAKING_GRASS_DIES_COARSE = builder.comment("Grass that dies under deep water turns into coarse dirt instead of dirt")
-                .define("drowned_grass_to_coarse_dirt", true);
-        WATER_SOAKING_TRANSFORMATIONS = builder.comment("What soaks into what, as \"from,to\". From can be a block id or a #block_tag")
-                .define("transformations", List.of("minecraft:grass_block,minecraft:coarse_dirt", "minecraft:dirt,minecraft:mud"));
+        WATER_SOAKING_GRASS_DIES_COARSE = builder.comment("Grass that dies under a full block of water picks its result from the rules below too (by their chances) instead of always dirt")
+                .define("drowned_grass_uses_rules", true);
+        WATER_SOAKING_TRANSFORMATIONS = builder.comment("What soaks into what, as \"from,to,chance\". Chance is per random tick of the water above (0.05 = 5%). One block can have several results, e.g. grass -> dirt, coarse dirt or mud, each with its own chance. From can be a block id or a #block_tag")
+                .define("rules", List.of(
+                        "minecraft:grass_block,minecraft:dirt,0.06",
+                        "minecraft:grass_block,minecraft:coarse_dirt,0.04",
+                        "minecraft:grass_block,minecraft:mud,0.02",
+                        "minecraft:dirt,minecraft:mud,0.05",
+                        "minecraft:coarse_dirt,minecraft:mud,0.02"));
         builder.pop();
 
         builder.push("desire_paths");

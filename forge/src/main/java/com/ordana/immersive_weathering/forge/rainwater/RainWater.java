@@ -10,8 +10,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.LiquidBlock;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.material.Fluids;
+import traben.flowing_fluids.FFFluidUtils;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
@@ -57,22 +58,15 @@ public final class RainWater {
         BlockState below = level.getBlockState(pos.below());
         int amount = CommonConfigs.RAIN_WATER_AMOUNT.get();
 
-        // A puddle that is not full yet: rain adds water levels to it until it is a full block
-        if (below.getBlock() == Blocks.WATER) {
-            int lvl = below.getValue(LiquidBlock.LEVEL);
-            if (lvl == 0 || lvl >= 8) return; // already full, or falling water
-            int levels = Math.min(8, (8 - lvl) + amount);
-            level.setBlock(pos.below(), below.setValue(LiquidBlock.LEVEL, levels >= 8 ? 0 : 8 - levels), 3);
+        // Rain lands on water: add the levels to it (Flowing Fluids spreads what does not fit)
+        if (below.getFluidState().is(FluidTags.WATER)) {
+            FFFluidUtils.addAmountToFluidAtPosWithRemainderAndTrySpreadIfFull(level, pos.below(), Fluids.WATER, amount);
             return;
         }
         if (below.isAir() || !below.getFluidState().isEmpty()) return;
 
-        BlockState water = Blocks.WATER.defaultBlockState();
-        if (amount < 8) {
-            // LiquidBlock level 8 - amount is a flowing water block holding that many levels
-            water = water.setValue(LiquidBlock.LEVEL, 8 - amount);
-        }
-        level.setBlock(pos, water, 3);
+        // Exactly "amount" levels of water (8 = full block); it then flows by Flowing Fluids physics
+        level.setBlock(pos, FFFluidUtils.getBlockForFluidByAmount(Fluids.WATER, amount), 3);
     }
 
     private static void onRegisterCommands(RegisterCommandsEvent event) {
