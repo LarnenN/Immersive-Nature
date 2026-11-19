@@ -55,9 +55,18 @@ public final class RainWater {
         if (!level.isRainingAt(pos)) return;
         if (!level.getBlockState(pos).isAir()) return;
         BlockState below = level.getBlockState(pos.below());
+        int amount = CommonConfigs.RAIN_WATER_AMOUNT.get();
+
+        // A puddle that is not full yet: rain adds water levels to it until it is a full block
+        if (below.getBlock() == Blocks.WATER) {
+            int lvl = below.getValue(LiquidBlock.LEVEL);
+            if (lvl == 0 || lvl >= 8) return; // already full, or falling water
+            int levels = Math.min(8, (8 - lvl) + amount);
+            level.setBlock(pos.below(), below.setValue(LiquidBlock.LEVEL, levels >= 8 ? 0 : 8 - levels), 3);
+            return;
+        }
         if (below.isAir() || !below.getFluidState().isEmpty()) return;
 
-        int amount = CommonConfigs.RAIN_WATER_AMOUNT.get();
         BlockState water = Blocks.WATER.defaultBlockState();
         if (amount < 8) {
             // LiquidBlock level 8 - amount is a flowing water block holding that many levels

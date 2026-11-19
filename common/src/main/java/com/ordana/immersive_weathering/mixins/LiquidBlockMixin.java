@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import com.ordana.immersive_weathering.erosion.Tasks;
+import com.ordana.immersive_weathering.erosion.WaterSoaking;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.Blocks;
@@ -68,7 +69,11 @@ public abstract class LiquidBlockMixin extends Block implements BucketPickup {
 
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void immersiveNature$erode(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
-        if (state.getBlock() == Blocks.WATER) Tasks.INSTANCE.run(level, state, pos, random);
+        if (state.getBlock() == Blocks.WATER) {
+            Tasks.INSTANCE.run(level, state, pos, random);
+            BlockState now = level.getBlockState(pos);
+            if (now.getBlock() == Blocks.WATER) WaterSoaking.tick(now, level, pos, random);
+        }
     }
 
     @Unique

@@ -5,7 +5,10 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Share;
 import com.llamalad7.mixinextras.sugar.ref.LocalRef;
 import com.ordana.immersive_weathering.util.WeatheringHelper;
+import com.ordana.immersive_weathering.configs.CommonConfigs;
 import net.minecraft.core.BlockPos;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SnowyDirtBlock;
@@ -18,6 +21,19 @@ import java.util.Optional;
 
 @Mixin(SpreadingSnowyDirtBlock.class)
 public class GrassBlockMixin {
+
+    // Immersive Nature: grass drowned under water turns into coarse dirt instead of dirt
+    @WrapOperation(method = "randomTick", at = @At(value = "INVOKE",
+            target = "Lnet/minecraft/server/level/ServerLevel;setBlockAndUpdate(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;)Z",
+            ordinal = 0))
+    protected boolean immersiveNature$drownedGrass(ServerLevel instance, BlockPos pos, BlockState state, Operation<Boolean> operation) {
+        if (state.is(Blocks.DIRT) && CommonConfigs.WATER_SOAKING_GRASS_DIES_COARSE.get()
+                && instance.getBlockState(pos).is(Blocks.GRASS_BLOCK)
+                && instance.getFluidState(pos.above()).is(FluidTags.WATER)) {
+            return operation.call(instance, pos, Blocks.COARSE_DIRT.defaultBlockState());
+        }
+        return operation.call(instance, pos, state);
+    }
 
 
     @WrapOperation(method = "randomTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/state/BlockState;is(Lnet/minecraft/world/level/block/Block;)Z",

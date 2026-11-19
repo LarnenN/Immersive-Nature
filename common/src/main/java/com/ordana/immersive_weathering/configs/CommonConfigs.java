@@ -26,6 +26,11 @@ public class CommonConfigs {
     public static final Supplier<Integer> RAIN_WATER_AMOUNT;
     public static final Supplier<Boolean> RAIN_WATER_OTHER_DIMENSIONS;
     public static final Supplier<Boolean> RAIN_WATER_CAN_DISABLE;
+    public static final Supplier<Boolean> WATER_SOAKING;
+    public static final Supplier<Double> WATER_SOAKING_CHANCE;
+    public static final Supplier<Boolean> WATER_SOAKING_CONSUME;
+    public static final Supplier<Boolean> WATER_SOAKING_GRASS_DIES_COARSE;
+    public static final Supplier<List<String>> WATER_SOAKING_TRANSFORMATIONS;
     public static final Supplier<Boolean> DESIRE_PATHS;
     public static final Supplier<Double> DESIRE_PATHS_CHANCE;
     public static final Supplier<Boolean> DESIRE_PATHS_SPEED_BASED;
@@ -251,6 +256,19 @@ public class CommonConfigs {
                 .define("other_dimensions", false);
         RAIN_WATER_CAN_DISABLE = builder.comment("Allow players to switch rain water off for themselves with /disable_enable_rain_water")
                 .define("can_disable", true);
+        builder.pop();
+
+        builder.push("water_soaking");
+        WATER_SOAKING = builder.comment("Water standing on soil slowly soaks into it and changes the block below")
+                .define("enabled", true);
+        WATER_SOAKING_CHANCE = builder.comment("Chance on each random tick of a water block that it soaks into the block below")
+                .define("chance", 0.2, 0, 1);
+        WATER_SOAKING_CONSUME = builder.comment("Soaking uses up one water level (only with Flowing Fluids, so puddles slowly dry into the ground)")
+                .define("consume_water", true);
+        WATER_SOAKING_GRASS_DIES_COARSE = builder.comment("Grass that dies under deep water turns into coarse dirt instead of dirt")
+                .define("drowned_grass_to_coarse_dirt", true);
+        WATER_SOAKING_TRANSFORMATIONS = builder.comment("What soaks into what, as \"from,to\". From can be a block id or a #block_tag")
+                .define("transformations", List.of("minecraft:grass_block,minecraft:coarse_dirt", "minecraft:dirt,minecraft:mud"));
         builder.pop();
 
         builder.push("desire_paths");
