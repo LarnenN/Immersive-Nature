@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Desire paths: grass, podzol and sand under walking feet slowly wear down (dirt, coarse dirt, sandstone).
+ * Desire paths: grass and podzol under walking feet slowly wear down into dirt and coarse dirt.
  * Each block remembers how much it was walked on (not which mob did it).
  * Immersive Nature's own implementation of the idea of the "Desire Paths" mod by Insane96MCP.
  */

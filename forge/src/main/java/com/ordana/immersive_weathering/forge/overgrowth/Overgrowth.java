@@ -37,6 +37,6 @@ public final class Overgrowth {
 
         config = new Configuration();
 
-        // Entity paths are handled by Immersive Nature's Desire Paths (grass, podzol, sand)
+        // Entity paths are handled by Immersive Nature's Desire Paths (grass, podzol)
     }
 }

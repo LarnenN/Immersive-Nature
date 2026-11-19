@@ -282,7 +282,7 @@ public class CommonConfigs {
         builder.pop();
 
         builder.push("desire_paths");
-        DESIRE_PATHS = builder.comment("Walking over grass, podzol and sand slowly wears it down (grass into dirt and then coarse dirt, sand into sandstone), forming trails where people and mobs walk often")
+        DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, forming trails where people and mobs walk often")
                 .define("enabled", true);
         DESIRE_PATHS_WEAR = builder.comment("Every block remembers how much it was walked on. Each tick someone walks on it adds 1 (sprinting more, sneaking less); at this amount it wears down one step. About 5 ticks = one walk across a block")
                 .define("wear_to_change", 100, 1, 100000);
@@ -302,9 +302,7 @@ public class CommonConfigs {
                 .define("transformations", List.of(
                         "minecraft:grass_block,minecraft:dirt",
                         "minecraft:podzol,minecraft:dirt",
-                        "minecraft:dirt,minecraft:coarse_dirt",
-                        "minecraft:sand,minecraft:sandstone",
-                        "minecraft:red_sand,minecraft:red_sandstone"));
+                        "minecraft:dirt,minecraft:coarse_dirt"));
         builder.pop();
 
         SERVER_SPEC = builder.buildAndRegister();
