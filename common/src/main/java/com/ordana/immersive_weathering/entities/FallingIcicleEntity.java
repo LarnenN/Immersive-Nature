@@ -12,6 +12,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import org.jetbrains.annotations.Nullable;
 
 public class FallingIcicleEntity extends FallingBlockEntity {
@@ -56,5 +61,50 @@ public class FallingIcicleEntity extends FallingBlockEntity {
     @Override
     public ItemEntity spawnAtLocation(ItemLike itemLike) {
         return null;
+    }
+
+    /** Ticks the icicle has not moved down; used to catch icicles that got stuck. */
+    private int stuckTicks = 0;
+
+    @Override
+    public void tick() {
+        if (!this.level().isClientSide && !this.isRemoved()) {
+            // a falling icicle never sticks anywhere: it shatters as soon as it lands,
+            // gets stuck on something, or after falling for too long
+            if (this.onGround() || this.isInWater() || this.isInLava()) {
+                this.shatter();
+                return;
+            }
+            if (this.time > 2 && Math.abs(this.getY() - this.yo) < 1.0E-3) {
+                if (++this.stuckTicks >= 3) {
+                    this.shatter();
+                    return;
+                }
+            } else {
+                this.stuckTicks = 0;
+            }
+            if (this.time > 600) {
+                this.shatter();
+                return;
+            }
+        }
+        super.tick();
+    }
+
+    /** Breaks the icicle with the sound of breaking ice and shards of ice. */
+    public void shatter() {
+        if (this.level() instanceof ServerLevel level) {
+            BlockState state = this.getBlockState();
+            double y = this.getY() + 0.3;
+            level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, state),
+                    this.getX(), y, this.getZ(), 24, 0.25, 0.3, 0.25, 0.15);
+            level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, net.minecraft.world.level.block.Blocks.ICE.defaultBlockState()),
+                    this.getX(), y, this.getZ(), 12, 0.3, 0.2, 0.3, 0.2);
+            if (!this.isSilent()) {
+                level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.GLASS_BREAK, SoundSource.BLOCKS,
+                        1.0F, 0.9F + level.random.nextFloat() * 0.3F);
+            }
+        }
+        this.discard();
     }
 }
