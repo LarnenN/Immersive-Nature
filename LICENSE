@@ -89,6 +89,9 @@ THIRD-PARTY CODE INCLUDED IN IMMERSIVE NATURE
 Inspired by, no code included: Rain Water Fixed by Link15 (Academic Free
 License 3.0). The rain water mechanic (package
 com.ordana.immersive_weathering.forge.rainwater) is Immersive Nature's own code.
+Inspired by, no code included: Desire Paths by Insane96MCP (All Rights
+Reserved). The desire paths mechanic (package
+com.ordana.immersive_weathering.forge.desirepaths) is Immersive Nature's own code.
 
 Not included, only optional compatibility: Dynamic Trees, Create, Embeddium.
 Required separately: Moonlight Lib, Kiwi.

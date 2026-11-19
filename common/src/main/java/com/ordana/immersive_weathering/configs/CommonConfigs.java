@@ -26,6 +26,13 @@ public class CommonConfigs {
     public static final Supplier<Integer> RAIN_WATER_AMOUNT;
     public static final Supplier<Boolean> RAIN_WATER_OTHER_DIMENSIONS;
     public static final Supplier<Boolean> RAIN_WATER_CAN_DISABLE;
+    public static final Supplier<Boolean> DESIRE_PATHS;
+    public static final Supplier<Double> DESIRE_PATHS_CHANCE;
+    public static final Supplier<Boolean> DESIRE_PATHS_SPEED_BASED;
+    public static final Supplier<Double> DESIRE_PATHS_FEATHER_FALLING;
+    public static final Supplier<Boolean> DESIRE_PATHS_CROUCH_PREVENTS;
+    public static final Supplier<Boolean> DESIRE_PATHS_BREAK_TALL_GRASS;
+    public static final Supplier<List<String>> DESIRE_PATHS_TRANSFORMATIONS;
     public static final Supplier<List<String>> DISABLED_GROWTHS;
     public static final Supplier<Boolean> CREATIVE_TAB;
     public static final Supplier<Boolean> CREATIVE_DROP;
@@ -244,6 +251,23 @@ public class CommonConfigs {
                 .define("other_dimensions", false);
         RAIN_WATER_CAN_DISABLE = builder.comment("Allow players to switch rain water off for themselves with /disable_enable_rain_water")
                 .define("can_disable", true);
+        builder.pop();
+
+        builder.push("desire_paths");
+        DESIRE_PATHS = builder.comment("Walking over grass slowly wears it down into dirt and then coarse dirt, forming trails where you walk often")
+                .define("enabled", true);
+        DESIRE_PATHS_CHANCE = builder.comment("Chance per tick, for each block under a walking player, to wear down one step")
+                .define("chance", 0.008, 0, 1);
+        DESIRE_PATHS_SPEED_BASED = builder.comment("Sprinting wears paths faster, sneaking-speed movement slower (the chance above is for walking speed)")
+                .define("speed_based", true);
+        DESIRE_PATHS_FEATHER_FALLING = builder.comment("Each level of Feather Falling on your boots lowers the chance by this part (0.25 = Feather Falling IV stops it)")
+                .define("feather_falling_reduction", 0.25, 0, 1);
+        DESIRE_PATHS_CROUCH_PREVENTS = builder.comment("Crouching does not wear down the ground")
+                .define("crouch_prevents", true);
+        DESIRE_PATHS_BREAK_TALL_GRASS = builder.comment("Grass and ferns on top get trampled when the block below wears down")
+                .define("break_tall_grass", true);
+        DESIRE_PATHS_TRANSFORMATIONS = builder.comment("What wears into what, as \"from,to\". From can be a block id or a #block_tag. Mobs in the entity tag immersive_nature:makes_desire_paths make paths too")
+                .define("transformations", List.of("minecraft:grass_block,minecraft:dirt", "minecraft:dirt,minecraft:coarse_dirt"));
         builder.pop();
 
         SERVER_SPEC = builder.buildAndRegister();
