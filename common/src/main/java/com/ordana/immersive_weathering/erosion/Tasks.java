@@ -94,17 +94,25 @@ public class Tasks {
     }
 
     // With Flowing Fluids settled puddles also have levels 1-7; only water that actually moves erodes.
-    if (FLOWING_FLUIDS && getFlowVelocity(world, pos, state).lengthSqr() < 1.0E-4) {
-      return;
+    // Immersive Nature: the flow direction is worked out once and reused while nothing has changed
+    // (it reads the neighbouring blocks, and used to be computed up to three times per tick)
+    Vec3[] flow = new Vec3[1];
+    if (FLOWING_FLUIDS) {
+      flow[0] = getFlowVelocity(world, pos, state);
+      if (flow[0].lengthSqr() < 1.0E-4) {
+        return;
+      }
     }
 
-    if (maybeFlowingWall(world, state, pos, rand, level)) {
+    if (maybeFlowingWall(world, state, pos, rand, level, flow)) {
       // Return if the flow breaks a wall.
       return;
     }
 
-    maybeErodeEdge(world, state, pos, rand, level);
-    maybeDecayUnder(world, state, pos, rand, level);
+    if (maybeErodeEdge(world, state, pos, rand, level)) {
+      flow[0] = null; // the world changed, work the flow out again
+    }
+    maybeDecayUnder(world, state, pos, rand, level, flow);
   }
 
   /**
@@ -278,6 +286,10 @@ public class Tasks {
   }
 
   protected boolean maybeFlowingWall(Level world, BlockState state, BlockPos pos, RandomSource rand, Integer level) {
+    return maybeFlowingWall(world, state, pos, rand, level, new Vec3[1]);
+  }
+
+  protected boolean maybeFlowingWall(Level world, BlockState state, BlockPos pos, RandomSource rand, Integer level, Vec3[] flow) {
     if (!wallBreakers.contains(level)) {
       // level Flow7 goes down, never to the side.
       return false;
@@ -285,7 +297,8 @@ public class Tasks {
 
     // Find flow direction: Velocity is a 3D vector normalized to 1 pointing the
     // direction the water is flowing.
-    Vec3 velocity = getFlowVelocity(world, pos, state);
+    if (flow[0] == null) flow[0] = getFlowVelocity(world, pos, state);
+    Vec3 velocity = flow[0];
     // 0.8 is a good number to ignore 45 degree angle flows, but allow anything else
     // with a more definitive direction such as 0, 90, or 22.5.
     if (Math.abs(velocity.x) < 0.8 && Math.abs(velocity.z) < 0.8) {
@@ -559,6 +572,10 @@ public class Tasks {
   }
 
   protected boolean maybeDecayUnder(Level world, BlockState state, BlockPos pos, RandomSource rand, Integer level) {
+    return maybeDecayUnder(world, state, pos, rand, level, new Vec3[1]);
+  }
+
+  protected boolean maybeDecayUnder(Level world, BlockState state, BlockPos pos, RandomSource rand, Integer level, Vec3[] flow) {
     // TODO: Should we be using rand?
     // return if water is source or falling or FLOW7
     if (level == FluidLevel.SOURCE || level > FluidLevel.FLOW7) {
@@ -581,7 +598,8 @@ public class Tasks {
       return false;
     }
 
-    Vec3 velocity = getFlowVelocity(world, pos, state);
+    if (flow[0] == null) flow[0] = getFlowVelocity(world, pos, state);
+    Vec3 velocity = flow[0];
     // 0.8 is a good number to ignore 45 degree angle flows, but allow anything else
     // with a more definitive direction such as 0, 90, or 22.5.
     if (Math.abs(velocity.x) < 0.8 && Math.abs(velocity.z) < 0.8) {

@@ -37,6 +37,8 @@ public abstract class OvergrowthChunkTickMixin
         for (int sectionId = 0; sectionId < chunkSections.length; sectionId++)
         {
             LevelChunkSection levelchunksection = chunkSections[sectionId];
+            // Immersive Nature: no Overgrowth handler works on air, so skip sections that are only air (the sky)
+            if (levelchunksection.hasOnlyAir()) continue;
 
             for (int times = 0; times < k; times++)
             {

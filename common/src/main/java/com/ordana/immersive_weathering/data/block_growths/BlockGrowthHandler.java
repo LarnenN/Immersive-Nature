@@ -63,9 +63,17 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
         //TODO: move this line to data pack self predicate
         if (state.getBlock() instanceof IConditionalGrowingBlock cb && !cb.canGrow(state)) return;
 
-        Supplier<Holder<Biome>> biome = Suppliers.memoize(() -> level.getBiome(pos));
-
         var universalGroup = UNIVERSAL_GROWTHS.get(source);
+        // Immersive Nature: most blocks (stone, logs, sand...) have no growths at all, so stop
+        // before creating the biome lookup and other per-tick objects
+        Map<Block, Set<IBlockGrowth>> forSource = GROWTH_FOR_BLOCK.get(source);
+        boolean hasOwn = forSource != null && forSource.containsKey(state.getBlock());
+        if (!hasOwn && (universalGroup == null || universalGroup.isEmpty())
+                && !(source == TickSource.BLOCK_TICK && LEAF_GROWTH != null && state.getBlock() instanceof LeavesBlock)) {
+            return;
+        }
+
+        Supplier<Holder<Biome>> biome = Suppliers.memoize(() -> level.getBiome(pos));
 
         if (universalGroup != null) {
             for (var config : universalGroup) {
