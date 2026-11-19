@@ -11,6 +11,7 @@
     "BlocksMixin",
     "BubbleColumnMixin",
     "BushBlockMixin",
+    "WaterlilyBlockMixin",
     "CampfireMixin",
     "CropBlockMixin",
     "EatBlockGoalMixin",
