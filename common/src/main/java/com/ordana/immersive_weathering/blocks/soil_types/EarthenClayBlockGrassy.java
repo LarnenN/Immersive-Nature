@@ -116,4 +116,10 @@ public class EarthenClayBlockGrassy extends BaseSoilBlock implements SimpleWater
         }
         return super.use(state, level, pos, player, hand, hitResult);
     }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        super.onRemove(state, level, pos, newState, movedByPiston);
+        EarthenClayBlock.leaveWaterLevels(state, level, pos, newState);
+    }
 }

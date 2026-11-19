@@ -22,6 +22,8 @@ import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
+import com.ordana.immersive_weathering.configs.CommonConfigs;
+import com.ordana.immersive_weathering.reg.ModTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -176,9 +178,32 @@ public class ConfigurableBlockGrowth implements IBlockGrowth {
         return this.possibleBlocks.isEmpty();
     }
 
+    // Immersive Nature: plant growth on grass (grass, ferns, flowers...) can be sped up from the config
+    private Boolean immersiveNature$plantGrowth = null;
+
+    private boolean immersiveNature$isPlantGrowth() {
+        if (immersiveNature$plantGrowth == null) {
+            boolean plant = false;
+            if (owners != null) {
+                for (Holder<Block> h : owners) {
+                    BlockState s = h.value().defaultBlockState();
+                    if (s.is(ModTags.GRASSY_BLOCKS) || s.is(net.minecraft.world.level.block.Blocks.GRASS)
+                            || s.is(net.minecraft.world.level.block.Blocks.FERN)) {
+                        plant = true;
+                        break;
+                    }
+                }
+            }
+            immersiveNature$plantGrowth = plant;
+        }
+        return immersiveNature$plantGrowth;
+    }
+
     private boolean canGrow(BlockPos pos, Level level, Supplier<Holder<Biome>> biome) {
         if (this.growthChance == 0) return false;
-        if (level.random.nextFloat() < this.growthChance) {
+        float chance = this.growthChance;
+        if (immersiveNature$isPlantGrowth()) chance *= CommonConfigs.PLANT_GROWTH_MULTIPLIER.get().floatValue();
+        if (level.random.nextFloat() < chance) {
             for (IPositionRuleTest positionTest : this.positionTests) {
                 //they all need to be true
                 if (!positionTest.test(biome, pos, level)) return false;

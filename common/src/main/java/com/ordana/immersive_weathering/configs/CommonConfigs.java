@@ -38,6 +38,8 @@ public class CommonConfigs {
     public static final Supplier<Boolean> DESIRE_PATHS_BREAK_TALL_GRASS;
     public static final Supplier<List<String>> DESIRE_PATHS_TRANSFORMATIONS;
     public static final Supplier<List<String>> DISABLED_GROWTHS;
+    public static final Supplier<Double> PLANT_GROWTH_MULTIPLIER;
+    public static final Supplier<Integer> WET_CLAY_WATER_LEVELS;
     public static final Supplier<Boolean> CREATIVE_TAB;
     public static final Supplier<Boolean> CREATIVE_DROP;
     public static final Supplier<Boolean> DEBUG_RESOURCES;
@@ -124,6 +126,10 @@ public class CommonConfigs {
                         "Note that this is not the preferred way to do this as block growths are all data driven so it would be best to disable or tweak them by creating a datapack that overrides them" +
                         "Check the mod data folder for the required names. Requires resource reload (/data reload)")
                 .define("block_growth_blacklist", new ArrayList<>());
+        PLANT_GROWTH_MULTIPLIER = builder.comment("Speeds up grass, ferns, flowers and other plants growing on grass blocks (1 = original Immersive Weathering speed). Plants grow next to other grass plants")
+                .define("plant_growth_multiplier", 4.0, 0, 100);
+        WET_CLAY_WATER_LEVELS = builder.comment("How many water levels wet earthen clay leaves behind when broken (0 = none, 8 = a full water block). Uses Flowing Fluids levels")
+                .define("wet_earthen_clay_water_levels", 4, 0, 8);
         CREATIVE_TAB = builder.define("creative_tab", false);
         CREATIVE_DROP = builder.comment("Drop stuff when in creative").define("drop_in_creative", false);
         DEBUG_RESOURCES = builder.comment("Save generated resources to disk in a 'debug' folder in your game directory. Mainly for debug purposes but can be used to generate assets in all wood types for your mods :0")

@@ -120,4 +120,21 @@ public class EarthenClayBlock extends Block implements SimpleWaterloggedBlock {
         }
         return super.use(state, level, pos, player, hand, hitResult);
     }
+
+    // Immersive Nature: broken wet clay leaves the configured number of water levels instead of a full water block
+    public static void leaveWaterLevels(BlockState state, Level level, BlockPos pos, BlockState newState) {
+        if (level.isClientSide || !state.getValue(WATERLOGGED)) return;
+        if (!newState.is(net.minecraft.world.level.block.Blocks.WATER) || !newState.getFluidState().isSource()) return;
+        int levels = com.ordana.immersive_weathering.configs.CommonConfigs.WET_CLAY_WATER_LEVELS.get();
+        if (levels >= 8) return;
+        BlockState water = levels <= 0 ? net.minecraft.world.level.block.Blocks.AIR.defaultBlockState()
+                : Fluids.WATER.getFlowing(levels, false).createLegacyBlock();
+        level.setBlock(pos, water, 3);
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        super.onRemove(state, level, pos, newState, movedByPiston);
+        EarthenClayBlock.leaveWaterLevels(state, level, pos, newState);
+    }
 }
