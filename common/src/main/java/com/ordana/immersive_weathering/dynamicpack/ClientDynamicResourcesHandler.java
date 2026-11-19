@@ -223,10 +223,10 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
     @Override
     public void addDynamicTranslations(AfterLanguageLoadEvent lang) {
         ModItems.BARK.forEach((type, bark) -> {
-            LangBuilder.addDynamicEntry(lang, "item.immersive_weathering.bark", type, bark);
+            LangBuilder.addDynamicEntry(lang, "item.immersive_nature.bark", type, bark);
         });
         ModBlocks.LEAF_PILES.forEach((type, leaf) -> {
-            LangBuilder.addDynamicEntry(lang, "block.immersive_weathering.leaf_pile", type, leaf);
+            LangBuilder.addDynamicEntry(lang, "block.immersive_nature.leaf_pile", type, leaf);
         });
     }
 

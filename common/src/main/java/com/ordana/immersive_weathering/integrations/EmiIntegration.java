@@ -374,7 +374,7 @@ public class EmiIntegration implements EmiPlugin {
             .leftInput(waterCatalyst)
             .rightInput(lavaCatalyst, true)
             .rightInput(EmiStack.of(Blocks.DIORITE), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .output(EmiStack.of(Blocks.ANDESITE))
             .build());
 
@@ -383,7 +383,7 @@ public class EmiIntegration implements EmiPlugin {
             .leftInput(waterCatalyst)
             .rightInput(lavaCatalyst, true)
             .rightInput(EmiIngredient.of(ModTags.QUARTZ_BLOCKS), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .output(EmiStack.of(Blocks.DIORITE))
             .build());
 
@@ -392,9 +392,9 @@ public class EmiIntegration implements EmiPlugin {
             .leftInput(waterCatalyst)
             .rightInput(lavaCatalyst, true)
             .rightInput(EmiStack.of(Blocks.DIORITE), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .rightInput(EmiIngredient.of(ModTags.QUARTZ_BLOCKS), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .output(EmiStack.of(Blocks.GRANITE))
             .build());
 
@@ -402,7 +402,7 @@ public class EmiIntegration implements EmiPlugin {
             .id(new ResourceLocation(com.ordana.immersive_weathering.ImmersiveWeathering.MOD_ID, "/basalt_below"))
             .leftInput(lavaCatalyst)
             .rightInput(EmiStack.of(Blocks.BASALT), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.below").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.below").setStyle(style)))
             .output(EmiStack.of(Blocks.BASALT))
             .build());
 
@@ -410,9 +410,9 @@ public class EmiIntegration implements EmiPlugin {
             .id(new ResourceLocation(com.ordana.immersive_weathering.ImmersiveWeathering.MOD_ID, "/blackstone"))
             .leftInput(lavaCatalyst)
             .rightInput(EmiStack.of(Blocks.MAGMA_BLOCK), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .rightInput(EmiStack.of(Blocks.BLUE_ICE), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .output(EmiStack.of(Blocks.BLACKSTONE))
             .build());
 
@@ -420,11 +420,11 @@ public class EmiIntegration implements EmiPlugin {
             .id(new ResourceLocation(com.ordana.immersive_weathering.ImmersiveWeathering.MOD_ID, "/calcite"))
             .leftInput(lavaCatalyst)
             .rightInput(EmiStack.of(Blocks.MAGMA_BLOCK), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .rightInput(EmiStack.of(Blocks.BLUE_ICE), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .rightInput(EmiStack.of(Blocks.BONE_BLOCK), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.below").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.below").setStyle(style)))
             .output(EmiStack.of(Blocks.CALCITE))
             .build());
 
@@ -433,7 +433,7 @@ public class EmiIntegration implements EmiPlugin {
             .leftInput(lavaCatalyst)
             .rightInput(waterCatalyst, true)
             .rightInput(EmiStack.of(Blocks.SOUL_FIRE), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .output(EmiStack.of(Blocks.CRYING_OBSIDIAN))
             .build());
 
@@ -441,8 +441,8 @@ public class EmiIntegration implements EmiPlugin {
             .id(new ResourceLocation(com.ordana.immersive_weathering.ImmersiveWeathering.MOD_ID, "/magma_block"))
             .leftInput(lavaCatalyst)
             .rightInput(waterCatalyst, true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.below").setStyle(style)).appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.rising").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.below").setStyle(style)).appendTooltip(
+                Component.translatable("tooltip.immersive_nature.rising").setStyle(style)))
             .output(EmiStack.of(Blocks.MAGMA_BLOCK))
             .build());
 
@@ -450,8 +450,8 @@ public class EmiIntegration implements EmiPlugin {
             .id(new ResourceLocation(com.ordana.immersive_weathering.ImmersiveWeathering.MOD_ID, "/tuff"))
             .leftInput(lavaCatalyst)
             .rightInput(waterCatalyst, true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.below").setStyle(style)).appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.sinking").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.below").setStyle(style)).appendTooltip(
+                Component.translatable("tooltip.immersive_nature.sinking").setStyle(style)))
             .output(EmiStack.of(Blocks.TUFF))
             .build());
 
@@ -459,9 +459,9 @@ public class EmiIntegration implements EmiPlugin {
             .id(new ResourceLocation(com.ordana.immersive_weathering.ImmersiveWeathering.MOD_ID, "/smooth_basalt"))
             .leftInput(lavaCatalyst)
             .rightInput(EmiStack.of(Blocks.BLUE_ICE), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.adjacent").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.adjacent").setStyle(style)))
             .rightInput(EmiStack.of(Blocks.SOUL_SOIL), true, s -> s.appendTooltip(
-                Component.translatable("tooltip.immersive_weathering.below").setStyle(style)))
+                Component.translatable("tooltip.immersive_nature.below").setStyle(style)))
             .output(EmiStack.of(Blocks.SMOOTH_BASALT))
             .build());
 

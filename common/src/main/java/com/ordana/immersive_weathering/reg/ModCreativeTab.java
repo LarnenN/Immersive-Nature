@@ -17,7 +17,7 @@ public class ModCreativeTab {
 
     public static final RegSupplier<CreativeModeTab> MOD_TAB = !CommonConfigs.CREATIVE_TAB.get() ? null :
         RegHelper.registerCreativeModeTab(ImmersiveWeathering.res("immersive_nature"),
-            (c) -> c.title(Component.translatable("itemGroup.immersive_weathering.immersive_weathering"))
+            (c) -> c.title(Component.translatable("itemGroup.immersive_nature.immersive_nature"))
                 .icon(() -> ModBlocks.IVY.get().asItem().getDefaultInstance()));
 
     public static void init(){
