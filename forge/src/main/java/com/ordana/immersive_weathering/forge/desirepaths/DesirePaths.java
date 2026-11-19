@@ -39,6 +39,7 @@ public final class DesirePaths {
     private static final float WALK_SPEED = 0.12F;
 
     private static List<String> parsedFrom = null;
+    private static List<String> parsedFromRef = null;
     private static List<Rule> rules = List.of();
 
     private record Rule(Block block, TagKey<Block> tag, Block result) {
@@ -79,6 +80,8 @@ public final class DesirePaths {
         if (CommonConfigs.DESIRE_PATHS_SPEED_BASED.get()) {
             chance *= (entity.walkDist - entity.walkDistO) / WALK_SPEED;
         }
+        // standing still: nothing can wear down, skip the enchantment and block lookups
+        if (chance <= 0) return;
         int featherFalling = EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, entity);
         if (featherFalling > 0) {
             chance *= Math.max(0F, 1F - CommonConfigs.DESIRE_PATHS_FEATHER_FALLING.get().floatValue() * featherFalling);
@@ -113,7 +116,8 @@ public final class DesirePaths {
     /** Rules from the config, re-read whenever the config list changes. */
     private static List<Rule> rules() {
         List<String> lines = CommonConfigs.DESIRE_PATHS_TRANSFORMATIONS.get();
-        if (!Objects.equals(lines, parsedFrom)) {
+        // same list object = config not reloaded, skip the line-by-line compare
+        if (lines != parsedFromRef && !Objects.equals(lines, parsedFrom)) {
             List<Rule> parsed = new ArrayList<>();
             for (String line : lines) {
                 Rule rule = parse(line);
@@ -122,6 +126,7 @@ public final class DesirePaths {
             rules = List.copyOf(parsed);
             parsedFrom = List.copyOf(lines);
         }
+        parsedFromRef = lines;
         return rules;
     }
 

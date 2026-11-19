@@ -36,6 +36,7 @@ public final class WaterSoaking {
     }
 
     private static List<String> parsedFrom = null;
+    private static List<String> parsedFromRef = null;
     private static List<Rule> rules = List.of();
 
     private WaterSoaking() {
@@ -97,7 +98,8 @@ public final class WaterSoaking {
 
     private static List<Rule> rules() {
         List<String> lines = CommonConfigs.WATER_SOAKING_TRANSFORMATIONS.get();
-        if (!Objects.equals(lines, parsedFrom)) {
+        // same list object = config not reloaded, skip the line-by-line compare
+        if (lines != parsedFromRef && !Objects.equals(lines, parsedFrom)) {
             List<Rule> parsed = new ArrayList<>();
             for (String line : lines) {
                 Rule rule = parse(line);
@@ -106,6 +108,7 @@ public final class WaterSoaking {
             rules = List.copyOf(parsed);
             parsedFrom = List.copyOf(lines);
         }
+        parsedFromRef = lines;
         return rules;
     }
 

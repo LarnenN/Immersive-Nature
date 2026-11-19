@@ -254,9 +254,9 @@ public class CommonConfigs {
         RAIN_WATER_CHANCE = builder.comment("Every tick, each player has a 1 in this number chance to make a spot of rain water nearby")
                 .define("chance", 200, 1, 100000);
         RAIN_WATER_RADIUS = builder.comment("How far from the player (in blocks) rain water can appear")
-                .define("radius", 25, 1, 128);
+                .define("radius", 20, 1, 128);
         RAIN_WATER_AMOUNT = builder.comment("How many water levels each raindrop spot adds (1-8, Flowing Fluids levels): 8 = a full water block, 1 = a thin puddle. The water then flows by Flowing Fluids physics")
-                .define("amount", 3, 1, 8);
+                .define("amount", 4, 1, 8);
         RAIN_WATER_OTHER_DIMENSIONS = builder.comment("Also gather rain water in dimensions other than the Overworld")
                 .define("other_dimensions", false);
         RAIN_WATER_CAN_DISABLE = builder.comment("Allow players to switch rain water off for themselves with /disable_enable_rain_water")

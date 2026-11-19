@@ -644,9 +644,11 @@ public class Tasks {
 
     // Randomize the list each run.
     // TODO: Just pick a random number since every path returns now.
-    Collections.shuffle(listDirection);
+    // Immersive Nature: the loop always stops on its first direction, so pick one at random
+    // (same odds as shuffling, without reordering the shared static list every tick)
+    Vec3i randomDir = listDirection.get(rand.nextInt(listDirection.size()));
 
-    for (Vec3i dir : listDirection) {
+    for (Vec3i dir : List.of(randomDir)) {
       if (dir == null) {
         throw new NullPointerException("dir cannot be null");
       }
