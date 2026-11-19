@@ -20,6 +20,12 @@ public class CommonConfigs {
     public static final Supplier<Boolean> WATER_EROSION_FARMLAND;
     public static final Supplier<Boolean> WATER_EROSION_MOSS;
     public static final Supplier<Boolean> WATER_EROSION_SOURCE_BREAK;
+    public static final Supplier<Boolean> RAIN_WATER;
+    public static final Supplier<Integer> RAIN_WATER_CHANCE;
+    public static final Supplier<Integer> RAIN_WATER_RADIUS;
+    public static final Supplier<Integer> RAIN_WATER_AMOUNT;
+    public static final Supplier<Boolean> RAIN_WATER_OTHER_DIMENSIONS;
+    public static final Supplier<Boolean> RAIN_WATER_CAN_DISABLE;
     public static final Supplier<List<String>> DISABLED_GROWTHS;
     public static final Supplier<Boolean> CREATIVE_TAB;
     public static final Supplier<Boolean> CREATIVE_DROP;
@@ -223,6 +229,21 @@ public class CommonConfigs {
                 .define("moss_near_water", true);
         WATER_EROSION_SOURCE_BREAK = builder.comment("Still water can break through weak walls next to it")
                 .define("source_break", true);
+        builder.pop();
+
+        builder.push("rain_water");
+        RAIN_WATER = builder.comment("While it rains, water slowly gathers on the ground around players (best with Flowing Fluids)")
+                .define("enabled", true);
+        RAIN_WATER_CHANCE = builder.comment("Every tick, each player has a 1 in this number chance to make a spot of rain water nearby")
+                .define("chance", 200, 1, 100000);
+        RAIN_WATER_RADIUS = builder.comment("How far from the player (in blocks) rain water can appear")
+                .define("radius", 25, 1, 128);
+        RAIN_WATER_AMOUNT = builder.comment("How much water appears at once: 8 = a full water source, 1 = a thin puddle (Flowing Fluids levels)")
+                .define("amount", 8, 1, 8);
+        RAIN_WATER_OTHER_DIMENSIONS = builder.comment("Also gather rain water in dimensions other than the Overworld")
+                .define("other_dimensions", false);
+        RAIN_WATER_CAN_DISABLE = builder.comment("Allow players to switch rain water off for themselves with /disable_enable_rain_water")
+                .define("can_disable", true);
         builder.pop();
 
         SERVER_SPEC = builder.buildAndRegister();

@@ -11,6 +11,9 @@ Forge 1.20.1 mod that makes the world feel alive: weathering, falling leaves, as
 | [Snow! Real Magic](https://github.com/Snownee/SnowRealMagic) | Snownee | MIT | whole mod, kept as mod id `snowrealmagic` inside the jar (`snownee.snow`) |
 | [Flowing Fluids](https://github.com/Traben-0/flowing_fluids) | Traben | LGPL-3.0 | whole mod 1.0.8, kept as mod id `flowing_fluids` inside the jar (`traben.flowing_fluids`) |
 
+Own reimplementation (no code copied): rain water gathering on the ground, an idea from
+[Rain Water Fixed](https://www.curseforge.com/minecraft/mc-mods/rain-water-fixed) by Link15 (`forge/rainwater`).
+
 Optional compatibility (no code copied): Dynamic Trees.
 Required separately: Moonlight Lib, Kiwi.
 

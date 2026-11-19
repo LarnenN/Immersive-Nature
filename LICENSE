@@ -86,6 +86,10 @@ THIRD-PARTY CODE INCLUDED IN IMMERSIVE NATURE
 7. MixinExtras (bundled inside the jar, unmodified)
    Copyright (c) LlamaLad7. License: MIT.
 
+Inspired by, no code included: Rain Water Fixed by Link15 (Academic Free
+License 3.0). The rain water mechanic (package
+com.ordana.immersive_weathering.forge.rainwater) is Immersive Nature's own code.
+
 Not included, only optional compatibility: Dynamic Trees, Create, Embeddium.
 Required separately: Moonlight Lib, Kiwi.
 

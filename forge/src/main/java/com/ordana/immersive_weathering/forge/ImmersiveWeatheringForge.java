@@ -31,6 +31,7 @@ public class ImmersiveWeatheringForge {
 
         ImmersiveWeathering.commonInit();
         com.ordana.immersive_weathering.forge.overgrowth.Overgrowth.init();
+        com.ordana.immersive_weathering.forge.rainwater.RainWater.init();
 
         // Dynamic Trees: seeds from leaf piles, soils, bark from stripped branches
         net.minecraftforge.registries.DeferredRegister<com.mojang.serialization.Codec<? extends net.minecraftforge.common.loot.IGlobalLootModifier>> lootModifiers =
