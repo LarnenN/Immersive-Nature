@@ -55,21 +55,23 @@ public class DynamicTreesCompat {
       }
    };
 
-   public static boolean isAerialRooty(Block block) {
-      return LOADED && AERIAL_ROOTY.get(block.getClass());
+   /**
+    * Immersive Nature fix for Dynamic Trees: the aerial root block under a mangrove trunk copies the light
+    * blocking of a full mangrove log, even when it is thinner than a full block (radius below 8). No light
+    * then reaches its inside, and its sides, which sit inside the block space, are drawn black.
+    * A thin root block lets light through like any other non-full block.
+    */
+   public static boolean isThinAerialRoot(BlockState state) {
+      if (!LOADED || !AERIAL_ROOTY.get(state.getBlock().getClass())) return false;
+      var radius = state.getBlock().getStateDefinition().getProperty("radius");
+      return radius != null && state.getValue(radius) instanceof Integer r && r < 8;
    }
 
-   /**
-    * Immersive Nature: the Dynamic Trees root block under a mangrove trunk never keeps water inside.
-    * It is thinner than a full block, so water inside it was drawn as a black box around the trunk base.
-    * Water can't flow into it (see FlowingFluidMixin) and water already inside (worldgen, buckets) drains.
-    */
+   /** Light saved in old chunks was computed with the old, fully blocking value: fix it on a random tick. */
    public static void onRandomTick(ServerLevel level, BlockPos pos, BlockState state) {
-      if (!LOADED || !AERIAL_ROOTY.get(state.getBlock().getClass())) return;
-      state = level.getBlockState(pos); // a growth may have just changed it
-      var wl = net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
-      if (!AERIAL_ROOTY.get(state.getBlock().getClass()) || !state.hasProperty(wl) || !state.getValue(wl)) return;
-      level.setBlock(pos, state.setValue(wl, false), 3);
+      if (isThinAerialRoot(state) && level.getRawBrightness(pos, 0) == 0) {
+         level.getChunkSource().getLightEngine().checkBlock(pos);
+      }
    }
 
    public static boolean isLoaded() {

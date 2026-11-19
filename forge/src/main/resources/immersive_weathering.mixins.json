@@ -8,6 +8,7 @@
     "AccessorItemColor"
   ],
   "mixins": [
+    "DTRootyLightMixin",
     "FluidInteractionRegistryMixin",
     "SelfRustableMixin",
     "WebMixin",
