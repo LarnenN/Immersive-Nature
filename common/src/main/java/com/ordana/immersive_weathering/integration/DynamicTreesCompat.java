@@ -55,24 +55,21 @@ public class DynamicTreesCompat {
       }
    };
 
+   public static boolean isAerialRooty(Block block) {
+      return LOADED && AERIAL_ROOTY.get(block.getClass());
+   }
+
    /**
-    * Immersive Nature: with Flowing Fluids the swamp water around a mangrove can drain away, but the
-    * waterlogged Dynamic Trees root block under the trunk keeps its water. Its thin (radius < 8) shape does
-    * not hide that water, which is then drawn as a black box around the trunk base. Once no water touches
-    * the block from the sides or above, the water inside drains too.
+    * Immersive Nature: the Dynamic Trees root block under a mangrove trunk never keeps water inside.
+    * It is thinner than a full block, so water inside it was drawn as a black box around the trunk base.
+    * Water can't flow into it (see FlowingFluidMixin) and water already inside (worldgen, buckets) drains.
     */
    public static void onRandomTick(ServerLevel level, BlockPos pos, BlockState state) {
       if (!LOADED || !AERIAL_ROOTY.get(state.getBlock().getClass())) return;
       state = level.getBlockState(pos); // a growth may have just changed it
-      if (!AERIAL_ROOTY.get(state.getBlock().getClass())) return;
-      if (!state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED)
-            || !state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED)) return;
-      BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
-      for (net.minecraft.core.Direction d : net.minecraft.core.Direction.values()) {
-         if (d == net.minecraft.core.Direction.DOWN) continue;
-         if (!level.getFluidState(p.setWithOffset(pos, d)).isEmpty()) return;
-      }
-      level.setBlock(pos, state.setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED, false), 3);
+      var wl = net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED;
+      if (!AERIAL_ROOTY.get(state.getBlock().getClass()) || !state.hasProperty(wl) || !state.getValue(wl)) return;
+      level.setBlock(pos, state.setValue(wl, false), 3);
    }
 
    public static boolean isLoaded() {
