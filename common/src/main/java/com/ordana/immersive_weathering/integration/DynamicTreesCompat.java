@@ -44,6 +44,37 @@ public class DynamicTreesCompat {
    private static Method findSpeciesSloppy;
    private static final Map<String, Object> SPECIES_BY_NAME = new ConcurrentHashMap<>();
 
+   /** Dynamic Trees aerial (mangrove) root blocks. */
+   private static final ClassValue<Boolean> AERIAL_ROOTY = new ClassValue<>() {
+      @Override
+      protected Boolean computeValue(Class<?> type) {
+         for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+            if (c.getName().equals("com.ferreusveritas.dynamictrees.block.rooty.AerialRootsSoilProperties$RootRootyBlock")) return true;
+         }
+         return false;
+      }
+   };
+
+   /**
+    * Immersive Nature: with Flowing Fluids the swamp water around a mangrove can drain away, but the
+    * waterlogged Dynamic Trees root block under the trunk keeps its water. Its thin (radius < 8) shape does
+    * not hide that water, which is then drawn as a black box around the trunk base. Once no water touches
+    * the block from the sides or above, the water inside drains too.
+    */
+   public static void onRandomTick(ServerLevel level, BlockPos pos, BlockState state) {
+      if (!LOADED || !AERIAL_ROOTY.get(state.getBlock().getClass())) return;
+      state = level.getBlockState(pos); // a growth may have just changed it
+      if (!AERIAL_ROOTY.get(state.getBlock().getClass())) return;
+      if (!state.hasProperty(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED)
+            || !state.getValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED)) return;
+      BlockPos.MutableBlockPos p = new BlockPos.MutableBlockPos();
+      for (net.minecraft.core.Direction d : net.minecraft.core.Direction.values()) {
+         if (d == net.minecraft.core.Direction.DOWN) continue;
+         if (!level.getFluidState(p.setWithOffset(pos, d)).isEmpty()) return;
+      }
+      level.setBlock(pos, state.setValue(net.minecraft.world.level.block.state.properties.BlockStateProperties.WATERLOGGED, false), 3);
+   }
+
    public static boolean isLoaded() {
       return LOADED && !broken;
    }

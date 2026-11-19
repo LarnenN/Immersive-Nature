@@ -49,6 +49,7 @@ public abstract class ServerLevelMixin extends Level {
                 blockPos3.getY() - n, blockPos3.getZ() - j);
 
         BlockGrowthHandler.tickBlock(TickSource.BLOCK_TICK, newState, ((ServerLevel) ((Object) this)),  blockPos3);
+        com.ordana.immersive_weathering.integration.DynamicTreesCompat.onRandomTick((ServerLevel) (Object) this, blockPos3, newState);
     }
 
     @Inject(method = "tickChunk",
