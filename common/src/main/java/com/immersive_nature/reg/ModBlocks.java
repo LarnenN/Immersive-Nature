@@ -602,18 +602,12 @@ public class ModBlocks {
         new TintedGlassPane(Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion().isRedstoneConductor(NEVER).isSuffocating(NEVER).isViewBlocking(NEVER)));
 
 
-    // Biomes O' Plenty: only these leaves drop leaf piles (the maples have their own hand-drawn textures,
-    // flowering oak uses the oak ones); its other leaves (palm, null, magic...) get none
-    private static final java.util.Set<String> BOP_LEAF_PILES = java.util.Set.of(
-            "red_maple", "orange_maple", "yellow_maple", "flowering_oak");
-
-    private static boolean hasLeafPile(LeavesType type) {
-        return !type.id.getNamespace().equals("biomesoplenty") || BOP_LEAF_PILES.contains(type.id.getPath());
-    }
+    // leaves that get no leaf pile at all (Biomes O' Plenty "null" leaves are not real foliage)
+    private static final java.util.Set<String> NO_LEAF_PILE = java.util.Set.of("biomesoplenty:null");
 
     private static void registerLeafPiles(Registrator<Block> event, Collection<LeavesType> leavesTypes) {
         for (LeavesType type : leavesTypes) {
-            if (!hasLeafPile(type)) continue;
+            if (NO_LEAF_PILE.contains(type.id.toString())) continue;
             String name = type.getVariantId("leaf_pile", false);
 
             LeafPileBlock block = new LeafPileBlock(LEAF_PILE_PROPERTIES, type);
