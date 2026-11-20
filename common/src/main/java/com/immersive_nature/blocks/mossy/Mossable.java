@@ -3,7 +3,7 @@ package com.immersive_nature.blocks.mossy;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.immersive_nature.IWPlatformStuff;
+import com.immersive_nature.NaturePlatform;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.reg.ModBlocks;
 import com.immersive_nature.util.PatchSpreader;
@@ -46,7 +46,7 @@ public interface Mossable extends Weatherable {
         WeatheringHelper.addOptional(builder, "quark:vertical_stone_brick_slab", "quark:vertical_mossy_stone_brick_slab");
         WeatheringHelper.addOptional(builder, "immersive_nature:vertical_stone_slab", "immersive_nature:vertical_mossy_stone_slab");
 
-        IWPlatformStuff.addExtraMossyBlocks(builder);
+        NaturePlatform.addExtraMossyBlocks(builder);
         return builder.build();
     });
 

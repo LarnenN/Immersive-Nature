@@ -1,6 +1,6 @@
 package com.immersive_nature.reg;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.blocks.*;
 import com.immersive_nature.blocks.charred.*;
 import com.immersive_nature.blocks.cracked.*;
@@ -61,7 +61,7 @@ public class ModBlocks {
     }
 
     public static <T extends Block> Supplier<T> regBlock(String name, Supplier<T> block) {
-        return RegHelper.registerBlock(ImmersiveWeathering.res(name), block);
+        return RegHelper.registerBlock(ImmersiveNature.res(name), block);
     }
 
     public static <T extends Block> Supplier<T> regWithItem(String name, Supplier<T> blockFactory) {
@@ -77,11 +77,11 @@ public class ModBlocks {
     }
 
     public static Supplier<BlockItem> regBlockItem(String name, Supplier<? extends Block> blockSup, Item.Properties properties) {
-        return RegHelper.registerItem(ImmersiveWeathering.res(name), () -> new BlockItem(blockSup.get(), properties));
+        return RegHelper.registerItem(ImmersiveNature.res(name), () -> new BlockItem(blockSup.get(), properties));
     }
 
     public static Supplier<BlockItem> regBurnableBlockItem(String name, Supplier<? extends Block> blockSup, Item.Properties properties, Supplier<Integer> time) {
-        return RegHelper.registerItem(ImmersiveWeathering.res(name), () -> new FuelBlockItem(blockSup.get(), properties, time));
+        return RegHelper.registerItem(ImmersiveNature.res(name), () -> new FuelBlockItem(blockSup.get(), properties, time));
     }
 
     //predicates
@@ -611,7 +611,7 @@ public class ModBlocks {
             String name = type.getVariantId("leaf_pile", false);
 
             LeafPileBlock block = new LeafPileBlock(LEAF_PILE_PROPERTIES, type);
-            event.register(ImmersiveWeathering.res(name), block);
+            event.register(ImmersiveNature.res(name), block);
 
             LEAF_PILES.put(type, block);
             type.addChild("immersive_nature:leaf_pile", block);

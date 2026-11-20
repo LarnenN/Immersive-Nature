@@ -1,6 +1,6 @@
 package com.immersive_nature.reg;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
@@ -110,18 +110,18 @@ public final class ModTags {
     }
 
     private static TagKey<Block> registerBlockTag(String id) {
-        return TagKey.create(Registries.BLOCK, ImmersiveWeathering.res(id));
+        return TagKey.create(Registries.BLOCK, ImmersiveNature.res(id));
     }
 
     private static TagKey<Item> registerItemTag(String id) {
-        return TagKey.create(Registries.ITEM, ImmersiveWeathering.res(id));
+        return TagKey.create(Registries.ITEM, ImmersiveNature.res(id));
     }
 
     private static TagKey<Biome> registerBiomeTag(String id) {
-        return TagKey.create(Registries.BIOME, ImmersiveWeathering.res(id));
+        return TagKey.create(Registries.BIOME, ImmersiveNature.res(id));
     }
 
     private static TagKey<EntityType<?>> registerEntityTag(String id) {
-        return TagKey.create(Registries.ENTITY_TYPE, ImmersiveWeathering.res(id));
+        return TagKey.create(Registries.ENTITY_TYPE, ImmersiveNature.res(id));
     }
 }

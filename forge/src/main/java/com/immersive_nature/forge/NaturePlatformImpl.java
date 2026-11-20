@@ -11,7 +11,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.FlowingFluid;
 
-public class IWPlatformStuffImpl {
+public class NaturePlatformImpl {
 
     public static void addExtraMossyBlocks(ImmutableBiMap.Builder<Block, Block> builder) {
         if (IntegrationHandler.quark) {

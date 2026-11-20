@@ -15,8 +15,8 @@ loom {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
-        mixinConfig  "immersive_weathering-common.mixins.json"
-        mixinConfig  "immersive_weathering.mixins.json"
+        mixinConfig  "immersive_nature-common.mixins.json"
+        mixinConfig  "immersive_nature.mixins.json"
         mixinConfig  "snowrealmagic.mixins.json"
         mixinConfig  "flowing_fluids.mixins.json"
 

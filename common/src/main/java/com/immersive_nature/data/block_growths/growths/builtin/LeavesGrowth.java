@@ -1,6 +1,6 @@
 package com.immersive_nature.data.block_growths.growths.builtin;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.blocks.LeafPileBlock;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.data.block_growths.TickSource;
@@ -138,7 +138,7 @@ public class LeavesGrowth extends BuiltinBlockGrowth {
     public static void decayLeavesPile(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         //this is server side, cant access client configs. Also meet to send color and send particles doesn't support that
         if (!(state.getBlock() instanceof LeavesBlock)) {
-            ImmersiveWeathering.LOGGER.error("Some mod tried to call leaves random tick without passing a leaf block blockstate as expected. This should be fixed on their end. Given blockstate : {}", state);
+            ImmersiveNature.LOGGER.error("Some mod tried to call leaves random tick without passing a leaf block blockstate as expected. This should be fixed on their end. Given blockstate : {}", state);
             return;
         }
         if (CommonConfigs.LEAF_PILES_FROM_DECAY_CHANCE.get() > level.random.nextFloat()) {

@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.data.block_growths.growths.ConfigurableBlockGrowth;
 import com.immersive_nature.data.block_growths.growths.IBlockGrowth;
@@ -136,7 +136,7 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
             } else {
                 result = ConfigurableBlockGrowth.CODEC.parse(RegistryOps.create(JsonOps.INSTANCE, registryAccess), json);
             }
-            var o = result.resultOrPartial(error -> ImmersiveWeathering.LOGGER.error("Failed to read block growth JSON object for {} : {}", e.getKey(), error));
+            var o = result.resultOrPartial(error -> ImmersiveNature.LOGGER.error("Failed to read block growth JSON object for {} : {}", e.getKey(), error));
             if (o.isPresent()) {
                 IBlockGrowth g = o.get();
                 if (!(g instanceof NoOpBlockGrowth)) {
@@ -145,7 +145,7 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
             }
             o.ifPresent(growths::add);
         }
-        ImmersiveWeathering.LOGGER.info("Loaded {} block growths configurations", map.size());
+        ImmersiveNature.LOGGER.info("Loaded {} block growths configurations", map.size());
 
         GROWTH_FOR_BLOCK.clear();
         UNIVERSAL_GROWTHS.clear();

@@ -1,6 +1,6 @@
 package com.immersive_nature.util;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -57,7 +57,7 @@ public final class BlockRules {
     private Rule parse(String line) {
         String[] parts = line.split(",");
         if (parts.length != 2 && parts.length != 3) {
-            ImmersiveWeathering.LOGGER.warn("{}: ignoring \"{}\", expected \"from,to\" or \"from,to,chance\"", name, line);
+            ImmersiveNature.LOGGER.warn("{}: ignoring \"{}\", expected \"from,to\" or \"from,to,chance\"", name, line);
             return null;
         }
         double chance = defaultChance;
@@ -65,14 +65,14 @@ public final class BlockRules {
             try {
                 chance = Double.parseDouble(parts[2].trim());
             } catch (NumberFormatException e) {
-                ImmersiveWeathering.LOGGER.warn("{}: bad chance \"{}\" in \"{}\"", name, parts[2].trim(), line);
+                ImmersiveNature.LOGGER.warn("{}: bad chance \"{}\" in \"{}\"", name, parts[2].trim(), line);
                 return null;
             }
         }
         String from = parts[0].trim();
         Block to = block(parts[1].trim());
         if (to == null) {
-            ImmersiveWeathering.LOGGER.warn("{}: unknown block \"{}\" in \"{}\"", name, parts[1].trim(), line);
+            ImmersiveNature.LOGGER.warn("{}: unknown block \"{}\" in \"{}\"", name, parts[1].trim(), line);
             return null;
         }
         if (from.startsWith("#")) {
@@ -82,7 +82,7 @@ public final class BlockRules {
         }
         Block block = block(from);
         if (block == null) {
-            ImmersiveWeathering.LOGGER.warn("{}: unknown block \"{}\" in \"{}\"", name, from, line);
+            ImmersiveNature.LOGGER.warn("{}: unknown block \"{}\" in \"{}\"", name, from, line);
             return null;
         }
         return new Rule(block, null, to, chance);

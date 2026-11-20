@@ -1,6 +1,6 @@
 package com.immersive_nature.reg;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.configs.CommonConfigs;
 import net.mehvahdjukaar.moonlight.api.misc.RegSupplier;
 import net.mehvahdjukaar.moonlight.api.platform.RegHelper;
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 public class ModCreativeTab {
 
     public static final RegSupplier<CreativeModeTab> MOD_TAB = !CommonConfigs.CREATIVE_TAB.get() ? null :
-        RegHelper.registerCreativeModeTab(ImmersiveWeathering.res("immersive_nature"),
+        RegHelper.registerCreativeModeTab(ImmersiveNature.res("immersive_nature"),
             (c) -> c.title(Component.translatable("itemGroup.immersive_nature.immersive_nature"))
                 .icon(() -> ModBlocks.IVY.get().asItem().getDefaultInstance()));
 

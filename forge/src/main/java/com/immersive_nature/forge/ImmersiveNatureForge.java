@@ -2,7 +2,7 @@ package com.immersive_nature.forge;
 
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableBiMap;
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.reg.ModBlocks;
 import com.immersive_nature.reg.ModWaxables;
 import net.minecraft.resources.ResourceLocation;
@@ -23,13 +23,13 @@ import net.minecraftforge.registries.RegisterEvent;
 /**
  * Authors: MehVahdJukaar, Ordana, Keybounce,
  */
-@Mod(ImmersiveWeathering.MOD_ID)
-public class ImmersiveWeatheringForge {
-    public static final String MOD_ID = ImmersiveWeathering.MOD_ID;
+@Mod(ImmersiveNature.MOD_ID)
+public class ImmersiveNatureForge {
+    public static final String MOD_ID = ImmersiveNature.MOD_ID;
 
-    public ImmersiveWeatheringForge() {
+    public ImmersiveNatureForge() {
 
-        ImmersiveWeathering.commonInit();
+        ImmersiveNature.commonInit();
         com.immersive_nature.forge.overgrowth.Overgrowth.init();
         com.immersive_nature.forge.rainwater.RainWater.init();
         com.immersive_nature.forge.desirepaths.DesirePaths.init();
@@ -39,12 +39,12 @@ public class ImmersiveWeatheringForge {
                 net.minecraftforge.registries.DeferredRegister.create(ForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, MOD_ID);
         lootModifiers.register("dynamic_tree_seeds", DynamicSeedLootModifier.CODEC);
         lootModifiers.register(FMLJavaModLoadingContext.get().getModEventBus());
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, true, ImmersiveWeatheringForge::onRightClickBranch);
+        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGHEST, true, ImmersiveNatureForge::onRightClickBranch);
         if (net.minecraftforge.fml.ModList.get().isLoaded("dynamictrees")) {
             try {
                 Class.forName("com.ferreusveritas.dynamictrees.api.registry.RegistryHandler").getMethod("setup", String.class).invoke(null, MOD_ID);
             } catch (Throwable e) {
-                ImmersiveWeathering.LOGGER.error("Failed to register Immersive Nature soils with Dynamic Trees", e);
+                ImmersiveNature.LOGGER.error("Failed to register Immersive Nature soils with Dynamic Trees", e);
             }
         }
 
@@ -95,7 +95,7 @@ public class ImmersiveWeatheringForge {
             HoneycombItem.WAX_OFF_BY_BLOCK = Suppliers.memoize(() -> (HoneycombItem.WAXABLES.get()).inverse());
 
         } catch (Exception e) {
-            ImmersiveWeathering.LOGGER.error("Failed to register Waxables: ", e);
+            ImmersiveNature.LOGGER.error("Failed to register Waxables: ", e);
         }
 
     }

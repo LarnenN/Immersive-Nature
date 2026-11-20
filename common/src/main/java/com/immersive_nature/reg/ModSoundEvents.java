@@ -1,6 +1,6 @@
 package com.immersive_nature.reg;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.mehvahdjukaar.moonlight.api.misc.RegSupplier;
 import net.mehvahdjukaar.moonlight.api.platform.RegHelper;
 import net.minecraft.resources.ResourceLocation;
@@ -17,7 +17,7 @@ public class ModSoundEvents {
 
     @NotNull
     private static RegSupplier<SoundEvent> registerSoundEvent(@NotNull String name) {
-        ResourceLocation id = ImmersiveWeathering.res(name);
+        ResourceLocation id = ImmersiveNature.res(name);
         return RegHelper.registerSound(id);
     }
 }

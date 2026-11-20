@@ -28,18 +28,18 @@ import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class ImmersiveWeatheringClient {
+public class ImmersiveNatureClient {
 
     public static void init() {
-        ClientHelper.addClientSetup(ImmersiveWeatheringClient::setup);
+        ClientHelper.addClientSetup(ImmersiveNatureClient::setup);
         ClientDynamicResourcesHandler.INSTANCE.register();
 
-        ClientHelper.registerOptionalTexturePack(ImmersiveWeathering.res("visual_waxed_iron_items"));
+        ClientHelper.registerOptionalTexturePack(ImmersiveNature.res("visual_waxed_iron_items"));
 
-        ClientHelper.addEntityRenderersRegistration(ImmersiveWeatheringClient::registerEntityRenderers);
-        ClientHelper.addBlockColorsRegistration(ImmersiveWeatheringClient::registerBlockColors);
-        ClientHelper.addItemColorsRegistration(ImmersiveWeatheringClient::registerItemColors);
-        ClientHelper.addParticleRegistration(ImmersiveWeatheringClient::registerParticles);
+        ClientHelper.addEntityRenderersRegistration(ImmersiveNatureClient::registerEntityRenderers);
+        ClientHelper.addBlockColorsRegistration(ImmersiveNatureClient::registerBlockColors);
+        ClientHelper.addItemColorsRegistration(ImmersiveNatureClient::registerItemColors);
+        ClientHelper.addParticleRegistration(ImmersiveNatureClient::registerParticles);
     }
 
     public static void setup() {
@@ -105,7 +105,7 @@ public class ImmersiveWeatheringClient {
 
         ClientHelper.registerRenderType(ModBlocks.HANGING_ROOTS_WALL.get(), RenderType.cutoutMipped());
 
-        ItemProperties.register(ModItems.FLOWER_CROWN.get(), ImmersiveWeathering.res("supporter"),
+        ItemProperties.register(ModItems.FLOWER_CROWN.get(), ImmersiveNature.res("supporter"),
             (stack, world, entity, s) -> FlowerCrownItem.getItemTextureIndex(stack));
     }
 

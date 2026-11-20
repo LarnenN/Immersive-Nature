@@ -1,6 +1,6 @@
 package com.immersive_nature.forge;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -28,7 +28,7 @@ public final class LegacyIdRemapper {
     private static void remap(MissingMappingsEvent.Mapping mapping, IForgeRegistry registry) {
         ResourceLocation key = mapping.getKey();
         if (!OLD.equals(key.getNamespace())) return;
-        ResourceLocation newKey = new ResourceLocation(ImmersiveWeathering.MOD_ID, key.getPath());
+        ResourceLocation newKey = new ResourceLocation(ImmersiveNature.MOD_ID, key.getPath());
         if (registry.containsKey(newKey)) {
             Object value = registry.getValue(newKey);
             mapping.remap(value);

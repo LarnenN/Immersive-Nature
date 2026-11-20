@@ -1,7 +1,7 @@
 package com.immersive_nature.reg;
 
 import com.mojang.serialization.Codec;
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.data.rute_tests.*;
 import net.mehvahdjukaar.moonlight.api.platform.RegHelper;
 import net.minecraft.core.registries.Registries;
@@ -29,6 +29,6 @@ public class ModRuleTests {
 
 
     private static <P extends RuleTest> Supplier<RuleTestType<P>> register(String name, Codec<P> codec) {
-        return RegHelper.register(ImmersiveWeathering.res(name), () -> () -> codec, Registries.RULE_TEST);
+        return RegHelper.register(ImmersiveNature.res(name), () -> () -> codec, Registries.RULE_TEST);
     }
 }

@@ -1,6 +1,6 @@
 package com.immersive_nature.reg;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.blocks.LeafPileBlock;
 import com.immersive_nature.items.*;
 import com.immersive_nature.items.materials.FlowerCrownMaterial;
@@ -30,7 +30,7 @@ public class ModItems {
     }
 
     public static <T extends Item> Supplier<T> regItem(String name, Supplier<T> itemSup) {
-        return RegHelper.registerItem(ImmersiveWeathering.res(name), itemSup);
+        return RegHelper.registerItem(ImmersiveNature.res(name), itemSup);
     }
 
     //helpers
@@ -115,7 +115,7 @@ public class ModItems {
             String name = !type.canBurn() ? type.getVariantId("scales", false) : type.getVariantId("bark", false);
 
             Item item = new WoodBasedItem(new Item.Properties(), type, 200);
-            event.register(ImmersiveWeathering.res(name), item);
+            event.register(ImmersiveNature.res(name), item);
             BARK.put(type, item);
             type.addChild("immersive_nature:bark", item);
         }

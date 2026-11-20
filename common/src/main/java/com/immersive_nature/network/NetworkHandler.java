@@ -1,12 +1,12 @@
 package com.immersive_nature.network;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.mehvahdjukaar.moonlight.api.platform.network.ChannelHandler;
 import net.mehvahdjukaar.moonlight.api.platform.network.NetworkDir;
 
 public class NetworkHandler {
 
-    public static final ChannelHandler CHANNEL = ChannelHandler.builder(ImmersiveWeathering.MOD_ID)
+    public static final ChannelHandler CHANNEL = ChannelHandler.builder(ImmersiveNature.MOD_ID)
             .register(NetworkDir.PLAY_TO_CLIENT, SendCustomParticlesPacket.class, SendCustomParticlesPacket::new)
             .build();
 

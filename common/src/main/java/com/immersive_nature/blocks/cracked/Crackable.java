@@ -3,7 +3,7 @@ package com.immersive_nature.blocks.cracked;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
-import com.immersive_nature.IWPlatformStuff;
+import com.immersive_nature.NaturePlatform;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.reg.ModBlocks;
 import com.immersive_nature.util.PatchSpreader;
@@ -65,7 +65,7 @@ public interface Crackable extends Weatherable {
             .put(Blocks.END_STONE_BRICK_SLAB, ModBlocks.CRACKED_END_STONE_BRICK_SLAB.get())
             .put(Blocks.END_STONE_BRICK_WALL, ModBlocks.CRACKED_END_STONE_BRICK_WALL.get());
 
-        IWPlatformStuff.addExtraCrackedBlocks(builder);
+        NaturePlatform.addExtraCrackedBlocks(builder);
 
         return builder.build();
     });

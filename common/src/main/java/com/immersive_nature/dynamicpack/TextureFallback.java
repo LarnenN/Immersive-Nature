@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.level.block.Block;
 
-public final class IWTextureFallback {
-   private IWTextureFallback() {
+public final class TextureFallback {
+   private TextureFallback() {
    }
 
    public static ResourceLocation find(ResourceManager var0, Block var1, Predicate<String> var2) throws java.io.FileNotFoundException {

@@ -7,11 +7,12 @@ labels: 'Bug/Issue'
 **Describe the bug:**
 A clear and concise description of what the bug is. Include as much information as you can. Images are often helpful, especially screenshots of the F3 debug menu.
 
-**Versions: (BEFORE SUBMITTING A BUG REPORT, make sure you have the most up-to-date versions of Immersive Weathering, Moonlight Lib and Supplementaries)**
+**Versions: (BEFORE SUBMITTING A BUG REPORT, make sure you have the most up-to-date versions of Immersive Nature, Moonlight Lib and Kiwi)**
 Minecraft version:
-Immersive Weathering version:
+Immersive Nature version:
 Moonlight Lib version:
-Fabric API / QSL / Forge version:
+Kiwi version:
+Forge version:
 
 **Other mods:**
 List all mods that you're using; could be in the form of a list of the filenames, a crash report list, a screenshot of

@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.FlowingFluid;
 import org.jetbrains.annotations.Contract;
 
-public class IWPlatformStuff {
+public class NaturePlatform {
 
     @Contract
     @ExpectPlatform

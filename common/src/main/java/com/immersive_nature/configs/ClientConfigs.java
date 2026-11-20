@@ -1,6 +1,6 @@
 package com.immersive_nature.configs;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigSpec;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigType;
@@ -23,7 +23,7 @@ public class ClientConfigs {
     public static Supplier<Double> STORMY_FALLING_LEAF_PARTICLE_RATE;
 
     public static void init() {
-        ConfigBuilder builder = ConfigBuilder.create(ImmersiveWeathering.res("client"), ConfigType.CLIENT);
+        ConfigBuilder builder = ConfigBuilder.create(ImmersiveNature.res("client"), ConfigType.CLIENT);
 
         builder.push("general");
         LEAF_DECAY_PARTICLES = builder.define("leaves_decay_particles", true);

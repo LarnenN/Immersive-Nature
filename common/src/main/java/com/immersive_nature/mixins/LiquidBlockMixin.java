@@ -1,7 +1,7 @@
 package com.immersive_nature.mixins;
 
 import com.google.common.collect.ImmutableList;
-import com.immersive_nature.IWPlatformStuff;
+import com.immersive_nature.NaturePlatform;
 import com.immersive_nature.data.fluid_generators.FluidGeneratorsHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -78,7 +78,7 @@ public abstract class LiquidBlockMixin extends Block implements BucketPickup {
 
     @Unique
     public FlowingFluid getOwnFluid() {
-        var f = IWPlatformStuff.getFlowingFluid((LiquidBlock) (Object) this);
+        var f = NaturePlatform.getFlowingFluid((LiquidBlock) (Object) this);
         if (f == null)
             return this.fluid;
         return f;

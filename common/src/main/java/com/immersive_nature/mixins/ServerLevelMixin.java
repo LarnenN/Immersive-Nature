@@ -42,7 +42,7 @@ public abstract class ServerLevelMixin extends Level {
             locals = LocalCapture.CAPTURE_FAILHARD,
             require = 1
     )
-    private void IW_weatheringTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos,
+    private void immersiveNature$weatheringTick(LevelChunk chunk, int randomTickSpeed, CallbackInfo ci, ChunkPos chunkPos,
                                    boolean bl, int i, int j, ProfilerFiller profilerFiller, LevelChunkSection[] levelChunkSections, int m, LevelChunkSection levelChunkSection, int k, int n, int l, BlockPos blockPos3, BlockState blockState4) {
         // we need to get it again as it might have been changed by its own random tick
         BlockState newState = levelChunkSection.getBlockState(blockPos3.getX() - i,
@@ -57,7 +57,7 @@ public abstract class ServerLevelMixin extends Level {
             at = @At(value = "TAIL"))
     private void precipitationTick(LevelChunk levelChunk, int randomTickSpeed, CallbackInfo ci) {
         var p = this.getProfiler();
-        p.push("ImmWeatheringExtraRandomTicks");
+        p.push("ImmersiveNatureExtraRandomTicks");
         BlockGrowthHandler.performSkyAccessTick((ServerLevel) (Object) this, levelChunk, randomTickSpeed);
         p.pop();
     }

@@ -1,6 +1,6 @@
 package com.immersive_nature.configs;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.mehvahdjukaar.moonlight.api.platform.PlatHelper;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigSpec;
@@ -118,7 +118,7 @@ public class CommonConfigs {
     }
 
     static{
-        ConfigBuilder builder = ConfigBuilder.create(ImmersiveWeathering.res("common"), ConfigType.COMMON);
+        ConfigBuilder builder = ConfigBuilder.create(ImmersiveNature.res("common"), ConfigType.COMMON);
 
         builder.setSynced();
 

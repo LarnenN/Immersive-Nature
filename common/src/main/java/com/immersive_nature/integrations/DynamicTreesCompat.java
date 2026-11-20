@@ -1,6 +1,6 @@
 package com.immersive_nature.integrations;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.util.WeatheringHelper;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -99,7 +99,7 @@ public class DynamicTreesCompat {
             return true;
          } catch (Throwable var6) {
             broken = true;
-            ImmersiveWeathering.LOGGER.error("Failed to set up Dynamic Trees compat, saplings will stay vanilla", var6);
+            ImmersiveNature.LOGGER.error("Failed to set up Dynamic Trees compat, saplings will stay vanilla", var6);
             return false;
          }
       }
@@ -132,7 +132,7 @@ public class DynamicTreesCompat {
                   }
                } catch (Throwable var7) {
                   broken = true;
-                  ImmersiveWeathering.LOGGER.error("Dynamic Trees compat failed, disabling it", var7);
+                  ImmersiveNature.LOGGER.error("Dynamic Trees compat failed, disabling it", var7);
                   if (level.getBlockState(pos).isAir()) {
                      level.setBlock(pos, placed, 3);
                   }
@@ -164,7 +164,7 @@ public class DynamicTreesCompat {
             }
          } catch (Throwable var5) {
             broken = true;
-            ImmersiveWeathering.LOGGER.error("Dynamic Trees compat failed, disabling it", var5);
+            ImmersiveNature.LOGGER.error("Dynamic Trees compat failed, disabling it", var5);
          }
 
          return stack;
@@ -208,7 +208,7 @@ public class DynamicTreesCompat {
                }
             } catch (Throwable var11) {
                broken = true;
-               ImmersiveWeathering.LOGGER.error("Dynamic Trees compat failed, disabling it", var11);
+               ImmersiveNature.LOGGER.error("Dynamic Trees compat failed, disabling it", var11);
             }
 
             return null;
@@ -263,7 +263,7 @@ public class DynamicTreesCompat {
             }
          } catch (Throwable var4) {
             broken = true;
-            ImmersiveWeathering.LOGGER.error("Dynamic Trees compat failed, disabling it", var4);
+            ImmersiveNature.LOGGER.error("Dynamic Trees compat failed, disabling it", var4);
          }
 
          return ItemStack.EMPTY;
@@ -296,6 +296,6 @@ public class DynamicTreesCompat {
    private static boolean isNonVanillaGrass(BlockState ground) {
       Block b = ground.getBlock();
       ResourceLocation id = BuiltInRegistries.BLOCK.getKey(b);
-      return id.getNamespace().equals(ImmersiveWeathering.MOD_ID) && id.getPath().contains("grass");
+      return id.getNamespace().equals(ImmersiveNature.MOD_ID) && id.getPath().contains("grass");
    }
 }

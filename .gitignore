@@ -53,3 +53,4 @@ forge/build/tmp/compileJava/previous-compilation-data.bin
 iw versions/
 fabric/
 forge/run/
+.architectury-transformer/

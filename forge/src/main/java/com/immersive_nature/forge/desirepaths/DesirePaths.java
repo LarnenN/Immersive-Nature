@@ -1,6 +1,6 @@
 package com.immersive_nature.forge.desirepaths;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.util.BlockRules;
 import net.minecraft.core.BlockPos;
@@ -33,11 +33,11 @@ import java.util.List;
  */
 public final class DesirePaths {
     /** Plants that get trampled when the ground under them wears down. */
-    public static final TagKey<Block> TRAMPLED_PLANTS = TagKey.create(Registries.BLOCK, ImmersiveWeathering.res("desire_path_trampled"));
+    public static final TagKey<Block> TRAMPLED_PLANTS = TagKey.create(Registries.BLOCK, ImmersiveNature.res("desire_path_trampled"));
     /** Mobs that wear down paths when mobs_make_paths is off. Empty by default. */
-    public static final TagKey<EntityType<?>> PATH_MOBS = TagKey.create(Registries.ENTITY_TYPE, ImmersiveWeathering.res("makes_desire_paths"));
+    public static final TagKey<EntityType<?>> PATH_MOBS = TagKey.create(Registries.ENTITY_TYPE, ImmersiveNature.res("makes_desire_paths"));
     /** Mobs that never wear down paths when mobs_make_paths is on (sheep by default). */
-    public static final TagKey<EntityType<?>> NO_PATH_MOBS = TagKey.create(Registries.ENTITY_TYPE, ImmersiveWeathering.res("no_desire_paths"));
+    public static final TagKey<EntityType<?>> NO_PATH_MOBS = TagKey.create(Registries.ENTITY_TYPE, ImmersiveNature.res("no_desire_paths"));
 
     /** Normal walking moves about this many blocks per tick; used to scale the chance by speed. */
     private static final float WALK_SPEED = 0.12F;

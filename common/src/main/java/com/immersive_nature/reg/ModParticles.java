@@ -1,6 +1,6 @@
 package com.immersive_nature.reg;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import net.mehvahdjukaar.moonlight.api.platform.RegHelper;
 import net.minecraft.core.particles.SimpleParticleType;
 
@@ -13,7 +13,7 @@ public class ModParticles {
     }
 
     public static Supplier<SimpleParticleType> registerParticle(String name) {
-        return RegHelper.registerParticle(ImmersiveWeathering.res(name));
+        return RegHelper.registerParticle(ImmersiveNature.res(name));
     }
 
     public static final Supplier<SimpleParticleType> GRAVITY_AZALEA_FLOWER = registerParticle("gravity_azalea_flower");

@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.JsonOps;
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.mehvahdjukaar.moonlight.api.misc.RegistryAccessJsonReloadListener;
 import net.mehvahdjukaar.moonlight.api.platform.PlatHelper;
@@ -60,11 +60,11 @@ public class FluidGeneratorsHandler extends RegistryAccessJsonReloadListener {
             var json = e.getValue();
 
             var result = IFluidGenerator.CODEC.parse(RegistryOps.create(JsonOps.INSTANCE, registryAccess), json);
-            var o = result.resultOrPartial(error -> ImmersiveWeathering.LOGGER.error("Failed to read liquid generator JSON object for {} : {}", e.getKey(), error));
+            var o = result.resultOrPartial(error -> ImmersiveNature.LOGGER.error("Failed to read liquid generator JSON object for {} : {}", e.getKey(), error));
 
             o.ifPresent(generators::add);
         }
-        ImmersiveWeathering.LOGGER.info("Loaded {} liquid generators configurations", map.size());
+        ImmersiveNature.LOGGER.info("Loaded {} liquid generators configurations", map.size());
 
         STILL_GENERATORS.clear();
         FLOWING_GENERATORS.clear();

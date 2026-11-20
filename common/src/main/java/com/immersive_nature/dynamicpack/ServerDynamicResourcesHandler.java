@@ -1,6 +1,6 @@
 package com.immersive_nature.dynamicpack;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.reg.ModBlocks;
 import com.immersive_nature.reg.ModItems;
@@ -25,29 +25,29 @@ public class ServerDynamicResourcesHandler extends DynServerResourcesGenerator {
     public static final ServerDynamicResourcesHandler INSTANCE = new ServerDynamicResourcesHandler();
 
     public ServerDynamicResourcesHandler() {
-        super(new DynamicDataPack(ImmersiveWeathering.res("generated_pack")));
+        super(new DynamicDataPack(ImmersiveNature.res("generated_pack")));
         this.dynamicPack.setGenerateDebugResources(PlatHelper.isDev() || CommonConfigs.DEBUG_RESOURCES.get());
     }
 
     @Override
     public Logger getLogger() {
-        return ImmersiveWeathering.LOGGER;
+        return ImmersiveNature.LOGGER;
     }
 
     @Override
     public void regenerateDynamicAssets(ResourceManager manager) {
 
         //tag
-        SimpleTagBuilder tag = SimpleTagBuilder.of(ImmersiveWeathering.res("leaf_piles"));
+        SimpleTagBuilder tag = SimpleTagBuilder.of(ImmersiveNature.res("leaf_piles"));
         tag.addEntries(ModBlocks.LEAF_PILES.values());
         dynamicPack.addTag(tag, Registries.BLOCK);
         dynamicPack.addTag(tag, Registries.BLOCK);
 
-        dynamicPack.addTag(SimpleTagBuilder.of(ImmersiveWeathering.res("bark"))
+        dynamicPack.addTag(SimpleTagBuilder.of(ImmersiveNature.res("bark"))
                 .addEntries(ModItems.BARK.values()), Registries.ITEM);
 
-        StaticResource lootTable = StaticResource.getOrLog(manager, ResType.BLOCK_LOOT_TABLES.getPath(ImmersiveWeathering.res("oak_leaf_pile")));
-        StaticResource recipe = StaticResource.getOrLog(manager, ResType.RECIPES.getPath(ImmersiveWeathering.res("oak_leaf_pile")));
+        StaticResource lootTable = StaticResource.getOrLog(manager, ResType.BLOCK_LOOT_TABLES.getPath(ImmersiveNature.res("oak_leaf_pile")));
+        StaticResource recipe = StaticResource.getOrLog(manager, ResType.RECIPES.getPath(ImmersiveNature.res("oak_leaf_pile")));
 
         for (var e : ModBlocks.LEAF_PILES.entrySet()) {
             LeavesType leafType = e.getKey();
@@ -85,7 +85,7 @@ public class ServerDynamicResourcesHandler extends DynServerResourcesGenerator {
         string = string.replace("minecraft:oak_leaves", leafBlockId);
 
         //adds modified under my namespace
-        ResourceLocation newRes = ImmersiveWeathering.res(path);
+        ResourceLocation newRes = ImmersiveNature.res(path);
         dynamicPack.addBytes(newRes, string.getBytes(), ResType.GENERIC);
     }
 

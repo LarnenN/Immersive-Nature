@@ -20,7 +20,7 @@ import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class ImmersiveWeathering {
+public class ImmersiveNature {
 
     public static final String MOD_ID = "immersive_nature";
 
@@ -38,10 +38,10 @@ public class ImmersiveWeathering {
         CommonConfigs.init();
         if (PlatHelper.getPhysicalSide().isClient()) {
             ClientConfigs.init();
-            ImmersiveWeatheringClient.init();
+            ImmersiveNatureClient.init();
         }
 
-        PlatHelper.addCommonSetup(ImmersiveWeathering::setup);
+        PlatHelper.addCommonSetup(ImmersiveNature::setup);
 
         ServerDynamicResourcesHandler.INSTANCE.register();
 

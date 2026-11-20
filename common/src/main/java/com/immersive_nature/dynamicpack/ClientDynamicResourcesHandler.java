@@ -1,6 +1,6 @@
 package com.immersive_nature.dynamicpack;
 
-import com.immersive_nature.ImmersiveWeathering;
+import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.reg.ModBlocks;
 import com.immersive_nature.reg.ModItems;
@@ -31,13 +31,13 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
     public static final ClientDynamicResourcesHandler INSTANCE = new ClientDynamicResourcesHandler();
 
     public ClientDynamicResourcesHandler() {
-        super(new DynamicTexturePack(ImmersiveWeathering.res("generated_pack")));
+        super(new DynamicTexturePack(ImmersiveNature.res("generated_pack")));
         this.dynamicPack.setGenerateDebugResources(PlatHelper.isDev() || CommonConfigs.DEBUG_RESOURCES.get());
     }
 
     @Override
     public Logger getLogger() {
-        return ImmersiveWeathering.LOGGER;
+        return ImmersiveNature.LOGGER;
     }
 
     public void addLeafPilesModel(StaticResource resource, String id, ResourceLocation texturePath) {
@@ -50,7 +50,7 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
         string = string.replace("heavy_oak_leaves", id.replace("/", "/heavy_"));
 
         //adds modified under my namespace
-        ResourceLocation newRes = ImmersiveWeathering.res(path);
+        ResourceLocation newRes = ImmersiveNature.res(path);
         dynamicPack.addBytes(newRes, string.getBytes(), ResType.GENERIC);
     }
 
@@ -64,28 +64,28 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
         {
 
             StaticResource lpBlockState = StaticResource.getOrLog(manager,
-                    ResType.BLOCKSTATES.getPath(ImmersiveWeathering.res("oak_leaf_pile")));
+                    ResType.BLOCKSTATES.getPath(ImmersiveNature.res("oak_leaf_pile")));
             StaticResource lpModel1 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height1")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height1")));
             StaticResource lpModel2 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height2")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height2")));
             StaticResource lpModel4 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height4")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height4")));
             StaticResource lpModel6 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height6")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height6")));
             StaticResource lpModel8 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height8")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height8")));
             StaticResource lpModel10 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height10")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height10")));
             StaticResource lpModel12 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height12")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height12")));
             StaticResource lpModel14 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height14")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height14")));
             StaticResource lpModel16 = StaticResource.getOrLog(manager,
-                    ResType.BLOCK_MODELS.getPath(ImmersiveWeathering.res("leaf_piles/oak_leaf_pile_height16")));
+                    ResType.BLOCK_MODELS.getPath(ImmersiveNature.res("leaf_piles/oak_leaf_pile_height16")));
 
             StaticResource lpItemModel = StaticResource.getOrLog(manager,
-                    ResType.ITEM_MODELS.getPath(ImmersiveWeathering.res("oak_leaf_pile")));
+                    ResType.ITEM_MODELS.getPath(ImmersiveNature.res("oak_leaf_pile")));
 
             ModBlocks.LEAF_PILES.forEach((leafType, pile) -> {
                 if (leafType.isVanilla()&&PlatHelper.isDev()) return;
@@ -109,7 +109,7 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
                 try {
                     ResourceLocation leavesTexture;
                     try {
-                        leavesTexture = IWTextureFallback.find(manager, leafType.leaves, LOOKS_LIKE_LEAF_TEXTURE);
+                        leavesTexture = TextureFallback.find(manager, leafType.leaves, LOOKS_LIKE_LEAF_TEXTURE);
                     } catch (Exception exception) {
                         getLogger().warn("Failed to find texture for Leaf Pile {}, using oak one instead", pile);
                         leavesTexture = RPUtils.findFirstBlockTextureLocation(manager, Blocks.OAK_LEAVES, (s) -> true);
@@ -132,7 +132,7 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
         //bark
         {
             StaticResource itemModel = StaticResource.getOrLog(manager,
-                    ResType.ITEM_MODELS.getPath(ImmersiveWeathering.res("oak_bark")));
+                    ResType.ITEM_MODELS.getPath(ImmersiveNature.res("oak_bark")));
 
             ModItems.BARK.forEach((woodType, bark) -> {
                 if (!woodType.isVanilla() || !PlatHelper.isDev()) {
@@ -154,19 +154,19 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
 
             String path = type.getNamespace() + "/heavy_" + type.getTypeName() + "_leaf_pile";
 
-            try (TextureImage baseTexture = TextureImage.open(manager, IWTextureFallback.find(manager, type.leaves, LOOKS_LIKE_LEAF_TEXTURE))) {
+            try (TextureImage baseTexture = TextureImage.open(manager, TextureFallback.find(manager, type.leaves, LOOKS_LIKE_LEAF_TEXTURE))) {
 
-                ResourceLocation textureRes = ImmersiveWeathering.res(
+                ResourceLocation textureRes = ImmersiveNature.res(
                         String.format("block/%s", path));
                 if (!alreadyHasTextureAtLocation(manager, textureRes)) {
 
                     Palette targetPalette = Palette.fromImage(baseTexture);
                     if (targetPalette.getDarkest().getOccurrence() > 5) {
-                        IWTextureFallback.increaseDownSafe(targetPalette);
+                        TextureFallback.increaseDownSafe(targetPalette);
                     }
                     var dark = targetPalette.getDarkest();
 
-                    IWTextureFallback.removeAlphaSafe(baseTexture, dark.value());
+                    TextureFallback.removeAlphaSafe(baseTexture, dark.value());
 
                     dynamicPack.addAndCloseTexture(textureRes, baseTexture);
                 }
@@ -176,13 +176,13 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
         });
 
         //bark textures
-        try (TextureImage template = TextureImage.open(manager, ImmersiveWeathering.res("item/bark_template"))) {
+        try (TextureImage template = TextureImage.open(manager, ImmersiveNature.res("item/bark_template"))) {
 
             ModItems.BARK.forEach((type, bark) -> {
 
                 if (type.isVanilla() && PlatHelper.isDev()) return;
 
-                ResourceLocation textureRes = ImmersiveWeathering.res(
+                ResourceLocation textureRes = ImmersiveNature.res(
                         "item/" + Utils.getID(bark).getPath());
                 if (!alreadyHasTextureAtLocation(manager, textureRes)) {
 
