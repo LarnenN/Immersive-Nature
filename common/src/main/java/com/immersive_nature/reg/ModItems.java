@@ -123,6 +123,7 @@ public class ModItems {
     private static void registerLeafPilesItems(Registrator<Item> event, Collection<LeavesType> leavesTypes) {
         for (LeavesType type : leavesTypes) {
             var b = ModBlocks.LEAF_PILES.get(type);
+            if (b == null) continue; // leaves without a leaf pile
             BlockItem i = new LeafPileBlockItem(b, new Item.Properties());
             event.register(Utils.getID(b), i);
             LEAF_PILES.put(type, i);

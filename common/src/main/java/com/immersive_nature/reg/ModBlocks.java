@@ -602,8 +602,12 @@ public class ModBlocks {
         new TintedGlassPane(Properties.of().strength(0.3F).sound(SoundType.GLASS).noOcclusion().isRedstoneConductor(NEVER).isSuffocating(NEVER).isViewBlocking(NEVER)));
 
 
+    // leaves that get no leaf pile at all (Biomes O' Plenty "null" leaves are not real foliage)
+    private static final java.util.Set<String> NO_LEAF_PILE = java.util.Set.of("biomesoplenty:null");
+
     private static void registerLeafPiles(Registrator<Block> event, Collection<LeavesType> leavesTypes) {
         for (LeavesType type : leavesTypes) {
+            if (NO_LEAF_PILE.contains(type.id.toString())) continue;
             String name = type.getVariantId("leaf_pile", false);
 
             LeafPileBlock block = new LeafPileBlock(LEAF_PILE_PROPERTIES, type);

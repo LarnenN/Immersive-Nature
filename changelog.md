@@ -11,6 +11,7 @@
 - Rain also raises lakes, rivers and oceans, so long rain can flood their shores. New `rain_water.floods` option (on by default); turn it off to let rain only fill puddles.
 - Snow (Snow! Real Magic) and fluids (Flowing Fluids) are no longer separate mods inside the jar: everything is one mod, `immersive_nature`. Old worlds are converted automatically: `snowrealmagic:*` blocks and block entities load as `immersive_nature:*` (with clearer names, e.g. `snowy_fence`, `snow_layer`), and so do the old `immersive_weathering:*` ids, which were not remapped correctly before. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.
 - One config file: `config/immersive_nature-common.toml` now also holds the `overgrowth`, `snow` and `fluids` sections (before: a per-world overgrowth config, two snow YAML files and a fluids JSON file). Graphics settings, including snow, are in `immersive_nature-client.toml`. Changes made with `/flowing_fluids` are saved into the same file. Old separate config files are no longer read.
+- Biomes O' Plenty: flowering oak leaves get oak leaf pile textures; the "null" leaves no longer get a leaf pile.
 - Overgrowth: the nylium spread setting now controls nylium spreading (it used the mud drying value).
 
 ### Other
