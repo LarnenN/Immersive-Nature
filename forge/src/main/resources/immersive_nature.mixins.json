@@ -8,6 +8,7 @@
     "AccessorItemColor"
   ],
   "mixins": [
+    "BOPLeafPileFeatureMixin",
     "DTRootyLightMixin",
     "FluidInteractionRegistryMixin",
     "SelfRustableMixin",

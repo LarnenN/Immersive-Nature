@@ -18,6 +18,7 @@ import net.mehvahdjukaar.moonlight.api.resources.textures.TextureImage;
 import net.mehvahdjukaar.moonlight.api.util.Utils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.mehvahdjukaar.moonlight.api.set.leaves.LeavesType;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.level.block.Blocks;
 import org.apache.logging.log4j.Logger;
@@ -41,19 +42,40 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
     }
 
     public void addLeafPilesModel(StaticResource resource, String id, ResourceLocation texturePath) {
+        addLeafPilesModel(resource, id, texturePath, texturePath, null);
+    }
+
+    /**
+     * @param light  texture for the thin piles (layers 0-1)
+     * @param medium texture for the middle piles (layers 2-5)
+     * @param heavy  hand-drawn texture for the thick piles, or null to use the generated one
+     */
+    public void addLeafPilesModel(StaticResource resource, String id, ResourceLocation light, ResourceLocation medium,
+                                  ResourceLocation heavy) {
         String string = new String(resource.data, StandardCharsets.UTF_8);
 
         String path = resource.location.getPath().replace("oak_leaf_pile", id);
 
-        string = string.replace("immersive_nature:block/light_oak_leaves", texturePath.toString());
-        string = string.replace("immersive_nature:block/medium_oak_leaves", texturePath.toString());
-        string = string.replace("heavy_oak_leaves", id.replace("/", "/heavy_"));
+        string = string.replace("immersive_nature:block/light_oak_leaves", light.toString());
+        string = string.replace("immersive_nature:block/medium_oak_leaves", medium.toString());
+        string = string.replace("immersive_nature:block/heavy_oak_leaves",
+                heavy != null ? heavy.toString() : "immersive_nature:block/" + id.replace("/", "/heavy_"));
 
         //adds modified under my namespace
         ResourceLocation newRes = ImmersiveNature.res(path);
         dynamicPack.addBytes(newRes, string.getBytes(), ResType.GENERIC);
     }
 
+    /**
+     * Immersive Nature: hand-drawn leaf pile textures for leaves from other mods.
+     * Put them at assets/immersive_nature/textures/block/(mod id)/light_(type)_leaves.png,
+     * medium_(type)_leaves.png and heavy_(type)_leaves.png (for example
+     * biomesoplenty/medium_red_maple_leaves.png). Missing ones fall back to the generated textures.
+     */
+    private ResourceLocation handDrawnLeafPile(ResourceManager manager, LeavesType type, String kind) {
+        ResourceLocation res = ImmersiveNature.res("block/" + type.getNamespace() + "/" + kind + "_" + type.getTypeName() + "_leaves");
+        return alreadyHasTextureAtLocation(manager, res) ? res : null;
+    }
 
     //-------------resource pack dependant textures-------------
 
@@ -114,15 +136,15 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
                         getLogger().warn("Failed to find texture for Leaf Pile {}, using oak one instead", pile);
                         leavesTexture = RPUtils.findFirstBlockTextureLocation(manager, Blocks.OAK_LEAVES, (s) -> true);
                     }
-                    addLeafPilesModel(Objects.requireNonNull(lpModel1), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel2), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel4), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel6), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel8), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel10), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel12), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel14), id, leavesTexture);
-                    addLeafPilesModel(Objects.requireNonNull(lpModel16), id, leavesTexture);
+                    ResourceLocation light = handDrawnLeafPile(manager, leafType, "light");
+                    ResourceLocation medium = handDrawnLeafPile(manager, leafType, "medium");
+                    ResourceLocation heavy = handDrawnLeafPile(manager, leafType, "heavy");
+                    if (light == null) light = leavesTexture;
+                    if (medium == null) medium = leavesTexture;
+                    for (StaticResource model : new StaticResource[]{lpModel1, lpModel2, lpModel4, lpModel6, lpModel8,
+                            lpModel10, lpModel12, lpModel14, lpModel16}) {
+                        addLeafPilesModel(Objects.requireNonNull(model), id, light, medium, heavy);
+                    }
                 } catch (Exception ex) {
                     getLogger().error("Failed to generate Leaf Pile model for {} : {}", pile, ex);
                 }
@@ -151,6 +173,7 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
         //heavy leaves textures
         ModBlocks.LEAF_PILES.forEach((type, pile) -> {
             if (type.isVanilla() && PlatHelper.isDev()) return;
+            if (handDrawnLeafPile(manager, type, "heavy") != null) return; // a hand-drawn one is used instead
 
             String path = type.getNamespace() + "/heavy_" + type.getTypeName() + "_leaf_pile";
 
