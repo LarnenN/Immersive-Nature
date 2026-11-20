@@ -12,7 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.material.Fluids;
-import traben.flowing_fluids.FFFluidUtils;
+import com.immersive_nature.fluids.FFFluidUtils;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;

@@ -56,8 +56,7 @@ public class Tasks {
   public static final Tasks INSTANCE = new Tasks();
 
   // With Flowing Fluids water is finite: never delete it, move it instead.
-  private static final boolean FLOWING_FLUIDS =
-      net.mehvahdjukaar.moonlight.api.platform.PlatHelper.isModLoaded("flowing_fluids");
+  private static final boolean FLOWING_FLUIDS = true; // the fluids part (Flowing Fluids) is built in
 
   public void run(Level world, BlockState state, BlockPos pos, RandomSource rand) {
     if (!com.immersive_nature.configs.CommonConfigs.WATER_EROSION.get()) {

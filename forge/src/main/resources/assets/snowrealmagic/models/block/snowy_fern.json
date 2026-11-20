@@ -1,7 +1,0 @@
-{
-	"parent": "snowrealmagic:block/snowy_cross",
-	"textures": {
-		"cross": "block/fern",
-		"snow": "snowrealmagic:block/snowy_fern"
-	}
-}

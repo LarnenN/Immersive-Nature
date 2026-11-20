@@ -7,6 +7,10 @@
 ### Fixed
 - Dynamic Trees compat: thin mangrove root blocks under the trunk were drawn black. They copied the light blocking of a full mangrove log, so no light reached their sides. Thin root blocks now let light through, and already generated ones are relit automatically.
 
+### Changed
+- Rain also raises lakes, rivers and oceans, so long rain can flood their shores. New `rain_water.floods` option (on by default); turn it off to let rain only fill puddles.
+- Snow (Snow! Real Magic) and fluids (Flowing Fluids) are no longer separate mods inside the jar: everything is one mod, `immersive_nature`. Old worlds are converted automatically: `snowrealmagic:*` blocks and block entities load as `immersive_nature:*` (with clearer names, e.g. `snowy_fence`, `snow_layer`), and so do the old `immersive_weathering:*` ids, which were not remapped correctly before. The old `snowrealmagic-common.yaml` and `flowing_fluids.json` configs are moved to `immersive_nature-snow.yaml` and `immersive_nature-fluids.json`. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.
+
 ### Other
 - Code moved to the `com.immersive_nature` package, classes and mixin configs renamed to Immersive Nature, creative tab renamed to Immersive Nature.
 

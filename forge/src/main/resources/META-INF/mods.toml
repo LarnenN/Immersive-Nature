@@ -58,46 +58,23 @@ versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
-# Snow! Real Magic by Snownee (MIT), built into Immersive Nature.
-# Keeps its own mod id so snow in existing worlds and its config stay as they are.
-[[mods]]
+[[dependencies.immersive_nature]]
 modId = "snowrealmagic"
-version = "10.7.0"
-displayName = "Immersive Nature: Snow"
-authors = "Snownee, minzhi, WZD (Snow! Real Magic)"
-credits = "Based on Snow! Real Magic by Snownee (MIT)"
-logoFile = "icon.png"
-description = '''
-Part of Immersive Nature: realistic snow layers that cover plants, slabs, stairs, fences and leaves.
-Based on Snow! Real Magic by Snownee.
-'''
-
-[[dependencies.snowrealmagic]]
-modId = "kiwi"
-mandatory = true
-versionRange = "[11, 12)"
+mandatory = false
+type = "incompatible"
+versionRange = "*"
 ordering = "NONE"
 side = "BOTH"
 
-[modproperties.snowrealmagic]
-catalogueItemIcon = "minecraft:snow_block"
-kiwiJsonMap = true
-
-# Flowing Fluids by Traben (LGPL-3.0), built into Immersive Nature.
-# Keeps its own mod id so its config, commands and network packets stay as they are.
-[[mods]]
+[[dependencies.immersive_nature]]
 modId = "flowing_fluids"
-version = "1.0.8"
-displayName = "Immersive Nature: Fluids"
-authors = "Traben (Flowing Fluids)"
-credits = "Based on Flowing Fluids by Traben (LGPL-3.0)"
-logoFile = "icon.png"
-description = '''
-Part of Immersive Nature: realistic, mostly finite water and lava that flow level by level.
-Based on Flowing Fluids by Traben.
-'''
+mandatory = false
+type = "incompatible"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
 
-[[dependencies.flowing_fluids]]
+[[dependencies.immersive_nature]]
 modId = "create"
 mandatory = false
 versionRange = "[0.6,)"
@@ -108,9 +85,6 @@ side = "BOTH"
 ["lithium:options"]
 "mixin.world.chunk_ticking.spread_ice" = false
 
-# Kiwi: always read snowrealmagic.kiwi.json. Without this, in a development environment Kiwi scans
-# the annotations of every mod in this jar and loads the Snow! Real Magic module three times.
+# Kiwi: read immersive_nature.kiwi.json instead of scanning class annotations
 [modproperties.immersive_nature]
-kiwiJsonMap = true
-[modproperties.flowing_fluids]
 kiwiJsonMap = true

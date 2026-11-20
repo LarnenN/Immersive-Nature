@@ -30,6 +30,9 @@ public class ImmersiveNatureForge {
     public ImmersiveNatureForge() {
 
         ImmersiveNature.commonInit();
+        // snow (based on Snow! Real Magic) and fluids (based on Flowing Fluids)
+        new com.immersive_nature.snow.util.CommonProxy();
+        new com.immersive_nature.fluids.FlowingFluidsInit();
         com.immersive_nature.forge.overgrowth.Overgrowth.init();
         com.immersive_nature.forge.rainwater.RainWater.init();
         com.immersive_nature.forge.desirepaths.DesirePaths.init();

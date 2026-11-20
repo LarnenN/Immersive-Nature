@@ -1,0 +1,7 @@
+{
+	"parent": "immersive_nature:block/snow/snowy_cross",
+	"textures": {
+		"cross": "block/fern",
+		"snow": "immersive_nature:block/snow/snowy_fern"
+	}
+}

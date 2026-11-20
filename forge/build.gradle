@@ -17,8 +17,8 @@ loom {
 
         mixinConfig  "immersive_nature-common.mixins.json"
         mixinConfig  "immersive_nature.mixins.json"
-        mixinConfig  "snowrealmagic.mixins.json"
-        mixinConfig  "flowing_fluids.mixins.json"
+        mixinConfig  "immersive_nature-snow.mixins.json"
+        mixinConfig  "immersive_nature-fluids.mixins.json"
 
     }
 }

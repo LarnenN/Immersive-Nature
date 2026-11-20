@@ -2,7 +2,6 @@ package com.immersive_nature.erosion;
 
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.util.BlockRules;
-import net.mehvahdjukaar.moonlight.api.platform.PlatHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -20,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public final class WaterSoaking {
 
-    private static final boolean FLOWING_FLUIDS = PlatHelper.isModLoaded("flowing_fluids");
+    private static final boolean FLOWING_FLUIDS = true; // the fluids part (Flowing Fluids) is built in
 
     private static final BlockRules RULES = new BlockRules("Water soaking", () -> CommonConfigs.WATER_SOAKING_TRANSFORMATIONS.get(), 0.05);
 

@@ -17,7 +17,6 @@
   "advancements.immersive_nature.fulgurite.description": "Encuentra fulgurita, un extraño recurso formado al impactar un rayo contra un bloque de arena",
   "advancements.immersive_nature.dirts.title": "Planeta Tierra",
   "advancements.immersive_nature.dirts.description": "Ara cielo y tierra para obtener todos los tipos de tierra diferentes",
-
   "advancements.immersive_nature.bark_off.title": "Árbol va",
   "advancements.immersive_nature.bark_off.description": "Pela la corteza de un tronco de árbol",
   "advancements.immersive_nature.bark_on.title": "Árbol viene",
@@ -26,21 +25,17 @@
   "advancements.immersive_nature.rust_off.description": "Descubre el imperturbable poder del óxido al usar un hacha en un bloque de hierro oxidado",
   "advancements.immersive_nature.rust_on.title": "Como viejo",
   "advancements.immersive_nature.rust_on.description": "Utiliza una esponja mojada en un bloque de hierro",
-
   "text.autoconfig.immersive_nature.title": "Ajustes de Immersive Weathering",
-
   "text.autoconfig.immersive_nature.category.leaves_config": "Flora",
   "text.autoconfig.immersive_nature.category.fire_and_ice_config": "Temperatura",
   "text.autoconfig.immersive_nature.category.block_growth_config": "Crecimiento",
   "text.autoconfig.immersive_nature.category.generators_config": "Generación mineral",
   "text.autoconfig.immersive_nature.category.item_uses_config": "Uso de objetos",
   "text.autoconfig.immersive_nature.category.worldgen_config": "Generación de mundo",
-
   "text.autoconfig.immersive_nature.option.blockGrowthConfig.blockGrowth": "Permitir generación natural de flora",
   "text.autoconfig.immersive_nature.option.blockGrowthConfig.blockCracking": "Permitir agrietamiento natural de bloques",
   "text.autoconfig.immersive_nature.option.blockGrowthConfig.blockMossing": "Permitir recubrimiento de musgo natural de bloques",
   "text.autoconfig.immersive_nature.option.blockGrowthConfig.blockRusting": "Permitir oxidación natural de bloques de hierro",
-
   "text.autoconfig.immersive_nature.option.leavesConfig.fallingLeafParticles": "Generar particulas visuales bajo bloques de hojas",
   "text.autoconfig.immersive_nature.option.leavesConfig.leafPilesForm": "Generar pilas de hojas bajo los bloques de hojas",
   "text.autoconfig.immersive_nature.option.leavesConfig.leafDecayPiles": "Generar pilas de hojas bajo los bloques de hojas en decaimiento",
@@ -51,7 +46,6 @@
   "text.autoconfig.immersive_nature.option.leavesConfig.mulchGrowsCrops": "Acelerar el crecimiento de cultivos mediante mantillo (incompatible con Croptopia)",
   "text.autoconfig.immersive_nature.option.leavesConfig.composterDropsDirt": "Probabilidad aleatoria de producir tierra mediante el compostador",
   "text.autoconfig.immersive_nature.option.leavesConfig.featherFallingFarmer": "Proteger los cultivos mediante el encantamiento caída de pluma",
-
   "text.autoconfig.immersive_nature.option.fireAndIceConfig.fireCharsWood": "Generar madera carbonizada mediante fuego",
   "text.autoconfig.immersive_nature.option.fireAndIceConfig.campfiresCreateSoot": "Generar hollín cerca de las hogueras encendidas",
   "text.autoconfig.immersive_nature.option.fireAndIceConfig.lightningCreateMagma": "Generar bloque de magma al impactar un rayo en un bloque de piedra",
@@ -70,7 +64,6 @@
   "text.autoconfig.immersive_nature.option.fireAndIceConfig.grassFrosting": "Convertir hierbas y helechos en hierbas y helechos escarchados durante las noches",
   "text.autoconfig.immersive_nature.option.fireAndIceConfig.thinIceMelting": "Derretir hielo frágil durante el día",
   "text.autoconfig.immersive_nature.option.fireAndIceConfig.thinIceFormation": "Generar hielo frágil cerca de bloques de hielo en biomas fríos",
-
   "text.autoconfig.immersive_nature.option.generatorsConfig.allGenerators": "Permitir la generación de bloques minerales",
   "text.autoconfig.immersive_nature.option.generatorsConfig.mossBurning": "Eliminar musgo de los bloques al entrar en contacto con la lava",
   "text.autoconfig.immersive_nature.option.generatorsConfig.basaltGenerator": "Generar basalto mediante lava y basalto",
@@ -85,7 +78,6 @@
   "text.autoconfig.immersive_nature.option.generatorsConfig.terracottaGenerator": "Generar terracota mediante lava y arcilla",
   "text.autoconfig.immersive_nature.option.generatorsConfig.vitrifiedSandGenerator": "Generar arena vetrificada mediante lava y bloques de arena",
   "text.autoconfig.immersive_nature.option.generatorsConfig.iceGenerator": "Generar hielo mediante agua y hielo azul",
-
   "text.autoconfig.immersive_nature.option.itemUsesConfig.cauldronWashing": "Degradar bloques de tierra, grava y arcilla en calderos",
   "text.autoconfig.immersive_nature.option.itemUsesConfig.pistonSliming": "Emplear bolas de slime y tijeras directamente sobre pistones",
   "text.autoconfig.immersive_nature.option.itemUsesConfig.soilShearing": "Impedir el cremiento de cultivos de bloques de tierra fértil mediante el empleo de tijeras",
@@ -98,7 +90,6 @@
   "text.autoconfig.immersive_nature.option.itemUsesConfig.pickaxeCracking": "Agrietar bloques mediante el empleo de picos",
   "text.autoconfig.immersive_nature.option.itemUsesConfig.axeStripping": "Pelar la corteza de los árboles mediante el empleo de hachas",
   "text.autoconfig.immersive_nature.option.itemUsesConfig.axeScraping": "Desoxidar los bloques de hierro mediante el empleo de hachas",
-
   "text.autoconfig.immersive_nature.option.worldgenConfig.icicleFeature": "Habilitar generación de carámbanos",
   "text.autoconfig.immersive_nature.option.worldgenConfig.cryosolFeature": "Habilitar generación de criosol y permahielo",
   "text.autoconfig.immersive_nature.option.worldgenConfig.humusFeature": "Habilitar generación de humus",
@@ -111,14 +102,11 @@
   "text.autoconfig.immersive_nature.option.worldgenConfig.darkLeavesFeature": "Habilitar generación natural de pilas de hojas de roble oscuro",
   "text.autoconfig.immersive_nature.option.worldgenConfig.birchLeavesFeature": "Habilitar generación natural de pilas de hojas de abedul",
   "text.autoconfig.immersive_nature.option.worldgenConfig.spruceLeavesFeature": "Habilitar generación natural de pilas de hojas de abeto",
-
   "death.attack.icicle": "Un carámbano atravesó a %1$s ",
   "death.attack.icicle.player": "Un carámbano atravesó a %1$s luchando contra %2$s",
   "death.attack.fallingIcicle": "%1$s se convirtió en una brocheta congelada",
   "death.attack.fallingIcicle.player": "%1$s se convirtió en una brocheta congelada luchando contra %2$s",
-
   "subtitles.block.icicle.land": "Estallido de carámbano",
-
   "block.immersive_nature.icicle": "Carámbano",
   "item.immersive_nature.ice_sickle": "Hoz de hielo",
   "block.immersive_nature.frost": "Escarcha",
@@ -127,17 +115,14 @@
   "block.immersive_nature.frosty_glass": "Cristal escarchado",
   "block.immersive_nature.frosty_glass_pane": "Panel de cristal escarchado",
   "block.immersive_nature.thin_ice": "Hielo frágil",
-
   "block.immersive_nature.vitrified_sand": "Arena vitrificada",
   "block.immersive_nature.fulgurite": "Fulgurita",
-
   "item.immersive_nature.pond_water": "Frasco con agua sucia",
   "item.immersive_nature.azalea_flowers": "Flores de azalea",
   "item.immersive_nature.flower_crown": "Corona de flores",
   "item.immersive_nature.moss_clump": "Bola de musgo",
   "item.immersive_nature.golden_moss_clump": "Bola de musgo dorado",
   "item.immersive_nature.enchanted_golden_moss_clump": "Bola de musgo dorado encantado",
-
   "block.immersive_nature.oak_leaf_pile": "Pila de hojas de roble",
   "block.immersive_nature.spruce_leaf_pile": "Pila de hojas de abeto",
   "block.immersive_nature.birch_leaf_pile": "Pila de hojas de abedul",
@@ -148,7 +133,6 @@
   "block.immersive_nature.azalea_leaf_pile": "Pila de hojas de azalea",
   "block.immersive_nature.flowering_azalea_leaf_pile": "Pila de hojas florecidas de azalea",
   "block.immersive_nature.azalea_flower_pile": "Pila de flores de azalea",
-
   "item.immersive_nature.oak_bark": "Corteza de roble",
   "item.immersive_nature.spruce_bark": "Corteza de abeto",
   "item.immersive_nature.birch_bark": "Corteza de abedul",
@@ -158,7 +142,6 @@
   "item.immersive_nature.mangrove_bark": "Corteza de mangle",
   "item.immersive_nature.crimson_scales": "Escamas carmesí",
   "item.immersive_nature.warped_scales": "Escamas distorsionadas",
-
   "block.immersive_nature.ivy": "Hiedra",
   "block.immersive_nature.weeds": "Maleza",
   "block.immersive_nature.soot": "Hollín",
@@ -167,8 +150,6 @@
   "block.immersive_nature.ash_layer_block": "Ceniza",
   "block.immersive_nature.ash_block": "Bloque de ceniza",
   "item.immersive_nature.tallow": "Sebo",
-
-
   "block.immersive_nature.humus": "Humus",
   "block.immersive_nature.fluvisol": "Fluvisol",
   "block.immersive_nature.silt": "Limo",
@@ -176,42 +157,34 @@
   "block.immersive_nature.cracked_mud": "Barro agrietado",
   "block.immersive_nature.cryosol": "Criosol",
   "block.immersive_nature.permafrost": "Permahielo",
-
   "block.immersive_nature.mulch_block": "Mantillo",
   "block.immersive_nature.nulch_block": "Mantillo del Nether",
-
   "block.immersive_nature.rooted_grass_block": "Césped enraizado",
-
   "block.immersive_nature.charred_log": "Tronco carbonizado",
   "block.immersive_nature.charred_planks": "Tablones carbonizados",
   "block.immersive_nature.charred_slab": "Losa carbonizada",
   "block.immersive_nature.charred_stairs": "Escaleras carbonizadas",
   "block.immersive_nature.charred_fence": "Valla carbonizada",
   "block.immersive_nature.charred_fence_gate": "Puerta de valla carbonizada",
-
   "block.immersive_nature.rotten_log": "Tronco podrido",
   "block.immersive_nature.rotten_planks": "Tablones podridos",
   "block.immersive_nature.rotten_slab": "Losa podrida",
   "block.immersive_nature.rotten_stairs": "Escaleras podridas",
   "block.immersive_nature.rotten_fence": "Valla podrida",
   "block.immersive_nature.rotten_fence_gate": "Puerta de valla podrida",
-
   "block.immersive_nature.mossy_bricks": "Ladrillos musgosos",
   "block.immersive_nature.mossy_brick_stairs": "Escaleras de ladrillos musgosas",
   "block.immersive_nature.mossy_brick_slab": "Losa de ladrillos musgosa",
   "block.immersive_nature.mossy_brick_wall": "Muro de ladrillos musgoso",
-
   "block.immersive_nature.mossy_stone": "Piedra musgosa",
   "block.immersive_nature.mossy_stone_stairs": "Escaleras de piedra musgosas",
   "block.immersive_nature.mossy_stone_slab": "Losa de piedra musgosa",
   "block.immersive_nature.mossy_stone_wall": "Muro de piedra musgoso",
   "block.immersive_nature.stone_wall": "Muro de piedra",
-
   "block.immersive_nature.cracked_bricks": "Ladrillos agrietados",
   "block.immersive_nature.cracked_brick_stairs": "Escaleras de ladrillo agrietadas",
   "block.immersive_nature.cracked_brick_slab": "Losa de ladrillos agrietada",
   "block.immersive_nature.cracked_brick_wall": "Muro de ladrillos agritado",
-
   "block.immersive_nature.cracked_prismarine_bricks": "Ladrillos de prismarina agrietados",
   "block.immersive_nature.cracked_prismarine_brick_stairs": "Escaleras de ladrillos de prismarina agrietadas",
   "block.immersive_nature.cracked_prismarine_brick_slab": "Losa de ladrillos de prismarina agrietada",
@@ -219,125 +192,133 @@
   "block.immersive_nature.prismarine_brick_wall": "Muro de prismarina oscura agrietado",
   "block.immersive_nature.dark_prismarine_wall": "Muro de prismarina oscura",
   "block.immersive_nature.chiseled_prismarine_bricks": "Ladrillos de prismarina cincelados",
-
   "block.immersive_nature.cracked_end_stone_bricks": "Ladrillos de piedra del End agrietados",
   "block.immersive_nature.cracked_end_stone_brick_stairs": "Escaleras de ladrillos de piedra del End agrietadas",
   "block.immersive_nature.cracked_end_stone_brick_slab": "Losa de ladrillos de piedra del End agrietada",
   "block.immersive_nature.cracked_end_stone_brick_wall": "Muro de ladrillos de piedra del End agritado",
-
   "block.immersive_nature.cracked_stone_brick_stairs": "Escaleras de ladrillos de piedra agrietados",
   "block.immersive_nature.cracked_stone_brick_slab": "Losa de ladrillos de piedra agrietadoa",
   "block.immersive_nature.cracked_stone_brick_wall": "Muro de ladrillos de piedra agrietado",
-
   "block.immersive_nature.cracked_nether_brick_stairs": "Escaleras de ladrillos del Nether agrietadas",
   "block.immersive_nature.cracked_nether_brick_slab": "Losa de ladrillos del Nether agrietada",
   "block.immersive_nature.cracked_nether_brick_wall": "Muro de ladrillos del Nether agrietado",
-
   "block.immersive_nature.cracked_deepslate_brick_stairs": "Escalera de ladrillos de pizarra profunda agrietadas",
   "block.immersive_nature.cracked_deepslate_brick_slab": "Losa de ladrillos de pizarra profunda agrietada",
   "block.immersive_nature.cracked_deepslate_brick_wall": "Muro de ladrillos de pizarra profunda agrietado",
-
   "block.immersive_nature.cracked_deepslate_tile_stairs": "Escaleras de baldosas de pizarra profunda agrietadas",
   "block.immersive_nature.cracked_deepslate_tile_slab": "Losa de baldosas de pizarra profunda agrietada",
   "block.immersive_nature.cracked_deepslate_tile_wall": "Muro de baldosas de pizarra profunda agrietado",
-
   "block.immersive_nature.cracked_polished_blackstone_brick_stairs": "Escaleras de ladrillos de piedra negra pulida agrietadas",
   "block.immersive_nature.cracked_polished_blackstone_brick_slab": "Losa de ladrillos de piedra negra pulida agrietada",
   "block.immersive_nature.cracked_polished_blackstone_brick_wall": "Muro de ladrillos de piedra negra pulida agrietado",
-
   "item.immersive_nature.stone_brick": "Ladrillo de piedra",
   "item.immersive_nature.blackstone_brick": "Ladrillo de piedra negra",
   "item.immersive_nature.deepslate_brick": "Ladrillo de pizarra profunda",
   "item.immersive_nature.deepslate_tile": "Baldosa de pizarra profunda",
   "item.immersive_nature.end_stone_brick": "Ladrillo de piedra del End",
   "item.immersive_nature.prismarine_brick": "Ladrillo de prismarina",
-
   "item.immersive_nature.steel_wool": "Estropajo",
-
   "block.immersive_nature.cut_iron": "Hierro cortado",
   "block.immersive_nature.exposed_cut_iron": "Hierro cortado expuesto",
   "block.immersive_nature.weathered_cut_iron": "Hierro cortado degradado",
   "block.immersive_nature.rusted_cut_iron": "Hierro cortado oxidado",
-
   "block.immersive_nature.cut_iron_stairs": "Escaleras de hierro cortado",
   "block.immersive_nature.exposed_cut_iron_stairs": "Escaleras de hierro cortado expuesto",
   "block.immersive_nature.weathered_cut_iron_stairs": "Escaleras de hierro cortado degradado",
   "block.immersive_nature.rusted_cut_iron_stairs": "Escaleras de hierro cortado oxidado",
-
   "block.immersive_nature.cut_iron_slab": "Losa de hierro cortado",
   "block.immersive_nature.exposed_cut_iron_slab": "Losa de hierro cortado expuesto",
   "block.immersive_nature.weathered_cut_iron_slab": "Losa de hierro cortado degradado",
   "block.immersive_nature.rusted_cut_iron_slab": "Losa de hierro cortado oxidado",
-
   "block.immersive_nature.waxed_cut_iron": "Hierro cortado encerado",
   "block.immersive_nature.waxed_exposed_cut_iron": "Hierro cortado expuesto encerado",
   "block.immersive_nature.waxed_weathered_cut_iron": "Hierro cortado degradado encerado",
   "block.immersive_nature.waxed_rusted_cut_iron": "Hierro cortado oxidado encerado",
-
   "block.immersive_nature.waxed_cut_iron_stairs": "Escaleras de hierro cortado encerado",
   "block.immersive_nature.waxed_exposed_cut_iron_stairs": "Escaleras de hierro cortado expuesto encerado",
   "block.immersive_nature.waxed_weathered_cut_iron_stairs": "Escaleras de hierro cortado degradado encerado",
   "block.immersive_nature.waxed_rusted_cut_iron_stairs": "Escaleras de hierro cortado oxidado encerado",
-
   "block.immersive_nature.waxed_cut_iron_slab": "Losa de hierro cortado encerado",
   "block.immersive_nature.waxed_exposed_cut_iron_slab": "Losa de hierro cortado expuesto encerado",
   "block.immersive_nature.waxed_weathered_cut_iron_slab": "Losa de hierro cortado degradado encerado",
   "block.immersive_nature.waxed_rusted_cut_iron_slab": "Losa de hierro cortado oxidado encerado",
-
   "block.immersive_nature.plate_iron": "Bloque de placas de hierro",
   "block.immersive_nature.exposed_plate_iron": "Bloque de placas de hierro expuesto",
   "block.immersive_nature.weathered_plate_iron": "Bloque de placas de hierro degradado",
   "block.immersive_nature.rusted_plate_iron": "Bloque de placas de hierro oxidado",
-
   "block.immersive_nature.plate_iron_stairs": "Escaleras de placas de hierro",
   "block.immersive_nature.exposed_plate_iron_stairs": "Escaleras de placas de hierro expuesto",
   "block.immersive_nature.weathered_plate_iron_stairs": "Escaleras de placas de hierro degradado",
   "block.immersive_nature.rusted_plate_iron_stairs": "Escaleras de placas de hierro oxidado",
-
   "block.immersive_nature.plate_iron_slab": "Losa de placas de hierro",
   "block.immersive_nature.exposed_plate_iron_slab": "Losa de placas de hierro expuesto",
   "block.immersive_nature.weathered_plate_iron_slab": "Losa de placas de hierro degradado",
   "block.immersive_nature.rusted_plate_iron_slab": "Losa de placas de hierro oxidado",
-
   "block.immersive_nature.waxed_plate_iron": "Bloque de placas de hierro encerado",
   "block.immersive_nature.waxed_exposed_plate_iron": "Bloque de placas de hierro expuesto encerado",
   "block.immersive_nature.waxed_weathered_plate_iron": "Bloque de placas de hierro degradado encerado",
   "block.immersive_nature.waxed_rusted_plate_iron": "Bloque de placas de hierro oxidado encerado",
-
   "block.immersive_nature.waxed_plate_iron_stairs": "Escaleras de placas de hierro encerado",
   "block.immersive_nature.waxed_exposed_plate_iron_stairs": "Escaleras de placas de hierro expuesto encerado",
   "block.immersive_nature.waxed_weathered_plate_iron_stairs": "Escaleras de placas de hierro degradado encerado",
   "block.immersive_nature.waxed_rusted_plate_iron_stairs": "Escaleras de placas de hierro oxidado encerado",
-
   "block.immersive_nature.waxed_plate_iron_slab": "Losa de placas de hierro encerado",
   "block.immersive_nature.waxed_exposed_plate_iron_slab": "Losa de placas de hierro expuesto encerado",
   "block.immersive_nature.waxed_weathered_plate_iron_slab": "Losa de placas de hierro degradado encerado",
   "block.immersive_nature.waxed_rusted_plate_iron_slab": "Losa de placas de hierro oxidado encerado",
-
   "block.immersive_nature.exposed_iron_door": "Puerta de hierro expuesto",
   "block.immersive_nature.weathered_iron_door": "Puerta de hierro degradado",
   "block.immersive_nature.rusted_iron_door": "Puerta de hierro oxidado",
-
   "block.immersive_nature.exposed_iron_trapdoor": "Trampilla de hierro expuesto",
   "block.immersive_nature.weathered_iron_trapdoor": "Trampilla de hierro degradado",
   "block.immersive_nature.rusted_iron_trapdoor": "Trampilla de hierro oxidado",
-
   "block.immersive_nature.exposed_iron_bars": "Barrotes de hierro expuesto",
   "block.immersive_nature.weathered_iron_bars": "Barrotes de hierro degradado",
   "block.immersive_nature.rusted_iron_bars": "Barrotes de hierro oxidado",
-
   "block.immersive_nature.waxed_iron_door": "Puerta de hierro encerado",
   "block.immersive_nature.waxed_exposed_iron_door": "Puerta de hierro expuesto encerado",
   "block.immersive_nature.waxed_weathered_iron_door": "Puerta de hierro degradado encerado",
   "block.immersive_nature.waxed_rusted_iron_door": "Puerta de hierro oxidado encerado",
-
   "block.immersive_nature.waxed_iron_trapdoor": "Trampilla de hierro encerado",
   "block.immersive_nature.waxed_exposed_iron_trapdoor": "Trampilla de hierro expuesto encerado",
   "block.immersive_nature.waxed_weathered_iron_trapdoor": "Trampilla de hierro degradado encerado",
   "block.immersive_nature.waxed_rusted_iron_trapdoor": "Trampilla de hierro oxidado encerado",
-
   "block.immersive_nature.waxed_iron_bars": "Barrotes de hierro encerado",
   "block.immersive_nature.waxed_exposed_iron_bars": "Barrotes de hierro expuesto encerado",
   "block.immersive_nature.waxed_weathered_iron_bars": "Barrotes de hierro degradado encerado",
-  "block.immersive_nature.waxed_rusted_iron_bars": "Barrotes de hierro oxidado encerado"
+  "block.immersive_nature.waxed_rusted_iron_bars": "Barrotes de hierro oxidado encerado",
+  "entity.immersive_nature.falling_snow": "Bloque cayendo",
+  "block.immersive_nature.snowy_slab": "Losa nevada",
+  "block.immersive_nature.snowy_stairs": "Escaleras nevadas",
+  "block.immersive_nature.snowy_wall": "Muro nevado",
+  "block.immersive_nature.snowy_fence": "Valla nevada",
+  "block.immersive_nature.snowy_fence_gate": "Puerta de valla nevada",
+  "gamerule.immersive_nature:blizzardStrength": "Función de broma: Fuerza de ventisca",
+  "gamerule.immersive_nature:blizzardStrength.description": "Caerán bloques de nieve del cielo. 1 a 8 para configurar el máximo de capas. ¡Añadido por Snow! ¡Magia real!",
+  "gamerule.immersive_nature:blizzardFrequency": "Función de broma: Frecuencia de ventiscas",
+  "gamerule.immersive_nature:blizzardFrequency.description": "La posibilidad de hacer ventisca. N/10000 por tick por chunk. ¡Añadido por Snow! ¡Magia real!",
+  "commands.gamerule.immersive_nature.hint": "¡Nieve! ¡Magia Real! está instalado; esta regla del juego se ignora. Usa la configuración.",
+  "immersive_nature.config.particleThroughLeaves.desc": "Genera partículas de copos de nieve debajo de la nieve que se encuentra en las hojas",
+  "immersive_nature.config.snowVariants.desc": "Algunos follajes cubiertos de nieve se verán diferentes",
+  "immersive_nature.config.snowGravity.desc": "La nieve caerá como arena",
+  "immersive_nature.config.snowMakingIce.desc": "La nieve que cae se convierte en hielo cuando cae sobre el agua",
+  "immersive_nature.config.thinnerBoundingBox.desc": "La caja de colisión de nieve se reduce a la mitad",
+  "immersive_nature.config.snowAlwaysReplaceable.desc": "La nieve puede ser reemplazada por cualquier bloque, sin importar cuántas capas tenga.",
+  "immersive_nature.config.snowNeverMelt.desc": "La nieve nunca se derretirá",
+  "immersive_nature.config.snowReduceFallDamage.desc": "La nieve reduce los daños causados ​​por las caídas",
+  "immersive_nature.config.sustainGrassIfLayerMoreThanOne.desc": "Evita que el bloque de césped se convierta en tierra cuando la capa de nieve es superior a 1",
+  "immersive_nature.config.sneakSnowball.desc": "Obtén una bola de nieve agachándote y haciendo clic derecho sobre la nieve",
+  "immersive_nature.config.mobSpawningMaxLayers.desc": "Las capas máximas de nieve que la criatura puede generar",
+  "immersive_nature.config.snow-cover.placeSnowOnBlock.desc": "Se puede colocar nieve sobre algunos bloques para que queden cubiertos de nieve.",
+  "immersive_nature.config.snow-cover.placeNaturally.desc": "La nieve se puede colocar en algunos bloques no solo por el jugador, sino también por la nevada y la generación natural",
+  "immersive_nature.config.snow-cover.replaceWorldgenFeature.desc": "Los bloques generados por generación natural serán reemplazados por bloques cubiertos de nieve.",
+  "immersive_nature.config.snow-cover.retainOriginalBlocks.desc": "Si deseas desinstalar este mod, probablemente quieras hacer que los bloques cubiertos de nieve vuelvan a la normalidad mediante un tick aleatorio",
+  "immersive_nature.config.accumulation.accumulatesDuringSnowfall.desc": "La nieve se acumulará cuando llueva",
+  "immersive_nature.config.accumulation.accumulatesDuringSnowstorm.desc": "La nieve se acumulará solo cuando haya tormenta",
+  "immersive_nature.config.accumulation.maxLayers.desc": "El máximo de capas de nieve que se pueden acumular. 9 es ilimitado",
+  "immersive_nature.config.accumulation.naturalMelting.desc": "La nieve se derrite con el tiempo si su capa es más de 1",
+  "immersive_nature.config.accumulation.snowAndIceMeltInWarmBiomes.desc": "La nieve y el hielo se derretirán en biomas cálidos. Siempre es cierto si se instala algún mod de temporada.",
+  "immersive_nature.config.debug.weatherTickSlowness.desc": "Velocidad del tictac de la lluvia y la nieve. 16 es el valor predeterminado",
+  "immersive_nature.config.debug.preventWorldgenLogSpam.desc": "Previene el spam de registros inofensivo de los bloques cubiertos de nieve worldgen",
+  "immersive_nature.config.debug.skipSnowLoggingMushroom.desc": "Omite los bloques de hongos que talan nieve durante la generación del mundo porque causará errores debido a que no están lo suficientemente oscuros"
 }

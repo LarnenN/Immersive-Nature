@@ -9,6 +9,7 @@
   ],
   "mixins": [
     "BOPLeafPileFeatureMixin",
+    "BlockEntityLegacyIdMixin",
     "DTRootyLightMixin",
     "FluidInteractionRegistryMixin",
     "SelfRustableMixin",
