@@ -65,6 +65,7 @@ public class FFCommands {
 
    private static int message(CommandContext<CommandSourceStack> context, String text) {
       String inputCommand = context.getInput();
+      text = FFLang.translate(text, ((CommandSourceStack)context.getSource()).getPlayer());
       ((CommandSourceStack)context.getSource()).sendSystemMessage(Component.literal("\n§7§o/" + inputCommand + "§r\n" + text + "\n§7_____________________________"));
       return 1;
    }
@@ -515,13 +516,9 @@ public class FFCommands {
                         Vec3 pos = ((CommandSourceStack)cont.getSource()).getPosition();
                         return message(
                            cont,
-                           "You are "
-                              + (
-                                 FFFluidUtils.matchInfiniteBiomes(level.getBiome(new BlockPos((int)pos.x, (int)pos.y, (int)pos.z)))
-                                    ? "IN"
-                                    : "NOT IN"
-                              )
-                              + " an Infinite biome. By default these are: Oceans, Rivers, and Swamps.\nMods can add their own via the api but most modded oceans and rivers should be accounted for automatically by this mod."
+                           (FFFluidUtils.matchInfiniteBiomes(level.getBiome(new BlockPos((int)pos.x, (int)pos.y, (int)pos.z)))
+                              ? "You are IN an Infinite biome. By default these are: Oceans, Rivers, and Swamps.\nMods can add their own via the api but most modded oceans and rivers should be accounted for automatically by this mod."
+                              : "You are NOT IN an Infinite biome. By default these are: Oceans, Rivers, and Swamps.\nMods can add their own via the api but most modded oceans and rivers should be accounted for automatically by this mod.")
                         );
                      }
                   )

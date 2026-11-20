@@ -81,12 +81,12 @@ public final class RainWater {
                 .executes(ctx -> {
                     ServerPlayer player = ctx.getSource().getPlayerOrException();
                     if (!CommonConfigs.RAIN_WATER_CAN_DISABLE.get()) {
-                        ctx.getSource().sendFailure(Component.literal("Rain water can't be switched off on this server"));
+                        ctx.getSource().sendFailure(Component.translatable("immersive_nature.rain_water.cannot_disable"));
                         return 0;
                     }
                     boolean off = !player.getPersistentData().getBoolean(DISABLED_TAG);
                     player.getPersistentData().putBoolean(DISABLED_TAG, off);
-                    ctx.getSource().sendSuccess(() -> Component.literal(off ? "Rain water disabled" : "Rain water enabled"), false);
+                    ctx.getSource().sendSuccess(() -> Component.translatable(off ? "immersive_nature.rain_water.disabled" : "immersive_nature.rain_water.enabled"), false);
                     return 1;
                 }));
     }

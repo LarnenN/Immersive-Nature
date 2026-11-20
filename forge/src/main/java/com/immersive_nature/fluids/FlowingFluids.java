@@ -91,24 +91,14 @@ public class FlowingFluids {
 
    public static void sendConfigToClient(ServerPlayer player) {
       if (showFirstMessage && !config.hideStartMessage) {
+         boolean auto = config.autoPerformanceMode.enabled();
          player.sendSystemMessage(
-            Component.literal("[Flowing Fluids mod loaded]\n")
-               .withStyle(ChatFormatting.GOLD)
-               .append(Component.literal("- Automatic performance handling is ").withStyle(ChatFormatting.WHITE))
-               .append(
-                  Component.literal(config.autoPerformanceMode.enabled() ? "enabled" : "disabled")
-                     .withStyle(config.autoPerformanceMode.enabled() ? ChatFormatting.GREEN : ChatFormatting.RED)
-               )
-               .append(
-                  Component.literal(
-                        config.autoPerformanceMode.pretty() + ".\n- This will overwrite & handle performance settings automatically for you.\n- See "
-                     )
-                     .withStyle(ChatFormatting.WHITE)
-               )
-               .append(Component.literal("/flowing_fluids performance_and_presets").withStyle(ChatFormatting.GRAY))
-               .append(
-                  Component.literal(" to change this or access other ready-made gameplay and performance settings presets.").withStyle(ChatFormatting.WHITE)
-               )
+            Component.translatable(
+               "immersive_nature.fluids.start",
+               Component.translatable(auto ? "immersive_nature.fluids.start.enabled" : "immersive_nature.fluids.start.disabled")
+                  .withStyle(auto ? ChatFormatting.GREEN : ChatFormatting.RED),
+               Component.literal("/flowing_fluids performance_and_presets").withStyle(ChatFormatting.GRAY)
+            ).withStyle(ChatFormatting.WHITE)
          );
          showFirstMessage = false;
       }

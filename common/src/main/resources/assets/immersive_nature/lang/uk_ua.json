@@ -423,5 +423,11 @@
   "gamerule.immersive_nature:blizzardStrength": "Жартівлива особливість: сила хуртовини",
   "gamerule.immersive_nature:blizzardStrength.description": "Снігові блоки будуть падати з неба. 1~8, щоб встановити макс. шари. Додано Snow! Real Magic!",
   "gamerule.immersive_nature:blizzardFrequency": "Жартівлива особливість: частота хуртовини",
-  "gamerule.immersive_nature:blizzardFrequency.description": "Можливість створення хуртовини. N/1000 на такт на чанк. Додано Snow! Real Magic!"
+  "gamerule.immersive_nature:blizzardFrequency.description": "Можливість створення хуртовини. N/1000 на такт на чанк. Додано Snow! Real Magic!",
+  "immersive_nature.fluids.start": "§6[Immersive Nature: реалістичні рідини]§r\n- Автоналаштування продуктивності %s.\n- Воно саме змінює налаштування рідин, коли сервер лагає.\n- Використовуйте %s, щоб змінити це або вибрати готові набори налаштувань гри та продуктивності.",
+  "immersive_nature.fluids.start.enabled": "увімкнено",
+  "immersive_nature.fluids.start.disabled": "вимкнено",
+  "immersive_nature.rain_water.cannot_disable": "На цьому сервері дощову воду не можна вимкнути",
+  "immersive_nature.rain_water.disabled": "Дощову воду вимкнено",
+  "immersive_nature.rain_water.enabled": "Дощову воду увімкнено"
 }
