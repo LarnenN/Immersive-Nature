@@ -24,14 +24,14 @@ THIRD-PARTY CODE INCLUDED IN IMMERSIVE NATURE
    License: GNU LGPL-3.0 (see licenses/ImmersiveWeathering-LGPL-3.0.txt).
    Used as the base of the mod and modified; distributed here under the
    GNU GPL-3.0 as permitted by section 2(b) of the LGPL-3.0.
-   Location: common/ and forge/ (package com.ordana.immersive_weathering)
+   Location: common/ and forge/ (package com.immersive_nature)
 
 2. Water Erosion
    Copyright (C) 13rac1
    https://github.com/13rac1/Minecraft-Water-Erosion
    License: GNU GPL-3.0 (see licenses/WaterErosion-GPL-3.0.txt).
    Modified: config moved into Immersive Nature, adapted to Flowing Fluids.
-   Location: com.ordana.immersive_weathering.erosion
+   Location: com.immersive_nature.erosion
 
 3. Overgrowth
    Copyright (C) ldtteam
@@ -39,7 +39,7 @@ THIRD-PARTY CODE INCLUDED IN IMMERSIVE NATURE
    License: GNU GPL-3.0 (as declared in its 1.20 mods.toml).
    Modified: handlers duplicating Immersive Weathering removed, torch
    burn-out disabled by default, config renamed.
-   Location: com.ordana.immersive_weathering.forge.overgrowth
+   Location: com.immersive_nature.forge.overgrowth
 
 4. Snow! Real Magic!
    Copyright (c) 2018 Snownee
@@ -88,10 +88,10 @@ THIRD-PARTY CODE INCLUDED IN IMMERSIVE NATURE
 
 Inspired by, no code included: Rain Water Fixed by Link15 (Academic Free
 License 3.0). The rain water mechanic (package
-com.ordana.immersive_weathering.forge.rainwater) is Immersive Nature's own code.
+com.immersive_nature.forge.rainwater) is Immersive Nature's own code.
 Inspired by, no code included: Desire Paths by Insane96MCP (All Rights
 Reserved). The desire paths mechanic (package
-com.ordana.immersive_weathering.forge.desirepaths) is Immersive Nature's own code.
+com.immersive_nature.forge.desirepaths) is Immersive Nature's own code.
 
 Not included, only optional compatibility: Dynamic Trees, Create, Embeddium.
 Required separately: Moonlight Lib, Kiwi.
