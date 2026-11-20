@@ -63,9 +63,14 @@ side = "BOTH"
 [[mods]]
 modId = "snowrealmagic"
 version = "10.7.0"
-displayName = "Snow! Real Magic! (in Immersive Nature)"
-authors = "Snownee, minzhi, WZD"
-description = "Tweaks vanilla snow layer. Built into Immersive Nature."
+displayName = "Immersive Nature: Snow"
+authors = "Snownee, minzhi, WZD (Snow! Real Magic)"
+credits = "Based on Snow! Real Magic by Snownee (MIT)"
+logoFile = "icon.png"
+description = '''
+Part of Immersive Nature: realistic snow layers that cover plants, slabs, stairs, fences and leaves.
+Based on Snow! Real Magic by Snownee.
+'''
 
 [[dependencies.snowrealmagic]]
 modId = "kiwi"
@@ -82,12 +87,14 @@ catalogueItemIcon = "minecraft:snow_block"
 [[mods]]
 modId = "flowing_fluids"
 version = "1.0.8"
-displayName = "Flowing Fluids (in Immersive Nature)"
-authors = "Traben"
+displayName = "Immersive Nature: Fluids"
+authors = "Traben (Flowing Fluids)"
+credits = "Based on Flowing Fluids by Traben (LGPL-3.0)"
+logoFile = "icon.png"
 description = '''
-Gives fluids realistic flowing physics, making them mostly finite. Built into Immersive Nature.
+Part of Immersive Nature: realistic, mostly finite water and lava that flow level by level.
+Based on Flowing Fluids by Traben.
 '''
-logoFile = "assets/flowing_fluids/icon.png"
 
 [[dependencies.flowing_fluids]]
 modId = "create"
