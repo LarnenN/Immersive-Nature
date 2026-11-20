@@ -1,15 +1,4 @@
 {
-  "KiwiConfig": [
-    {
-      "target": "com.immersive_nature.snow.client.SnowClientConfig",
-      "data": {
-        "type": "CLIENT"
-      }
-    },
-    {
-      "target": "com.immersive_nature.snow.SnowCommonConfig"
-    }
-  ],
   "KiwiModule": [
     {
       "target": "com.immersive_nature.snow.CoreModule"

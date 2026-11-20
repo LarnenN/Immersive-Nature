@@ -20,7 +20,7 @@ public class MuddyRain extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().spreadmud;
+        return Overgrowth.config.spreadmud;
     }
 
     @Override

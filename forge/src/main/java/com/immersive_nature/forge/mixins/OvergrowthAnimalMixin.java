@@ -16,7 +16,7 @@ public abstract class OvergrowthAnimalMixin
     @Inject(method = "isBrightEnoughToSpawn", at = @At("RETURN"), cancellable = true)
     private static void isBrightEnoughToSpawn(final BlockAndTintGetter p_186210_, final BlockPos p_186211_, final CallbackInfoReturnable<Boolean> cir)
     {
-        if (Overgrowth.config.getServer().caveentities.get())
+        if (Overgrowth.config.caveentities.get())
         {
             cir.setReturnValue(true);
         }

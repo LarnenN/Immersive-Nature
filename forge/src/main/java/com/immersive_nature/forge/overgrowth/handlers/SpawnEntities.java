@@ -24,7 +24,7 @@ public class SpawnEntities extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().entityspawn;
+        return Overgrowth.config.entityspawn;
     }
 
     @Override

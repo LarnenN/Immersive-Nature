@@ -20,20 +20,6 @@ public class MixinPlugin implements IMixinConfigPlugin {
 	@Override
 	public void onLoad(String mixinPackage) {
 		hasKiwi = hasMod("kiwi");
-		// configs of the separate Snow! Real Magic mod (before it became part of Immersive Nature)
-		moveConfig("snowrealmagic-common.yaml", "immersive_nature-snow.yaml");
-		moveConfig("snowrealmagic-client.yaml", "immersive_nature-snow-client.yaml");
-	}
-
-	private static void moveConfig(String from, String to) {
-		try {
-			java.nio.file.Path dir = net.minecraftforge.fml.loading.FMLPaths.CONFIGDIR.get();
-			java.nio.file.Path old = dir.resolve(from), target = dir.resolve(to);
-			if (java.nio.file.Files.exists(old) && !java.nio.file.Files.exists(target)) {
-				java.nio.file.Files.move(old, target);
-			}
-		} catch (Exception ignored) {
-		}
 	}
 
 	@Override

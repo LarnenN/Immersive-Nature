@@ -1,6 +1,7 @@
 package com.immersive_nature.configs;
 
 import com.immersive_nature.ImmersiveNature;
+import com.immersive_nature.NaturePlatform;
 import net.mehvahdjukaar.moonlight.api.platform.PlatHelper;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigSpec;
@@ -292,8 +293,13 @@ public class CommonConfigs {
                         "minecraft:dirt,minecraft:coarse_dirt"));
         builder.pop();
 
+        // overgrowth, snow and fluids
+        NaturePlatform.addCommonConfigs(builder);
+        builder.onChange(NaturePlatform::applyCommonConfigs);
+
         SERVER_SPEC = builder.buildAndRegister();
         SERVER_SPEC.loadFromFile();
+        NaturePlatform.applyCommonConfigs();
     }
 
 

@@ -18,7 +18,7 @@ public class NightCampfire extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().byecampfire;
+        return Overgrowth.config.byecampfire;
     }
 
     @Override

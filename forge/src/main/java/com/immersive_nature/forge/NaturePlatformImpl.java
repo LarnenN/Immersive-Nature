@@ -2,6 +2,7 @@ package com.immersive_nature.forge;
 
 import com.google.common.collect.ImmutableBiMap;
 import com.immersive_nature.integrations.IntegrationHandler;
+import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
@@ -31,5 +32,19 @@ public class NaturePlatformImpl {
     public static void addFeatureToBiome(GenerationStep.Decoration step, TagKey<Biome> tagKey, ResourceKey<PlacedFeature> feature) {
     }
 
+    public static void addCommonConfigs(ConfigBuilder builder) {
+        PlatformConfigs.addCommon(builder);
+    }
 
+    public static void applyCommonConfigs() {
+        PlatformConfigs.applyCommon();
+    }
+
+    public static void addClientConfigs(ConfigBuilder builder) {
+        PlatformConfigs.addClient(builder);
+    }
+
+    public static void applyClientConfigs() {
+        PlatformConfigs.applyClient();
+    }
 }

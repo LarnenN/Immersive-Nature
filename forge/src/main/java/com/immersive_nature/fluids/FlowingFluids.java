@@ -1,13 +1,7 @@
 // Flowing Fluids by Traben (https://github.com/Traben-0/flowing_fluids), LGPL-3.0. Built into Immersive Nature.
 package com.immersive_nature.fluids;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,7 +35,6 @@ import com.immersive_nature.fluids.networking.ForgePacketHandler;
 
 public class FlowingFluids {
    public static final String MOD_ID = "immersive_nature";
-   private static final String CONFIG_FILE = "immersive_nature-fluids.json";
    public static final Logger LOG = LoggerFactory.getLogger("immersive_nature/fluids");
    public static boolean isManeuveringFluids = false;
    public static boolean pistonTick = false;
@@ -176,39 +169,12 @@ public class FlowingFluids {
       return false;
    }
 
+   // the settings live in the "fluids" section of the Immersive Nature config
    public static void loadConfig() {
-      File configFile = new File(getConfigDirectory().toFile(), CONFIG_FILE);
-      // config of the separate Flowing Fluids mod (before it became part of Immersive Nature)
-      File oldFile = new File(getConfigDirectory().toFile(), "flowing_fluids.json");
-      if (!configFile.exists() && oldFile.exists()) {
-         oldFile.renameTo(configFile);
-      }
-      Gson gson = new GsonBuilder().setPrettyPrinting().setLenient().create();
-      if (configFile.exists()) {
-         try {
-            FileReader fileReader = new FileReader(configFile);
-            config = (FFConfig)gson.fromJson(fileReader, FFConfig.class);
-            fileReader.close();
-         } catch (IOException var3) {
-         }
-      } else {
-         config = new FFConfig();
-         saveConfig();
-      }
+      com.immersive_nature.forge.PlatformConfigs.loadFluids();
    }
 
    public static void saveConfig() {
-      File configFile = new File(getConfigDirectory().toFile(), CONFIG_FILE);
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      if (!configFile.getParentFile().exists()) {
-         configFile.getParentFile().mkdirs();
-      }
-
-      try {
-         FileWriter fileWriter = new FileWriter(configFile);
-         fileWriter.write(gson.toJson(config));
-         fileWriter.close();
-      } catch (IOException var3) {
-      }
+      com.immersive_nature.forge.PlatformConfigs.saveFluids();
    }
 }

@@ -20,7 +20,7 @@ public class LavaDry extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().drylava;
+        return Overgrowth.config.drylava;
     }
 
     @Override

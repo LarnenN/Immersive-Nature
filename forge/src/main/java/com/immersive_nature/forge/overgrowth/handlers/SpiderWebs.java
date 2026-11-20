@@ -22,7 +22,7 @@ public class SpiderWebs extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().spiderwebs;
+        return Overgrowth.config.spiderwebs;
     }
 
     @Override

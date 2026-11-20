@@ -5,7 +5,7 @@
  */
 package com.immersive_nature.forge.overgrowth;
 
-import com.immersive_nature.forge.overgrowth.configuration.Configuration;
+import com.immersive_nature.forge.overgrowth.configuration.ServerConfiguration;
 import com.immersive_nature.forge.overgrowth.handlers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,9 +13,14 @@ import org.apache.logging.log4j.Logger;
 public final class Overgrowth {
     public static final Logger LOGGER = LogManager.getLogger("Immersive Nature/Overgrowth");
 
-    public static Configuration config;
+    // the "overgrowth" section of the Immersive Nature config, set up by PlatformConfigs
+    public static ServerConfiguration config;
 
     private Overgrowth() {
+    }
+
+    public static void setConfig(ServerConfiguration serverConfig) {
+        config = serverConfig;
     }
 
     public static void init() {
@@ -34,7 +39,6 @@ public final class Overgrowth {
         ITransformationHandler.HANDLERS.add(new NyliumSpread());
         ITransformationHandler.HANDLERS.add(new SpawnEntities());
 
-        config = new Configuration();
 
         // Entity paths are handled by Immersive Nature's Desire Paths (grass, podzol)
     }

@@ -20,7 +20,7 @@ public class NyliumSpread extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().drymud;
+        return Overgrowth.config.spreadnylium;
     }
 
     @Override

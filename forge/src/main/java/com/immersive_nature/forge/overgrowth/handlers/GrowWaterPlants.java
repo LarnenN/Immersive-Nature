@@ -24,7 +24,7 @@ public class GrowWaterPlants extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().underwaterplants;
+        return Overgrowth.config.underwaterplants;
     }
 
     @Override

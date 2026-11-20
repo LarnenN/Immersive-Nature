@@ -48,7 +48,7 @@ public class CrackedBlocksDegradation extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().lavadegration;
+        return Overgrowth.config.lavadegration;
     }
 
     @Override

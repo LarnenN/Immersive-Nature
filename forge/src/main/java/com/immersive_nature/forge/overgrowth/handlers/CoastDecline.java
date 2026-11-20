@@ -36,7 +36,7 @@ public class CoastDecline extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().coastdecline;
+        return Overgrowth.config.coastdecline;
     }
     
     @Override

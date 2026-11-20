@@ -17,7 +17,7 @@ public class UndoPath extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().byepath;
+        return Overgrowth.config.byepath;
     }
 
     @Override

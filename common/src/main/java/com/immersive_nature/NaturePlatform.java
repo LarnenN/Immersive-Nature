@@ -10,6 +10,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraft.world.level.material.FlowingFluid;
+import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import org.jetbrains.annotations.Contract;
 
 public class NaturePlatform {
@@ -32,6 +33,27 @@ public class NaturePlatform {
 
     @ExpectPlatform
     public static void addExtraCrackedBlocks(ImmutableBiMap.Builder<Block, Block> builder) {
+        throw new AssertionError();
+    }
+
+    // config sections of the platform-only parts (overgrowth, snow, fluids) in the one Immersive Nature config
+    @ExpectPlatform
+    public static void addCommonConfigs(ConfigBuilder builder) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void applyCommonConfigs() {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void addClientConfigs(ConfigBuilder builder) {
+        throw new AssertionError();
+    }
+
+    @ExpectPlatform
+    public static void applyClientConfigs() {
         throw new AssertionError();
     }
 }

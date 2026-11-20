@@ -27,7 +27,7 @@ public abstract class OvergrowthWaterAnimalMixin
       final RandomSource p_218287_,
       final CallbackInfoReturnable<Boolean> cir)
     {
-        if (Overgrowth.config.getServer().caveentities.get())
+        if (Overgrowth.config.caveentities.get())
         {
             int i = p_218284_.getSeaLevel();
             int j = i - 70;

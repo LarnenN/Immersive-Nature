@@ -20,7 +20,7 @@ public class MudDry extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().drymud;
+        return Overgrowth.config.drymud;
     }
 
     @Override

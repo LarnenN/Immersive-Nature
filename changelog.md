@@ -9,7 +9,9 @@
 
 ### Changed
 - Rain also raises lakes, rivers and oceans, so long rain can flood their shores. New `rain_water.floods` option (on by default); turn it off to let rain only fill puddles.
-- Snow (Snow! Real Magic) and fluids (Flowing Fluids) are no longer separate mods inside the jar: everything is one mod, `immersive_nature`. Old worlds are converted automatically: `snowrealmagic:*` blocks and block entities load as `immersive_nature:*` (with clearer names, e.g. `snowy_fence`, `snow_layer`), and so do the old `immersive_weathering:*` ids, which were not remapped correctly before. The old `snowrealmagic-common.yaml` and `flowing_fluids.json` configs are moved to `immersive_nature-snow.yaml` and `immersive_nature-fluids.json`. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.
+- Snow (Snow! Real Magic) and fluids (Flowing Fluids) are no longer separate mods inside the jar: everything is one mod, `immersive_nature`. Old worlds are converted automatically: `snowrealmagic:*` blocks and block entities load as `immersive_nature:*` (with clearer names, e.g. `snowy_fence`, `snow_layer`), and so do the old `immersive_weathering:*` ids, which were not remapped correctly before. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.
+- One config file: `config/immersive_nature-common.toml` now also holds the `overgrowth`, `snow` and `fluids` sections (before: a per-world overgrowth config, two snow YAML files and a fluids JSON file). Graphics settings, including snow, are in `immersive_nature-client.toml`. Changes made with `/flowing_fluids` are saved into the same file. Old separate config files are no longer read.
+- Overgrowth: the nylium spread setting now controls nylium spreading (it used the mud drying value).
 
 ### Other
 - Code moved to the `com.immersive_nature` package, classes and mixin configs renamed to Immersive Nature, creative tab renamed to Immersive Nature.

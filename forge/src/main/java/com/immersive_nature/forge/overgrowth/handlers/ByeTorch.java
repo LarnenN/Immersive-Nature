@@ -29,7 +29,7 @@ public class ByeTorch extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().byetorch;
+        return Overgrowth.config.byetorch;
     }
 
     @Override

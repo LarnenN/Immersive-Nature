@@ -30,7 +30,7 @@ public class DegradeFarmland extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().farmlanddegration;
+        return Overgrowth.config.farmlanddegration;
     }
 
     @Override

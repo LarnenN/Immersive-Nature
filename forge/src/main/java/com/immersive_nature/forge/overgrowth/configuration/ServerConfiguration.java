@@ -1,17 +1,14 @@
 // Ported from Overgrowth by ldtteam (https://github.com/ldtteam/Overgrowth), GPL-3.0. Modified for Immersive Nature.
 package com.immersive_nature.forge.overgrowth.configuration;
 
+import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 /**
- * Mod server configuration. Loaded serverside, synced on connection.
+ * Overgrowth settings: the "overgrowth" section of the Immersive Nature config.
  */
-public class ServerConfiguration extends AbstractConfiguration
+public class ServerConfiguration
 {
-    /*  -------------------------------------------------------------------------------- *
-     *  ------------------- ######## Main Settings ######## ------------------- *
-     *  -------------------------------------------------------------------------------- */
-
     public final ForgeConfigSpec.IntValue globalspeed;
     public final ForgeConfigSpec.IntValue byetorch;
     public final ForgeConfigSpec.IntValue coastdecline;
@@ -29,34 +26,28 @@ public class ServerConfiguration extends AbstractConfiguration
     public final ForgeConfigSpec.IntValue spreadnylium;
     public final ForgeConfigSpec.BooleanValue caveentities;
 
-    /**
-     * Builds server configuration.
-     *
-     * @param builder config builder
-     */
-    protected ServerConfiguration(final ForgeConfigSpec.Builder builder)
+    public ServerConfiguration(final ConfigBuilder builder)
     {
-        createCategory(builder, "main");
+        globalspeed = rate(builder, "global_speed", "How often the changes below are tried in general. 0 turns all of them off", 80);
+        byetorch = rate(builder, "torches_burn_out", "Torches burn out (off by default, Hardcore Torches does this better)", 0);
+        coastdecline = rate(builder, "coast_decline", "Sand, gravel and dirt at the water's edge slowly wash away", 18);
+        lavadegration = rate(builder, "lava_degradation", "Stone and bricks slowly crack and crumble into cobblestone", 17);
+        farmlanddegration = rate(builder, "farmland_degradation", "Farmland slowly degrades", 16);
+        underwaterplants = rate(builder, "underwater_plants", "Seagrass and corals grow under water", 15);
+        drylava = rate(builder, "lava_drying", "Small pools of lava cool into cobblestone", 17);
+        drymud = rate(builder, "mud_drying", "Mud away from water dries into dirt when it doesn't rain", 7);
+        spreadmud = rate(builder, "mud_in_rain", "Rain turns dirt and grass under the open sky into mud", 64);
+        byecampfire = rate(builder, "campfires_go_out", "Campfires go out over time unless they stand on a hay bale", 11);
+        anvilsand = rate(builder, "anvil_sand_to_sandstone", "An anvil presses the sand under it into sandstone", 13);
+        spiderwebs = rate(builder, "spider_webs", "Cobwebs appear around planks and stone bricks", 15);
+        byepath = rate(builder, "path_decay", "Dirt paths turn back into dirt", 29);
+        entityspawn = rate(builder, "entity_spawning", "Farm animals (cows, sheep, chickens, pigs) appear on grass over time", 23);
+        spreadnylium = rate(builder, "nylium_spread", "Nylium spreads over netherrack", 24);
+        caveentities = (ForgeConfigSpec.BooleanValue) builder.comment("Neutral animals can spawn in caves").define("cave_animals", false);
+    }
 
-        globalspeed = defineInteger(builder, "globalspeed", "In general how often the individual handlers are ticked. 0 to turn it off.", "Global Update-rate", 80, 0, 1000);
-        byetorch = defineInteger(builder, "byetorch", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Torch falling handling (off by default, Hardcore Torches handles torches)", 0, 0, 1000);
-        coastdecline = defineInteger(builder, "coastdecline", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Coast decline handling", 18, 0, 1000);
-        lavadegration = defineInteger(builder, "lavadegration", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Lava Degradation handling", 17, 0, 1000);
-        farmlanddegration = defineInteger(builder, "farmlanddegration", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Farmland Degradation handling", 16, 0, 1000);
-        underwaterplants = defineInteger(builder, "underwaterplants", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Underwater Plant handling", 15, 0, 1000);
-        drylava = defineInteger(builder, "drylava", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Lava Drying handling", 17, 0, 1000);
-        drymud = defineInteger(builder, "drymud", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Mud Dry handling", 7, 0, 1000);
-        spreadmud = defineInteger(builder, "spreadmud", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Mud during Rain Spread handling", 64, 0, 1000);
-        byecampfire = defineInteger(builder, "byecampfire", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Campfire going out handling", 11, 0, 1000);
-        anvilsand = defineInteger(builder, "anvilsand", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Anvil on Sand to Sandstone handling", 13, 0, 1000);
-        spiderwebs = defineInteger(builder, "spiderwebs", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Spiderweb handling", 15, 0, 1000);
-        byepath = defineInteger(builder, "byepath", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Grasspath decay handling", 29, 0, 1000);
-        entityspawn = defineInteger(builder, "entityspawn", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Entity Spawning handling", 23, 0, 1000);
-        spreadnylium = defineInteger(builder, "spreadnylium", "The amount of times at a global rate this is ticked. 0 to turn it off.", "Nylium Spread handling", 24, 0, 1000);
-
-
-        caveentities = defineBoolean(builder, "caveentities", "Allow neutral animals to spawn in caves.", "Allow Cave Entities", false);
-
-        finishCategory(builder);
+    private static ForgeConfigSpec.IntValue rate(ConfigBuilder builder, String key, String comment, int def)
+    {
+        return (ForgeConfigSpec.IntValue) builder.comment(comment).define(key, def, 0, 1000);
     }
 }

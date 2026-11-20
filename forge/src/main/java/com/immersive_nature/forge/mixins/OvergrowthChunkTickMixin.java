@@ -26,7 +26,7 @@ public abstract class OvergrowthChunkTickMixin
     @Inject(method = "tickChunk", at = @At("HEAD"))
     public void overgrowthTickChunk(final LevelChunk chunk, final int k, final CallbackInfo ci)
     {
-        int configValue = Overgrowth.config.getServer().globalspeed.get();
+        int configValue = Overgrowth.config.globalspeed.get();
         if (k <= 0 || chunk.getLevel().getGameTime() != 0 && chunk.getLevel().getRandom().nextInt(configValue) != 1)
         {
             return;

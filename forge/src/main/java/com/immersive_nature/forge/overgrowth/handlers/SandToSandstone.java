@@ -19,7 +19,7 @@ public class SandToSandstone extends AbstractTransformationHandler
     @Override
     public ForgeConfigSpec.IntValue getMatchingSetting()
     {
-        return Overgrowth.config.getServer().anvilsand;
+        return Overgrowth.config.anvilsand;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.immersive_nature.configs;
 
 import com.immersive_nature.ImmersiveNature;
+import com.immersive_nature.NaturePlatform;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigBuilder;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigSpec;
 import net.mehvahdjukaar.moonlight.api.platform.configs.ConfigType;
@@ -35,10 +36,15 @@ public class ClientConfigs {
         STORMY_FALLING_LEAF_PARTICLE_RATE = builder.define("stormy_falling_leaf_rate", 0.4f, 0f, 1f);
         builder.pop();
 
+        // snow graphics
+        NaturePlatform.addClientConfigs(builder);
+        builder.onChange(NaturePlatform::applyClientConfigs);
+
         CLIENT_SPEC = builder.buildAndRegister();
 
         //load early
         CLIENT_SPEC.loadFromFile();
+        NaturePlatform.applyClientConfigs();
 
     }
 
