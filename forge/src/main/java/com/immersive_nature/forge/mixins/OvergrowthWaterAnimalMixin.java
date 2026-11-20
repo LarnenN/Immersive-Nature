@@ -2,7 +2,6 @@
 package com.immersive_nature.forge.mixins;
 
 import com.immersive_nature.forge.overgrowth.Overgrowth;
-import com.immersive_nature.forge.overgrowth.configuration.ServerConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;

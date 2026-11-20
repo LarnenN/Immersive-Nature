@@ -83,49 +83,6 @@ public class WeatheringHelper {
     );
 
 
-    /*
-    public static final Supplier<Map<Block, SimpleParticleType>> LEAVES_TO_PARTICLE = Suppliers.memoize(() -> {
-                var b = ImmutableMap.<Block, SimpleParticleType>builder();
-                ModParticles.FALLING_LEAVES_PARTICLES.forEach((key, value) -> b.put(key.leaves, value));
-                return b.build();
-            }
-    );
-
-
-    public static final Supplier<Map<Block, ParticleOptions>> LOG_TO_PARTICLES = Suppliers.memoize(() ->
-            ImmutableMap.<Block, ParticleOptions>builder()
-                    .put(Blocks.OAK_LOG, ModParticles.OAK_BARK.get())
-                    .put(Blocks.DARK_OAK_LOG, ModParticles.DARK_OAK_BARK.get())
-                    .put(Blocks.SPRUCE_LOG, ModParticles.SPRUCE_BARK.get())
-                    .put(Blocks.BIRCH_LOG, ModParticles.BIRCH_BARK.get())
-                    .put(Blocks.JUNGLE_LOG, ModParticles.JUNGLE_BARK.get())
-                    .put(Blocks.ACACIA_LOG, ModParticles.ACACIA_BARK.get())
-                    .put(Blocks.MANGROVE_LOG, ModParticles.MANGROVE_BARK.get())
-                    .put(Blocks.CRIMSON_STEM, ModParticles.NETHER_SCALE.get())
-                    .put(Blocks.WARPED_STEM, ModParticles.NETHER_SCALE.get())
-
-                    .put(Blocks.OAK_WOOD, ModParticles.OAK_BARK.get())
-                    .put(Blocks.DARK_OAK_WOOD, ModParticles.DARK_OAK_BARK.get())
-                    .put(Blocks.SPRUCE_WOOD, ModParticles.SPRUCE_BARK.get())
-                    .put(Blocks.BIRCH_WOOD, ModParticles.BIRCH_BARK.get())
-                    .put(Blocks.JUNGLE_WOOD, ModParticles.JUNGLE_BARK.get())
-                    .put(Blocks.ACACIA_WOOD, ModParticles.ACACIA_BARK.get())
-                    .put(Blocks.MANGROVE_WOOD, ModParticles.MANGROVE_BARK.get())
-                    .put(Blocks.CRIMSON_HYPHAE, ModParticles.NETHER_SCALE.get())
-                    .put(Blocks.WARPED_HYPHAE, ModParticles.NETHER_SCALE.get())
-                    .build());
-
-    public static ParticleOptions getBarkParticle(BlockState state) {
-        return LOG_TO_PARTICLES.get().getOrDefault(state.getBlock(), new BlockParticleOption(ParticleTypes.BLOCK, state));
-    }
-
-    public static Optional<SimpleParticleType> getFallenLeafParticle(BlockState state) {
-        Block b = state.getBlock();
-        return Optional.ofNullable(LEAVES_TO_PARTICLE.get().get(b));
-    }
-
-     */
-
 
     public static Optional<Block> getFallenLeafPile(BlockState state) {
         Block b = state.getBlock();
@@ -449,7 +406,6 @@ public class WeatheringHelper {
     public boolean ashStuff(BlockState state, Level level, BlockPos pos) {
         BlockState downState = level.getBlockState(pos.below());
         if (level.random.nextFloat() > 0.2f) {
-            //level.setBlock(pos, ModBlocks.ASH_LAYER_BLOCK.withPropertiesOf(state), 3);
         } else if (downState.is(Blocks.GRASS_BLOCK)) {
             return level.setBlockAndUpdate(pos.below(), Blocks.DIRT.defaultBlockState());
         }

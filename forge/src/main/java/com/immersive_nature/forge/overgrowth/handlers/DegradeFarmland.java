@@ -4,20 +4,11 @@ package com.immersive_nature.forge.overgrowth.handlers;
 import com.immersive_nature.forge.overgrowth.Overgrowth;
 import com.immersive_nature.forge.overgrowth.utils.Utils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.LevelChunk;
-import net.minecraft.world.level.chunk.LevelChunkSection;
-import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
-import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-import java.util.List;
 
 /**
  * Degrades farmland.

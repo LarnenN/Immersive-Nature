@@ -15,13 +15,11 @@ public class NaturePlatformImpl {
 
     public static void addExtraMossyBlocks(ImmutableBiMap.Builder<Block, Block> builder) {
         if (IntegrationHandler.quark) {
-           // QuarkPlugin.addAllVerticalSlabs(builder);
         }
     }
 
     public static void addExtraCrackedBlocks(ImmutableBiMap.Builder<Block, Block> builder) {
         if (IntegrationHandler.quark) {
-            //QuarkPlugin.addAllVerticalSlabs(builder);
         }
     }
 

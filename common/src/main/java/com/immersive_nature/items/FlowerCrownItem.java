@@ -113,15 +113,6 @@ public class FlowerCrownItem extends ArmorItem {
                 0.12f, ModParticles.FLOWER_BOB));
         map.put("bobisnotaperson", new SpecialType("textures/models/armor/bob.png",
                 0.12f, ModParticles.FLOWER_BOB));
-        /*
-        put("key", new SpecialType("textures/models/armor/key.png",
-                0.12f, ModParticles.FLOWER_KEY));
-        put("keybounce", new SpecialType("textures/models/armor/key.png",
-                0.12f, ModParticles.FLOWER_KEY));
-        put("keyb0unce", new SpecialType("textures/models/armor/key.png",
-                0.12f, ModParticles.FLOWER_KEY));
-         */
-
         map.put("asexual", new SpecialType("textures/models/armor/ace.png",
                 0.200f, ModParticles.FLOWER_ACE));
         map.put("ace", new SpecialType("textures/models/armor/ace.png",

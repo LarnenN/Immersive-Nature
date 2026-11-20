@@ -2,8 +2,6 @@ package com.immersive_nature.items;
 
 import com.immersive_nature.blocks.mossy.Mossable;
 import com.immersive_nature.configs.CommonConfigs;
-import com.immersive_nature.integrations.IntegrationHandler;
-import com.immersive_nature.integrations.QuarkPlugin;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;

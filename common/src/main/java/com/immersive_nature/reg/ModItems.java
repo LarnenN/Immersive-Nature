@@ -12,7 +12,6 @@ import net.mehvahdjukaar.moonlight.api.set.BlockSetAPI;
 import net.mehvahdjukaar.moonlight.api.set.leaves.LeavesType;
 import net.mehvahdjukaar.moonlight.api.set.wood.WoodType;
 import net.mehvahdjukaar.moonlight.api.util.Utils;
-import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 

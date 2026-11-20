@@ -141,7 +141,6 @@ public interface Sandy {
         Optional<BlockState> Sandy = getSandy(belowState);
         if (belowState.isAir() && state.getValue(SAND_AGE) > 0) {
             level.setBlockAndUpdate(pos, state.setValue(SAND_AGE, getAge(state) - 1));
-            //if (state.getValue(SANDINESS) == 0 && unSandy.isPresent()) level.setBlockAndUpdate(pos, unSandy.get());
             level.setBlockAndUpdate(belowPos, ModBlocks.SAND_LAYER_BLOCK.get().defaultBlockState());
         }
         else if (belowState.is(ModTags.DOUBLE_SANDABLE) && isRandomSandyPos(pos) && Sandy.isPresent()) {

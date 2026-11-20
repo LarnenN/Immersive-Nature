@@ -35,7 +35,6 @@ public class EnchantedGoldenMossClumpItem extends Item {
 
                 if (player instanceof ServerPlayer serverPlayer) {
                     //todo
-                    //if (IntegrationHandler.quark) mossy = QuarkPlugin.fixVerticalSlab(mossy, state);
 
                     player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
                     level.setBlockAndUpdate(pos, mossy);

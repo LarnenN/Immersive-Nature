@@ -9,7 +9,6 @@ import java.util.function.Supplier;
 public class ModParticles {
 
     public static void init() {
-        //BlockSetAPI.addDynamicRegistration(ModParticles::registerLeafParticles, LeavesType.class, Registries.PARTICLE_TYPE);
     }
 
     public static Supplier<SimpleParticleType> registerParticle(String name) {

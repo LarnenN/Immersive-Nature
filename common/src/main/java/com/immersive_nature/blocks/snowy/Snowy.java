@@ -9,7 +9,6 @@ import com.immersive_nature.util.TemperatureManager;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -30,10 +29,8 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LightLayer;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SnowLayerBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 
@@ -111,7 +108,6 @@ public interface Snowy {
         for (Direction dir : Direction.values()) {
             if (level.getBrightness(LightLayer.BLOCK, pos.relative(dir)) > 11) {
                 level.setBlockAndUpdate(pos, unSnowy.get());
-                //Block.popResourceFromFace(level, pos, dir, new ItemStack(Items.SNOWBALL));
 
                 return;
             }

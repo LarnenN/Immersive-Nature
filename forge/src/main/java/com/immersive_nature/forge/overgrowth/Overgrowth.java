@@ -7,7 +7,6 @@ package com.immersive_nature.forge.overgrowth;
 
 import com.immersive_nature.forge.overgrowth.configuration.Configuration;
 import com.immersive_nature.forge.overgrowth.handlers.*;
-import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -189,7 +189,6 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
                     try (TextureImage logTexture = TextureImage.open(manager,
                             RPUtils.findFirstBlockTextureLocation(manager, type.log, s -> !s.contains("top")))) {
                         Palette palette = Palette.fromImage(logTexture);
-                        //PaletteColor average = palette.calculateAverage();
                         palette.increaseDown();
                         PaletteColor dark = palette.getDarkest();
                         assert template.imageWidth() <= logTexture.imageWidth() && template.imageHeight() <= logTexture.imageHeight();
@@ -203,8 +202,6 @@ public class ClientDynamicResourcesHandler extends DynClientResourcesGenerator {
                             } else if (FastColor.ABGR32.alpha(darkBorder) == 0) { //TODO: check
                                 image.setPixelRGBA(x, y, logImage.getPixelRGBA(x, y));
                             } else {
-                                //HCLColor bc = new RGBColor(darkBorder).asHCL();
-                                //image.setPixelRGBA(x, y, BaseColor.mixColors(dark.hcl(), average.hcl(), bc.asHCL()).asRGB().toInt());
                                 image.setPixelRGBA(x, y, dark.value());
                             }
                         });

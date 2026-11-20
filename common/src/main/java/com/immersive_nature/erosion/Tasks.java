@@ -7,7 +7,6 @@ package com.immersive_nature.erosion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -312,8 +311,6 @@ public class Tasks {
 
     // means the flows will not go as far as blocks erode below. Perhaps this is
     // more realistic limits.
-    // Block decayBlock = ErodableBlocks.maybeDecay(rand, wallBlock);
-    // world.setBlockState(flowPos, decayBlock.getDefaultState());
     // it will flow. Should resolve holes.
     world.setBlockAndUpdate(flowPos, Blocks.AIR.defaultBlockState());
     return true;
@@ -420,7 +417,6 @@ public class Tasks {
     // Blocks near an erodable surface only.
     List<Vec3i> listDirection = Arrays.asList(VECTOR_NORTH, VECTOR_SOUTH, VECTOR_EAST, VECTOR_WEST);
     // Randomize the list each run.
-    // Collections.shuffle(listDirection);
 
     for (Vec3i dir : listDirection) {
       BlockPos sidePos = pos.offset(dir);
@@ -469,8 +465,6 @@ public class Tasks {
         continue;
       }
 
-      // "Removing block to source side:" +
-      // world.getBlockState(sidePos).getBlock().getName().asFormattedString());
       world.setBlockAndUpdate(sidePos, Blocks.AIR.defaultBlockState());
       // Only process the first erodable side found.
       return msb.SUCCESS;
@@ -685,10 +679,6 @@ public class Tasks {
         // Immersive Weathering creates a new property named "weathering" on
         // Cobblestone, but doesn't apply it to Mossy Cobblestone. Is this an oversight?
         // See: https://github.com/13rac1/Minecraft-Water-Erosion/issues/32
-        // throw new UnsupportedOperationException(
-        // String.format("'%s' property '%s' is not available on '%s'",
-        // source.getBlock(),
-        // property.getName(), target.getBlock()));
       }
     }
     return target;

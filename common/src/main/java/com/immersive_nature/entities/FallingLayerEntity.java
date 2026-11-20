@@ -105,7 +105,6 @@ public class FallingLayerEntity extends FallingBlockEntity {
                 if(block instanceof LeafPileBlock && onState.is(Blocks.WATER) && block.getLayers(blockState)==1){
                     blockState = blockState.setValue(block.layerProperty(),0);
                 }
-             //   return;
             }
             if (this.getDeltaMovement().lengthSqr() > 1.0D) {
                 BlockHitResult blockhitresult = level.clip(new ClipContext(new Vec3(this.xo, this.yo, this.zo), this.position(), ClipContext.Block.COLLIDER, ClipContext.Fluid.SOURCE_ONLY, this));

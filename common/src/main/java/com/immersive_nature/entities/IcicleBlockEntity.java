@@ -30,7 +30,6 @@ public class IcicleBlockEntity extends BlockEntity implements GameEventListener 
         map.put(GameEvent.CONTAINER_OPEN, 3);
         map.put(GameEvent.EXPLODE, 15);
         map.put(GameEvent.LIGHTNING_STRIKE, 15);
-        //Registries.GAME_EVENT.getOptional(new ResourceLocation("moyai", "moyai_boom")).ifPresent(e -> map.put(e, 7));
     }));
 
     private final int radius;

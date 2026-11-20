@@ -1,12 +1,8 @@
 // Ported from Overgrowth by ldtteam (https://github.com/ldtteam/Overgrowth), GPL-3.0. Modified for Immersive Nature.
 package com.immersive_nature.forge.overgrowth.configuration;
 
-import com.immersive_nature.forge.overgrowth.Overgrowth;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.ForgeConfigSpec.*;
 
-import java.util.List;
-import java.util.function.Predicate;
 
 public abstract class AbstractConfiguration
 {
