@@ -60,6 +60,9 @@ public final class RainWater {
 
         // Rain lands on water: add the levels to it (Flowing Fluids spreads what does not fit)
         if (below.getFluidState().is(FluidTags.WATER)) {
+            // a full water block (lake, river, ocean) takes no more: otherwise rain keeps raising
+            // lakes and oceans until they spill over their shores
+            if (below.getFluidState().isSource()) return;
             FFFluidUtils.addAmountToFluidAtPosWithRemainderAndTrySpreadIfFull(level, pos.below(), Fluids.WATER, amount);
             return;
         }

@@ -89,10 +89,22 @@ public class FallingIcicleEntity extends FallingBlockEntity {
             }
         }
         super.tick();
+        // the vanilla falling block code places the block in the same tick it lands:
+        // take that icicle block away again and shatter instead
+        if (!this.level().isClientSide && this.isRemoved() && !this.shattered) {
+            BlockPos pos = this.blockPosition();
+            if (this.level().getBlockState(pos) == this.getBlockState()) {
+                this.level().setBlock(pos, this.level().getFluidState(pos).createLegacyBlock(), 3);
+                this.shatter();
+            }
+        }
     }
+
+    private boolean shattered = false;
 
     /** Breaks the icicle with the sound of breaking ice and shards of ice. */
     public void shatter() {
+        this.shattered = true;
         if (this.level() instanceof ServerLevel level) {
             BlockState state = this.getBlockState();
             double y = this.getY() + 0.3;

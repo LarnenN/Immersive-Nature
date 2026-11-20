@@ -81,6 +81,7 @@ side = "BOTH"
 
 [modproperties.snowrealmagic]
 catalogueItemIcon = "minecraft:snow_block"
+kiwiJsonMap = true
 
 # Flowing Fluids by Traben (LGPL-3.0), built into Immersive Nature.
 # Keeps its own mod id so its config, commands and network packets stay as they are.
@@ -106,3 +107,10 @@ side = "BOTH"
 #https://github.com/CaffeineMC/lithium/wiki/Disabling-Lithium's-Mixins-using-your-mod's-fabric.mod.json-or-neoforge.mods.toml
 ["lithium:options"]
 "mixin.world.chunk_ticking.spread_ice" = false
+
+# Kiwi: always read snowrealmagic.kiwi.json. Without this, in a development environment Kiwi scans
+# the annotations of every mod in this jar and loads the Snow! Real Magic module three times.
+[modproperties.immersive_nature]
+kiwiJsonMap = true
+[modproperties.flowing_fluids]
+kiwiJsonMap = true
