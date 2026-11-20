@@ -24,6 +24,7 @@ public class CommonConfigs {
     public static final Supplier<Integer> RAIN_WATER_CHANCE;
     public static final Supplier<Integer> RAIN_WATER_RADIUS;
     public static final Supplier<Integer> RAIN_WATER_AMOUNT;
+    public static final Supplier<Boolean> RAIN_WATER_FLOODS;
     public static final Supplier<Boolean> RAIN_WATER_OTHER_DIMENSIONS;
     public static final Supplier<Boolean> RAIN_WATER_CAN_DISABLE;
     public static final Supplier<Boolean> WATER_SOAKING;
@@ -243,6 +244,8 @@ public class CommonConfigs {
                 .define("radius", 20, 1, 128);
         RAIN_WATER_AMOUNT = builder.comment("How many water levels each raindrop spot adds (1-8, Flowing Fluids levels): 8 = a full water block, 1 = a thin puddle. The water then flows by Flowing Fluids physics")
                 .define("amount", 4, 1, 8);
+        RAIN_WATER_FLOODS = builder.comment("Rain also adds water to full water blocks (lakes, rivers, oceans), so long rain makes them rise and flood their shores. If false, rain only fills puddles up to a full block")
+                .define("floods", true);
         RAIN_WATER_OTHER_DIMENSIONS = builder.comment("Also gather rain water in dimensions other than the Overworld")
                 .define("other_dimensions", false);
         RAIN_WATER_CAN_DISABLE = builder.comment("Allow players to switch rain water off for themselves with /disable_enable_rain_water")
