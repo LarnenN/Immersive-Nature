@@ -16,7 +16,6 @@
     "CropBlockMixin",
     "EatBlockGoalMixin",
     "FireMixin",
-    "GrassBlockMixin",
     "IceMixin",
     "LeavesMixin",
     "LiquidBlockMixin",

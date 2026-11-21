@@ -18,6 +18,9 @@ import net.minecraft.world.level.block.SpreadingSnowyDirtBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import com.immersive_nature.snow.CoreModule;
 import com.immersive_nature.snow.Hooks;
+import com.immersive_nature.erosion.WaterSoaking;
+import com.immersive_nature.util.WeatheringHelper;
+import net.minecraft.tags.FluidTags;
 
 @Mixin(SpreadingSnowyDirtBlock.class)
 public abstract class SpreadableSnowyDirtBlockMixin {
@@ -29,19 +32,32 @@ public abstract class SpreadableSnowyDirtBlockMixin {
 			if (!level.isAreaLoaded(blockPos, 3)) {
 				return; // Forge: prevent loading unloaded chunks when checking neighbor's light and spreading
 			}
-			level.setBlockAndUpdate(blockPos, Blocks.DIRT.defaultBlockState());
+			// Immersive Nature: grass drowned under water picks dirt / coarse dirt / mud by the water_soaking rules
+			BlockState dead = Blocks.DIRT.defaultBlockState();
+			if (level.getFluidState(blockPos.above()).is(FluidTags.WATER)) {
+				BlockState soaked = WaterSoaking.drownedGrassResult(blockState, level.random);
+				if (soaked != null) dead = soaked;
+			}
+			level.setBlockAndUpdate(blockPos, dead);
 		} else {
 			if (level.getMaxLocalRawBrightness(blockPos.above()) >= 9) {
 				BlockState blockstate = ((Block) (Object) this).defaultBlockState();
 
 				for (int i = 0; i < 4; ++i) {
 					BlockPos blockPos2 = blockPos.offset(random.nextInt(3) - 1, random.nextInt(5) - 3, random.nextInt(3) - 1);
-					if (level.getBlockState(blockPos2).is(Blocks.DIRT) && canPropagate(blockstate, level, blockPos2)) {
-						level.setBlockAndUpdate(
-								blockPos2,
-								blockstate.setValue(
-										SnowyDirtBlock.SNOWY,
-										level.getBlockState(blockPos2.above()).is(CoreModule.SNOWY_SETTING)));
+					BlockState target = level.getBlockState(blockPos2);
+					BlockState result = null;
+					if (target.is(Blocks.DIRT)) {
+						result = blockstate;
+					} else if (blockstate.is(Blocks.GRASS_BLOCK)) {
+						// Immersive Nature: grass also spreads onto silt, sandy dirt, earthen clay, permafrost and rooted dirt
+						result = WeatheringHelper.getGrassySoil(target).orElse(null);
+					}
+					if (result != null && canPropagate(blockstate, level, blockPos2)) {
+						if (result.hasProperty(SnowyDirtBlock.SNOWY)) {
+							result = result.setValue(SnowyDirtBlock.SNOWY, level.getBlockState(blockPos2.above()).is(CoreModule.SNOWY_SETTING));
+						}
+						level.setBlockAndUpdate(blockPos2, result);
 					}
 				}
 			}

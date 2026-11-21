@@ -274,7 +274,7 @@ public class CommonConfigs {
         builder.pop();
 
         builder.push("desire_paths");
-        DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, and presses sand piles down, forming trails where people and mobs walk often")
+        DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, grassy silt and grassy sandy dirt into silt and sandy dirt, and presses sand down, forming trails where people and mobs walk often")
                 .define("enabled", true);
         DESIRE_PATHS_WEAR = builder.comment("Every block remembers how much it was walked on. Each tick someone walks on it adds 1 (sprinting more, sneaking less); at this amount it wears down one step. About 5 ticks = one walk across a block")
                 .define("wear_to_change", 100, 1, 100000);
@@ -294,7 +294,9 @@ public class CommonConfigs {
                 .define("transformations", List.of(
                         "minecraft:grass_block,minecraft:dirt",
                         "minecraft:podzol,minecraft:dirt",
-                        "minecraft:dirt,minecraft:coarse_dirt"));
+                        "minecraft:dirt,minecraft:coarse_dirt",
+                        "immersive_nature:grassy_sandy_dirt,immersive_nature:sandy_dirt",
+                        "immersive_nature:grassy_silt,immersive_nature:silt"));
         DESIRE_PATHS_SAND = builder.comment("Walking over sand piles (sand and red sand layers) presses them down: the pile loses one layer at a time")
                 .define("sand_layers", true);
         DESIRE_PATHS_SAND_BLOCKS = builder.comment("Walking over full sand and red sand blocks presses them into a pile of 7 layers, which then keeps losing layers (needs sand_layers). A pile of 8 layers is always a full sand block again")
