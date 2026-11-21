@@ -4,6 +4,12 @@
 ### Performance
 - Weathering and growth area checks no longer create temporary position lists and Random objects. Area offsets are cached per size and reused with per-thread buffers, with the same order and results as before. Checks are about 2x faster and allocate ~99% less memory.
 
+### Optimized
+- The jar is about 14% smaller (3.08 MB -> 2.65 MB):
+  - Snow-covered blocks are drawn with the plain Forge model API, so the bundled Fabric renderer libraries (fabric-api-base, fabric-renderer-api, fabric-renderer-indigo, ~195 KB) are gone. The blocks look the same.
+  - 25 unused textures removed (old branch textures, `snow_bricks_alternate`, `ice_sickle_legacy`, `edge_grass`).
+  - PNG textures are recompressed without metadata Minecraft never reads (color profiles, DPI). The build also does this for every PNG it packs. Pixels are unchanged.
+
 ### Fixed
 - Dynamic Trees compat: thin mangrove root blocks under the trunk were drawn black. They copied the light blocking of a full mangrove log, so no light reached their sides. Thin root blocks now let light through, and already generated ones are relit automatically.
 

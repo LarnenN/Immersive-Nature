@@ -34,3 +34,4 @@ repositories {
 }
 
 apply from: rootProject.file("gradle/minify-json.gradle")
+apply from: rootProject.file("gradle/strip-png.gradle")

@@ -1,0 +1,77 @@
+// Immersive Nature: make PNG files smaller when they go into the jar.
+// Removes metadata Minecraft never reads (color profiles iCCP, sRGB, gAMA, pHYs, text, dates...)
+// and re-packs the image data with maximum compression. The pixels stay exactly the same.
+import java.util.zip.CRC32
+import java.util.zip.Deflater
+import java.util.zip.Inflater
+
+processResources {
+    doLast {
+        Set<String> keep = ['IHDR', 'PLTE', 'tRNS', 'IDAT', 'IEND'] as Set
+        destinationDir.eachFileRecurse(groovy.io.FileType.FILES) { File f ->
+            if (!f.name.endsWith('.png')) return
+            byte[] b = f.bytes
+            if (b.length < 8) return
+            def head = new ByteArrayOutputStream()
+            def idat = new ByteArrayOutputStream()
+            def tail = new ByteArrayOutputStream()
+            int i = 8
+            boolean seenIdat = false
+            while (i + 8 <= b.length) {
+                int len = ((b[i] & 0xFF) << 24) | ((b[i + 1] & 0xFF) << 16) | ((b[i + 2] & 0xFF) << 8) | (b[i + 3] & 0xFF)
+                String type = new String(b, i + 4, 4, 'ISO-8859-1')
+                if (len < 0 || i + 12 + len > b.length) return // broken file: leave it alone
+                if (type == 'IDAT') {
+                    idat.write(b, i + 8, len)
+                    seenIdat = true
+                } else if (keep.contains(type)) {
+                    (seenIdat ? tail : head).write(b, i, len + 12)
+                }
+                i += len + 12
+                if (type == 'IEND') break
+            }
+            if (!seenIdat) return
+            byte[] data = idat.toByteArray()
+            // re-deflate the image data with the best compression and keep it if smaller
+            try {
+                def inf = new Inflater()
+                inf.setInput(data)
+                def raw = new ByteArrayOutputStream()
+                byte[] buf = new byte[65536]
+                while (!inf.finished()) {
+                    int n = inf.inflate(buf)
+                    if (n == 0 && (inf.needsInput() || inf.needsDictionary())) break
+                    raw.write(buf, 0, n)
+                }
+                inf.end()
+                def def9 = new Deflater(Deflater.BEST_COMPRESSION)
+                def9.setInput(raw.toByteArray())
+                def9.finish()
+                def packed = new ByteArrayOutputStream()
+                while (!def9.finished()) {
+                    int n = def9.deflate(buf)
+                    packed.write(buf, 0, n)
+                }
+                def9.end()
+                if (packed.size() < data.length) data = packed.toByteArray()
+            } catch (Exception ignored) {
+            }
+            def out = new ByteArrayOutputStream()
+            out.write(b, 0, 8)
+            out.write(head.toByteArray())
+            def chunk = new ByteArrayOutputStream()
+            chunk.write('IDAT'.getBytes('ISO-8859-1'))
+            chunk.write(data)
+            byte[] c = chunk.toByteArray()
+            int n = data.length
+            out.write([(n >>> 24) & 0xFF, (n >>> 16) & 0xFF, (n >>> 8) & 0xFF, n & 0xFF] as byte[])
+            out.write(c)
+            def crc = new CRC32()
+            crc.update(c)
+            long v = crc.value
+            out.write([(v >>> 24) & 0xFF, (v >>> 16) & 0xFF, (v >>> 8) & 0xFF, v & 0xFF] as byte[])
+            out.write(tail.toByteArray())
+            if (out.size() < b.length) f.bytes = out.toByteArray()
+        }
+    }
+}

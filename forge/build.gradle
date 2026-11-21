@@ -107,7 +107,6 @@ repositories{
     maven { url "https://maven.terraformersmc.com/releases" }
     maven { url "https://api.modrinth.com/maven" }
     maven { url "https://www.cursemaven.com" }
-    maven { url "https://maven.su5ed.dev/releases" }
     // Built mods
     flatDir {
         dirs dev_mods_dir
@@ -129,9 +128,6 @@ dependencies {
     modCompileOnly("maven.modrinth:jade:11.13.2+forge")
     modCompileOnly("curse.maven:serene-seasons-291874:5790653")
     modCompileOnly("curse.maven:glitchcore-955399:5787839")
-    include(modImplementation("dev.su5ed.sinytra.fabric-api:fabric-api-base:0.4.32+ef105b4977"))
-    include(modImplementation("dev.su5ed.sinytra.fabric-api:fabric-renderer-api-v1:3.2.2+cf68abbe77"))
-    include(modImplementation("dev.su5ed.sinytra.fabric-api:fabric-renderer-indigo:1.5.3+b5b2da4177"))
 
     // Flowing Fluids (built into Immersive Nature, LGPL-3.0, Traben)
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.4.1"))
@@ -145,3 +141,4 @@ dependencies {
 }
 
 apply from: rootProject.file("gradle/minify-json.gradle")
+apply from: rootProject.file("gradle/strip-png.gradle")

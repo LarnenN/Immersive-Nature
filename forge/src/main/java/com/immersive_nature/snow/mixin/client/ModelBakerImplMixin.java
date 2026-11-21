@@ -23,7 +23,7 @@ import com.immersive_nature.snow.util.ClientProxy;
 @Mixin(value = ModelBakerImpl.class, priority = 800)
 public class ModelBakerImplMixin {
 
-	@Shadow(remap = false, aliases = "f_243927_")
+	@Shadow(remap = false, aliases = {"f_243927_", "field_40571"})
 	private ModelBakery this$0;
 
 	@Inject(
