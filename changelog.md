@@ -1,29 +1,40 @@
 # Immersive Nature changelog
 
 ## 1.3.0
+### One mod
+- Immersive Weathering, Water Erosion, Overgrowth, Snow! Real Magic and Flowing Fluids are now one mod with one mod id, `immersive_nature`. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.
+- Old worlds are converted automatically: `snowrealmagic:*` and `immersive_weathering:*` blocks, items and block entities load as `immersive_nature:*` (with clearer names, e.g. `snowy_fence`, `snow_layer`). The old `immersive_weathering:*` ids were not remapped correctly before.
+- One config file: `config/immersive_nature-common.toml` holds all settings in sections (`overgrowth`, `snow`, `fluids` and the rest). Before, there was a per-world Overgrowth config, two snow YAML files and a fluids JSON file. Graphics settings, including snow, are in `immersive_nature-client.toml`. Changes made with `/flowing_fluids` are saved into the same file and keep its section order. Old separate config files are no longer read.
+- New mod icon, and the mod list shows Immersive Nature with credits to the original authors.
+
+### Added
+- Rain floods: long rain also raises lakes, rivers and oceans, so their shores can flood. New `rain_water.floods` option (on by default); turn it off to let rain only fill puddles.
+- Biomes O' Plenty: the Seasonal Forest maple leaf pile features place Immersive Nature leaf piles (1-3 layers) instead of BOP's own piles. Flowering oak leaves get oak leaf pile textures; the "null" leaves no longer get a leaf pile.
+- Leaf piles of leaves from other mods can use hand-drawn textures: `textures/block/<mod id>/light_<type>_leaves.png`, `medium_...` and `heavy_...`.
+
+### Translations
+- All texts come from the mod's language files (`assets/immersive_nature/lang`). The `/flowing_fluids` command texts, the fluids join message and the rain water command are now translatable.
+- Languages: English, Russian, Ukrainian, German, French, Spanish, Portuguese (Brazil) and Chinese (Simplified). Missing lines and other languages fall back to English.
+
+### Fixed
+- Dynamic Trees: the thin mangrove root blocks under the trunk were drawn black. They now let light through, never hold water (water already inside drains on a random tick), and already generated ones are relit automatically.
+- Falling icicles really shatter now. Before, the icicle block was placed in the same tick it landed, before the shatter check could run.
+- Overgrowth: the nylium spread setting now controls nylium spreading (it used the mud drying value).
+- Snow game rule texts and the falling snow entity name are updated for the merged mod.
+
 ### Performance
 - Weathering and growth area checks no longer create temporary position lists and Random objects. Area offsets are cached per size and reused with per-thread buffers, with the same order and results as before. Checks are about 2x faster and allocate ~99% less memory.
 
-### Optimized
+### Smaller jar
 - The jar is about 14% smaller (3.08 MB -> 2.65 MB):
   - Snow-covered blocks are drawn with the plain Forge model API, so the bundled Fabric renderer libraries (fabric-api-base, fabric-renderer-api, fabric-renderer-indigo, ~195 KB) are gone. The blocks look the same.
   - 25 unused textures removed (old branch textures, `snow_bricks_alternate`, `ice_sickle_legacy`, `edge_grass`).
-  - PNG textures are recompressed without metadata Minecraft never reads (color profiles, DPI). The build also does this for every PNG it packs. Pixels are unchanged.
-
-### Fixed
-- Dynamic Trees compat: thin mangrove root blocks under the trunk were drawn black. They copied the light blocking of a full mangrove log, so no light reached their sides. Thin root blocks now let light through, and already generated ones are relit automatically.
-
-### Changed
-- Rain also raises lakes, rivers and oceans, so long rain can flood their shores. New `rain_water.floods` option (on by default); turn it off to let rain only fill puddles.
-- Snow (Snow! Real Magic) and fluids (Flowing Fluids) are no longer separate mods inside the jar: everything is one mod, `immersive_nature`. Old worlds are converted automatically: `snowrealmagic:*` blocks and block entities load as `immersive_nature:*` (with clearer names, e.g. `snowy_fence`, `snow_layer`), and so do the old `immersive_weathering:*` ids, which were not remapped correctly before. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.
-- One config file: `config/immersive_nature-common.toml` now also holds the `overgrowth`, `snow` and `fluids` sections (before: a per-world overgrowth config, two snow YAML files and a fluids JSON file). Graphics settings, including snow, are in `immersive_nature-client.toml`. Changes made with `/flowing_fluids` are saved into the same file. Old separate config files are no longer read.
-- Biomes O' Plenty: flowering oak leaves get oak leaf pile textures; the "null" leaves no longer get a leaf pile.
-- All texts are in the mod's language files (assets/immersive_nature/lang): the /flowing_fluids command texts, the fluids join message and the rain water command are now translatable.
-- Translations: English, Russian, Ukrainian, German, French, Spanish, Portuguese (Brazil) and Chinese (Simplified). Missing lines and other languages fall back to English.
-- Overgrowth: the nylium spread setting now controls nylium spreading (it used the mud drying value).
+  - PNG textures are recompressed without metadata Minecraft never reads (color profiles, DPI, sRGB tags). The build also does this for every PNG it packs, and JSON files are minified. Pixels are unchanged.
 
 ### Other
-- Code moved to the `com.immersive_nature` package, classes and mixin configs renamed to Immersive Nature, creative tab renamed to Immersive Nature.
+- Code moved to the `com.immersive_nature` package; classes, mixin configs and the creative tab are renamed to Immersive Nature.
+- Removed junk code: 90 unused imports, commented-out code, 8 config options that no code ever read, and an unused test class.
+- The mod also starts in a development environment (runClient / runServer).
 
 ## 1.2.0
 ### Added
