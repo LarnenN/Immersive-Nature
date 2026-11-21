@@ -13,7 +13,7 @@
 - One config file: `config/immersive_nature-common.toml` now also holds the `overgrowth`, `snow` and `fluids` sections (before: a per-world overgrowth config, two snow YAML files and a fluids JSON file). Graphics settings, including snow, are in `immersive_nature-client.toml`. Changes made with `/flowing_fluids` are saved into the same file. Old separate config files are no longer read.
 - Biomes O' Plenty: flowering oak leaves get oak leaf pile textures; the "null" leaves no longer get a leaf pile.
 - All texts are in the mod's language files (assets/immersive_nature/lang): the /flowing_fluids command texts, the fluids join message and the rain water command are now translatable.
-- Full translations for 8 languages: English, Russian, Ukrainian, German, French, Spanish, Portuguese (Brazil) and Chinese (Simplified). Other languages fall back to English.
+- Translations: English, Russian, Ukrainian, German, French, Spanish, Portuguese (Brazil) and Chinese (Simplified). Missing lines and other languages fall back to English.
 - Overgrowth: the nylium spread setting now controls nylium spreading (it used the mud drying value).
 
 ### Other
