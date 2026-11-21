@@ -12,7 +12,8 @@
 - Snow (Snow! Real Magic) and fluids (Flowing Fluids) are no longer separate mods inside the jar: everything is one mod, `immersive_nature`. Old worlds are converted automatically: `snowrealmagic:*` blocks and block entities load as `immersive_nature:*` (with clearer names, e.g. `snowy_fence`, `snow_layer`), and so do the old `immersive_weathering:*` ids, which were not remapped correctly before. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.
 - One config file: `config/immersive_nature-common.toml` now also holds the `overgrowth`, `snow` and `fluids` sections (before: a per-world overgrowth config, two snow YAML files and a fluids JSON file). Graphics settings, including snow, are in `immersive_nature-client.toml`. Changes made with `/flowing_fluids` are saved into the same file. Old separate config files are no longer read.
 - Biomes O' Plenty: flowering oak leaves get oak leaf pile textures; the "null" leaves no longer get a leaf pile.
-- All texts are in the mod's language files (assets/immersive_nature/lang): the /flowing_fluids command texts, the fluids join message and the rain water command are now translatable, with a Russian translation (Ukrainian for the join message and rain water).
+- All texts are in the mod's language files (assets/immersive_nature/lang): the /flowing_fluids command texts, the fluids join message and the rain water command are now translatable.
+- Full translations for 11 languages: English, Russian, Ukrainian, German, French, Spanish, Portuguese (Brazil), Polish, Turkish (new), Japanese and Chinese (Simplified). Hebrew, Croatian, Italian and Traditional Chinese were removed; those languages fall back to English.
 - Overgrowth: the nylium spread setting now controls nylium spreading (it used the mud drying value).
 
 ### Other
