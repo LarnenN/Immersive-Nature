@@ -39,7 +39,7 @@ public final class RainWater {
     private static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer player)) return;
         if (!CommonConfigs.RAIN_WATER.get()) return;
-        if (!(player.level() instanceof ServerLevel level) || !level.isRaining()) return;
+        if (!(player.level() instanceof ServerLevel level) || !com.immersive_nature.util.NatureWeather.isRaining(level)) return;
         if (level.dimension() != Level.OVERWORLD && !CommonConfigs.RAIN_WATER_OTHER_DIMENSIONS.get()) return;
         if (player.getPersistentData().getBoolean(DISABLED_TAG)) return;
 

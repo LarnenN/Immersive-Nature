@@ -35,6 +35,7 @@ public class ImmersiveNatureForge {
         new com.immersive_nature.fluids.FlowingFluidsInit();
         com.immersive_nature.forge.overgrowth.Overgrowth.init();
         com.immersive_nature.forge.rainwater.RainWater.init();
+        com.immersive_nature.integrations.forge.Weather2Compat.init();
         com.immersive_nature.forge.desirepaths.DesirePaths.init();
 
         // Dynamic Trees: seeds from leaf piles, soils, bark from stripped branches

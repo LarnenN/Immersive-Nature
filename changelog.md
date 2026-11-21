@@ -6,6 +6,7 @@
 - Desire paths: grassy silt wears down into silt and grassy sandy dirt into sandy dirt; grass can grow back on them later.
 - Every desire path has its own wear speed in the config (`desire_paths`): `grass_block_wear_to_change`, `podzol_wear_to_change`, `dirt_wear_to_change`, `grassy_silt_wear_to_change`, `grassy_sandy_dirt_wear_to_change` (all 100, about 20 walks) and `sand_wear_to_change` (500, about 100 walks per layer); 0 turns one off. `wear_to_change` is now only for extra entries in `transformations`, which is empty by default. Also new: `sand_layers`, `sand_blocks` and `sand_min_layers`.
 - Lit furnaces, smokers and blast furnaces leave soot on the wall above their opening and on the ceiling above their front. New option `charring.furnace_soot` (0.3 per random tick, 0 = off).
+- Weather2 compat: Weather2 storms (rain, lightning, high wind and hail) count as rain under them, even when vanilla weather is clear: rain water puddles, Flowing Fluids rain refill, moss, mud, rain block growths and the other rain effects work there. Sandstorms pile up Immersive Nature sand piles instead of Weather2's own sand layer, and a pile of 8 layers becomes a sand block. New config section `weather2` (`storms_are_rain`, `sandstorms_make_sand_piles`).
 - Moss spreads 3 times faster while it rains on the block or right next to it. New option `mossy_blocks.rain_multiplier`.
 
 ### Changed

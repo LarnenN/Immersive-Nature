@@ -32,7 +32,7 @@ public class MuddyRain extends AbstractTransformationHandler
     @Override
     public boolean ready(final long worldTick, final LevelChunk chunk)
     {
-        return getCachedSetting() != 0 && chunk.getLevel().isRaining() && worldTick % getCachedSetting() == 0;
+        return getCachedSetting() != 0 && com.immersive_nature.util.NatureWeather.isRaining(chunk.getLevel()) && worldTick % getCachedSetting() == 0;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MuddyRain extends AbstractTransformationHandler
     {
         final BlockPos worldPos = Utils.getWorldPos(chunk, chunkSection, relativePos);
 
-        if (chunk.getLevel().canSeeSky(worldPos.above()))
+        if (chunk.getLevel().isRaining() ? chunk.getLevel().canSeeSky(worldPos.above()) : chunk.getLevel().isRainingAt(worldPos.above()))
         {
             chunk.getLevel().setBlock(worldPos, Blocks.MUD.defaultBlockState(), UPDATE_ALL_IMMEDIATE);
         }

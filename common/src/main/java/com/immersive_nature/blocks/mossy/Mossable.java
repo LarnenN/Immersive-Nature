@@ -119,7 +119,7 @@ public interface Mossable extends Weatherable {
     /** Moss grows faster while it rains on the block or right next to it. */
     static float mossChance(float base, ServerLevel level, BlockPos pos) {
         double mult = CommonConfigs.MOSS_RAIN_MULTIPLIER.get();
-        if (mult <= 1 || !level.isRaining()) return base;
+        if (mult <= 1 || !com.immersive_nature.util.NatureWeather.isRaining(level)) return base;
         if (level.isRainingAt(pos.above())) return (float) (base * mult);
         for (Direction d : Direction.Plane.HORIZONTAL) {
             if (level.isRainingAt(pos.relative(d))) return (float) (base * mult);

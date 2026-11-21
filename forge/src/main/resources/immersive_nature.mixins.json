@@ -9,6 +9,8 @@
   ],
   "mixins": [
     "BOPLeafPileFeatureMixin",
+    "LevelRainMixin",
+    "Weather2SandMixin",
     "BlockEntityLegacyIdMixin",
     "DTRootyLightMixin",
     "FluidInteractionRegistryMixin",

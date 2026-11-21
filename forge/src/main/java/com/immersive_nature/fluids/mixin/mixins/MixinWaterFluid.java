@@ -94,8 +94,8 @@ public abstract class MixinWaterFluid extends FlowingFluid {
    @Unique
    private boolean ff$tryRainFill(Level level, BlockPos blockPos, float chance, boolean isInfBiome, boolean isWithinInfBiomeHeights) {
       if (chance < Math.min(FlowingFluids.config.rainRefillChance, FlowingFluids.config.evaporationChanceV2 / 3.0F)
-         && level.isRaining()
-         && level.canSeeSky(blockPos.above())
+         // Immersive Nature: Weather2 storms rain too (Level#isRainingAt knows them)
+         && (level.isRaining() ? level.canSeeSky(blockPos.above()) : level.isRainingAt(blockPos.above()))
          && (!isInfBiome || !isWithinInfBiomeHeights)
          && !level.getBiome(blockPos).is(BiomeTags.HAS_VILLAGE_DESERT)) {
          int amount = level.isThundering() ? 2 : 1;
@@ -118,7 +118,7 @@ public abstract class MixinWaterFluid extends FlowingFluid {
       if (FFFluidUtils.seaLevel(level) == blockPos.getY()) {
          if (chance < FlowingFluids.config.infiniteWaterBiomeNonConsumeChance
             || chance < FlowingFluids.config.oceanRiverSwampRefillChance
-            || level.isRaining() && chance < FlowingFluids.config.rainRefillChance) {
+            || (level.isRaining() || level.isRainingAt(blockPos.above())) && chance < FlowingFluids.config.rainRefillChance) {
             FluidState below = level.getFluidState(blockPos.below());
             if (below.getAmount() == 8 && below.is(FluidTags.WATER) && hasSkyLight && isInfBiome) {
                level.setBlockAndUpdate(blockPos, FFFluidUtils.getBlockForFluidByAmount(this, amount - 2));

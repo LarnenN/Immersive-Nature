@@ -95,7 +95,7 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
         float chance = randomTickSpeed / (3f * 16f);
         int minX = chunkpos.getMinBlockX();
         int minZ = chunkpos.getMinBlockZ();
-        boolean isRaining = level.isRaining();
+        boolean isRaining = com.immersive_nature.util.NatureWeather.isRaining(level);
         do {
             if (chance > level.getRandom().nextFloat()) {
 
@@ -104,7 +104,7 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
                 BlockState state = level.getBlockState(targetPos);
 
                 TickSource source = TickSource.CLEAR_SKY;
-                if (isRaining) {
+                if (isRaining && com.immersive_nature.util.NatureWeather.precipitatesAt(level, targetPos)) {
                     Biome biome = level.getBiome(targetPos).value();
                     Biome.Precipitation precipitation = biome.getPrecipitationAt(targetPos);
                     source = precipitation == Biome.Precipitation.SNOW ? TickSource.SNOW : TickSource.RAIN;

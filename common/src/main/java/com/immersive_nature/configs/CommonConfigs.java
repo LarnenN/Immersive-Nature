@@ -79,6 +79,8 @@ public class CommonConfigs {
 
     public static final Supplier<Double> FIRE_CHARS_WOOD_CHANCE;
     public static final Supplier<Double> FURNACE_SOOT_CHANCE;
+    public static final Supplier<Boolean> WEATHER2_RAIN;
+    public static final Supplier<Boolean> WEATHER2_SAND;
     public static final Supplier<Double> MOSS_RAIN_MULTIPLIER;
     public static final Supplier<Double> GRASS_SEEDING_CHANCE;
     public static final Supplier<Double> ASH_SPAWN_CHANCE;
@@ -324,6 +326,13 @@ public class CommonConfigs {
                 .define("sand_wear_to_change", 500, 0, 100000);
         DESIRE_PATHS_SAND_MIN = builder.comment("Sand piles are never walked down below this many layers. 0 = the last layer can be walked away completely")
                 .define("sand_min_layers", 0, 0, 7);
+        builder.pop();
+
+        builder.push("weather2");
+        WEATHER2_RAIN = builder.comment("Weather2 storms (rain, lightning, high wind and hail) count as rain where they rain: rain water, rain refill, moss and other rain effects work under them")
+                .define("storms_are_rain", true);
+        WEATHER2_SAND = builder.comment("Weather2 sandstorms pile up Immersive Nature sand piles (8 layers = a sand block) instead of Weather2's own sand layer")
+                .define("sandstorms_make_sand_piles", true);
         builder.pop();
 
         // overgrowth, snow and fluids
