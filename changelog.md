@@ -1,6 +1,9 @@
 # Immersive Nature changelog
 
 ## 1.4.0
+### Added
+- Desire paths for sand: walking over sand piles (sand and red sand layers) presses them down one layer at a time, until the last layer is gone. New `desire_paths` options: `sand_layers` (on by default), `sand_wear_to_change` (50, about 10 walks per layer) and `sand_min_layers` (0 = the last layer can be walked away).
+
 ### Fixed
 - Placing a snow layer by hand (snow item with no block data) crashed the game. Caused by a wrong check of the item data in 1.3.0.
 

@@ -41,6 +41,9 @@ public class CommonConfigs {
     public static final Supplier<Boolean> DESIRE_PATHS_CROUCH_PREVENTS;
     public static final Supplier<Boolean> DESIRE_PATHS_BREAK_TALL_GRASS;
     public static final Supplier<List<String>> DESIRE_PATHS_TRANSFORMATIONS;
+    public static final Supplier<Boolean> DESIRE_PATHS_SAND;
+    public static final Supplier<Integer> DESIRE_PATHS_SAND_WEAR;
+    public static final Supplier<Integer> DESIRE_PATHS_SAND_MIN;
     public static final Supplier<List<String>> DISABLED_GROWTHS;
     public static final Supplier<Double> PLANT_GROWTH_MULTIPLIER;
     public static final Supplier<Integer> WET_CLAY_WATER_LEVELS;
@@ -270,7 +273,7 @@ public class CommonConfigs {
         builder.pop();
 
         builder.push("desire_paths");
-        DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, forming trails where people and mobs walk often")
+        DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, and presses sand piles down, forming trails where people and mobs walk often")
                 .define("enabled", true);
         DESIRE_PATHS_WEAR = builder.comment("Every block remembers how much it was walked on. Each tick someone walks on it adds 1 (sprinting more, sneaking less); at this amount it wears down one step. About 5 ticks = one walk across a block")
                 .define("wear_to_change", 100, 1, 100000);
@@ -291,6 +294,12 @@ public class CommonConfigs {
                         "minecraft:grass_block,minecraft:dirt",
                         "minecraft:podzol,minecraft:dirt",
                         "minecraft:dirt,minecraft:coarse_dirt"));
+        DESIRE_PATHS_SAND = builder.comment("Walking over sand piles (sand and red sand layers) presses them down: the pile loses one layer at a time")
+                .define("sand_layers", true);
+        DESIRE_PATHS_SAND_WEAR = builder.comment("Like wear_to_change, but for sand piles: how much walking takes one layer off. Sand is loose, so it wears faster than grass")
+                .define("sand_wear_to_change", 50, 1, 100000);
+        DESIRE_PATHS_SAND_MIN = builder.comment("Sand piles are never walked down below this many layers. 0 = the last layer can be walked away completely")
+                .define("sand_min_layers", 0, 0, 7);
         builder.pop();
 
         // overgrowth, snow and fluids

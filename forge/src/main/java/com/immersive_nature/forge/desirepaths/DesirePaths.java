@@ -1,6 +1,8 @@
 package com.immersive_nature.forge.desirepaths;
 
 import com.immersive_nature.ImmersiveNature;
+import com.immersive_nature.blocks.LayerBlock;
+import com.immersive_nature.blocks.SandLayerBlock;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.util.BlockRules;
 import net.minecraft.core.BlockPos;
@@ -14,6 +16,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.common.MinecraftForge;
@@ -27,7 +30,8 @@ import java.util.WeakHashMap;
 import java.util.List;
 
 /**
- * Desire paths: grass and podzol under walking feet slowly wear down into dirt and coarse dirt.
+ * Desire paths: grass and podzol under walking feet slowly wear down into dirt and coarse dirt,
+ * and sand piles (sand layers) get pressed down one layer at a time.
  * Each block remembers how much it was walked on (not which mob did it).
  * Immersive Nature's own implementation of the idea of the "Desire Paths" mod by Insane96MCP.
  */
@@ -106,7 +110,8 @@ public final class DesirePaths {
         float moved = entity.walkDist - entity.walkDistO;
         if (moved <= 0) return;
         List<BlockRules.Rule> rules = RULES.get();
-        if (rules.isEmpty()) return;
+        boolean sand = CommonConfigs.DESIRE_PATHS_SAND.get();
+        if (rules.isEmpty() && !sand) return;
 
         float add = CommonConfigs.DESIRE_PATHS_SPEED_BASED.get() ? moved / WALK_SPEED : 1F;
         int featherFalling = EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, entity);
@@ -126,6 +131,21 @@ public final class DesirePaths {
             for (int z = Mth.floor(box.minZ); z < box.maxZ; z++) {
                 pos.set(x, y, z);
                 BlockState ground = level.getBlockState(pos);
+                if (sand && ground.getBlock() instanceof SandLayerBlock) {
+                    int layers = ground.getValue(LayerBlock.LAYERS_8);
+                    int min = CommonConfigs.DESIRE_PATHS_SAND_MIN.get();
+                    if (min > 0 && layers <= min) continue;
+                    if (wear == null) wear = wear(level);
+                    long key = pos.asLong();
+                    wear.lastTouched.put(key, level.getGameTime());
+                    if (wear.amount.addTo(key, add) + add < CommonConfigs.DESIRE_PATHS_SAND_WEAR.get()) continue;
+                    wear.amount.remove(key);
+                    wear.lastTouched.remove(key);
+                    level.setBlockAndUpdate(pos, layers > 1
+                            ? ground.setValue(LayerBlock.LAYERS_8, layers - 1)
+                            : Blocks.AIR.defaultBlockState());
+                    continue;
+                }
                 for (BlockRules.Rule rule : rules) {
                     if (!rule.matches(ground)) continue;
                     if (wear == null) wear = wear(level);
