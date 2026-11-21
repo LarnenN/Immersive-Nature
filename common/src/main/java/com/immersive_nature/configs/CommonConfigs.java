@@ -41,7 +41,11 @@ public class CommonConfigs {
     public static final Supplier<Boolean> DESIRE_PATHS_CROUCH_PREVENTS;
     public static final Supplier<Boolean> DESIRE_PATHS_BREAK_TALL_GRASS;
     public static final Supplier<List<String>> DESIRE_PATHS_TRANSFORMATIONS;
-    public static final Supplier<Boolean> DESIRE_PATHS_SOILS;
+    public static final Supplier<Integer> DESIRE_PATHS_GRASS_WEAR;
+    public static final Supplier<Integer> DESIRE_PATHS_PODZOL_WEAR;
+    public static final Supplier<Integer> DESIRE_PATHS_DIRT_WEAR;
+    public static final Supplier<Integer> DESIRE_PATHS_SILT_WEAR;
+    public static final Supplier<Integer> DESIRE_PATHS_SANDY_DIRT_WEAR;
     public static final Supplier<Boolean> DESIRE_PATHS_SAND;
     public static final Supplier<Boolean> DESIRE_PATHS_SAND_BLOCKS;
     public static final Supplier<Integer> DESIRE_PATHS_SAND_WEAR;
@@ -74,6 +78,9 @@ public class CommonConfigs {
 
 
     public static final Supplier<Double> FIRE_CHARS_WOOD_CHANCE;
+    public static final Supplier<Double> FURNACE_SOOT_CHANCE;
+    public static final Supplier<Double> MOSS_RAIN_MULTIPLIER;
+    public static final Supplier<Double> GRASS_SEEDING_CHANCE;
     public static final Supplier<Double> ASH_SPAWN_CHANCE;
 
 
@@ -129,6 +136,8 @@ public class CommonConfigs {
                 .define("block_growth_blacklist", new ArrayList<>());
         PLANT_GROWTH_MULTIPLIER = builder.comment("Speeds up grass, ferns, flowers and other plants growing on grass blocks (1 = original Immersive Weathering speed). Plants grow next to other grass plants")
                 .define("plant_growth_multiplier", 1.0, 0, 100);
+        GRASS_SEEDING_CHANCE = builder.comment("Chance per random tick that a grass plant sprouts on a grass block with no plants within 2 blocks (the grass_block_seeding growth). 0 = off. Needs /reload or a restart to apply")
+                .define("grass_seeding_chance", 0.00002, 0, 1);
         WET_CLAY_WATER_LEVELS = builder.comment("How many water levels wet earthen clay leaves behind when broken (0 = none, 8 = a full water block). Uses Flowing Fluids levels")
                 .define("wet_earthen_clay_water_levels", 4, 0, 8);
         CREATIVE_TAB = builder.define("creative_tab", false);
@@ -144,6 +153,8 @@ public class CommonConfigs {
         MOSS_IMMUNE_CHANCE = builder.define("immune_chance", 0.4, 0, 1);
         MOSS_NEEDS_AIR = builder.define("needs_air", true);
         MOSS_SPREADING_ENABLED = builder.define("enabled", true);
+        MOSS_RAIN_MULTIPLIER = builder.comment("Moss spreads this many times faster while it rains on the block or right next to it (1 = no change)")
+                .define("rain_multiplier", 3.0, 1, 100);
         builder.pop();
 
         builder.push("cracked_blocks");
@@ -171,6 +182,8 @@ public class CommonConfigs {
         FIRE_CHARS_WOOD_CHANCE = builder.define("fire_chars_wood", 0.3, 0, 1);
         ASH_SPAWN_CHANCE = builder.comment("Chance for a pile of ash to be left when fire burns a block that has no charred variant")
                 .define("ash_spawn", 0.3, 0, 1);
+        FURNACE_SOOT_CHANCE = builder.comment("Chance per random tick that a lit furnace, smoker or blast furnace leaves soot on the wall above its opening or on the ceiling above its front. 0 = off")
+                .define("furnace_soot", 0.3, 0, 1);
         builder.pop();
 
 
@@ -277,8 +290,18 @@ public class CommonConfigs {
         builder.push("desire_paths");
         DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, grassy silt and grassy sandy dirt into silt and sandy dirt, and presses sand down, forming trails where people and mobs walk often")
                 .define("enabled", true);
-        DESIRE_PATHS_WEAR = builder.comment("Every block remembers how much it was walked on. Each tick someone walks on it adds 1 (sprinting more, sneaking less); at this amount it wears down one step. About 5 ticks = one walk across a block")
+        DESIRE_PATHS_WEAR = builder.comment("Wear speed of the extra entries in transformations below. Every block remembers how much it was walked on: each tick someone walks on it adds 1 (sprinting more, sneaking less), and at this amount it wears down one step. About 5 ticks = one walk across a block, so 100 = about 20 walks")
                 .define("wear_to_change", 100, 1, 100000);
+        DESIRE_PATHS_GRASS_WEAR = builder.comment("How much walking turns a grass block into dirt (about 5 = one walk across a block). 0 = off")
+                .define("grass_block_wear_to_change", 100, 0, 100000);
+        DESIRE_PATHS_PODZOL_WEAR = builder.comment("How much walking turns podzol into dirt. 0 = off")
+                .define("podzol_wear_to_change", 100, 0, 100000);
+        DESIRE_PATHS_DIRT_WEAR = builder.comment("How much walking turns dirt into coarse dirt. 0 = off")
+                .define("dirt_wear_to_change", 100, 0, 100000);
+        DESIRE_PATHS_SILT_WEAR = builder.comment("How much walking turns grassy silt into silt (grass can grow back on it later). 0 = off")
+                .define("grassy_silt_wear_to_change", 100, 0, 100000);
+        DESIRE_PATHS_SANDY_DIRT_WEAR = builder.comment("How much walking turns grassy sandy dirt into sandy dirt (grass can grow back on it later). 0 = off")
+                .define("grassy_sandy_dirt_wear_to_change", 100, 0, 100000);
         DESIRE_PATHS_MOBS = builder.comment("Mobs wear down paths too (except the ones in the entity tag immersive_nature:no_desire_paths, sheep by default). If false, only players and mobs in immersive_nature:makes_desire_paths do")
                 .define("mobs_make_paths", true);
         DESIRE_PATHS_FORGET = builder.comment("Minutes after which a block forgets that it was walked on, if nobody walks on it again")
@@ -291,19 +314,14 @@ public class CommonConfigs {
                 .define("crouch_prevents", true);
         DESIRE_PATHS_BREAK_TALL_GRASS = builder.comment("Grass and ferns on top get trampled when the block below wears down")
                 .define("break_tall_grass", true);
-        DESIRE_PATHS_TRANSFORMATIONS = builder.comment("What wears into what, as \"from,to\". From can be a block id or a #block_tag")
-                .define("transformations", List.of(
-                        "minecraft:grass_block,minecraft:dirt",
-                        "minecraft:podzol,minecraft:dirt",
-                        "minecraft:dirt,minecraft:coarse_dirt"));
-        DESIRE_PATHS_SOILS = builder.comment("Walking over grassy silt and grassy sandy dirt wears them down into silt and sandy dirt (grass can grow back on them later)")
-                .define("soil_paths", true);
+        DESIRE_PATHS_TRANSFORMATIONS = builder.comment("Extra blocks that wear into other blocks, as \"from,to\" (they use wear_to_change). From can be a block id or a #block_tag. Grass, podzol, dirt, grassy silt, grassy sandy dirt and sand have their own options above and below, entries for them here are ignored")
+                .define("transformations", new ArrayList<>());
         DESIRE_PATHS_SAND = builder.comment("Walking over sand piles (sand and red sand layers) presses them down: the pile loses one layer at a time")
                 .define("sand_layers", true);
         DESIRE_PATHS_SAND_BLOCKS = builder.comment("Walking over full sand and red sand blocks presses them into a pile of 7 layers, which then keeps losing layers (needs sand_layers). A pile of 8 layers is always a full sand block again")
                 .define("sand_blocks", true);
-        DESIRE_PATHS_SAND_WEAR = builder.comment("Like wear_to_change, but for sand: how much walking takes one layer off (about 5 ticks = one walk across a block)")
-                .define("sand_wear_to_change", 500, 1, 100000);
+        DESIRE_PATHS_SAND_WEAR = builder.comment("How much walking takes one layer off sand and sand piles (about 5 = one walk across a block, so 500 = about 100 walks). 0 = off")
+                .define("sand_wear_to_change", 500, 0, 100000);
         DESIRE_PATHS_SAND_MIN = builder.comment("Sand piles are never walked down below this many layers. 0 = the last layer can be walked away completely")
                 .define("sand_min_layers", 0, 0, 7);
         builder.pop();

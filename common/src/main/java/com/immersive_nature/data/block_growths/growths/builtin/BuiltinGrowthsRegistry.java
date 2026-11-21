@@ -16,6 +16,7 @@ public class BuiltinGrowthsRegistry {
         register("no_op", NoOpBlockGrowth::new);
         register("campfire_soot", CampfireSootGrowth::new);
         register("fire_soot", FireSootGrowth::new);
+        register("furnace_soot", FurnaceSootGrowth::new);
         register("ice_icicle_and_melt", IceGrowth::new);
         register("leaf_piles_from_leaves", LeavesGrowth::new);
         register("icicle_from_snow", SnowIcicleGrowth::new);

@@ -2,9 +2,14 @@
 
 ## 1.4.0
 ### Added
-- Desire paths for sand: a full sand block counts as 8 layers. Walking over sand or red sand presses it into a pile of 7 layers, and the pile keeps losing one layer at a time until the last layer is gone. New `desire_paths` options: `sand_layers` (on by default), `sand_blocks` (full sand blocks too, on by default), `sand_wear_to_change` (500, about 100 walks per layer) and `sand_min_layers` (0 = the last layer can be walked away).
-- A sand or red sand pile that reaches 8 layers turns into a full sand block.
-- Desire paths: grassy sandy dirt wears down into sandy dirt, and grassy silt into silt; grass can grow back on them later. New option `desire_paths.soil_paths` (on by default), so it works with old config files too.
+- Desire paths: a full sand block counts as 8 layers. Walking over sand or red sand presses it into a pile of 7 layers, and the pile keeps losing one layer at a time until the last layer is gone. A sand or red sand pile that reaches 8 layers turns into a full sand block.
+- Desire paths: grassy silt wears down into silt and grassy sandy dirt into sandy dirt; grass can grow back on them later.
+- Every desire path has its own wear speed in the config (`desire_paths`): `grass_block_wear_to_change`, `podzol_wear_to_change`, `dirt_wear_to_change`, `grassy_silt_wear_to_change`, `grassy_sandy_dirt_wear_to_change` (all 100, about 20 walks) and `sand_wear_to_change` (500, about 100 walks per layer); 0 turns one off. `wear_to_change` is now only for extra entries in `transformations`, which is empty by default. Also new: `sand_layers`, `sand_blocks` and `sand_min_layers`.
+- Lit furnaces, smokers and blast furnaces leave soot on the wall above their opening and on the ceiling above their front. New option `charring.furnace_soot` (0.3 per random tick, 0 = off).
+- Moss spreads 3 times faster while it rains on the block or right next to it. New option `mossy_blocks.rain_multiplier`.
+
+### Changed
+- Lone grass plants sprout 5 times less often on grass blocks with no plants around (0.0001 -> 0.00002). New option `general.grass_seeding_chance` (0 = off, needs /reload).
 
 ### Fixed
 - Grass blocks spread onto silt, sandy dirt, earthen clay, permafrost and rooted dirt again, turning them into their grassy versions. The built-in snow code replaced the grass spreading code and only knew plain dirt.

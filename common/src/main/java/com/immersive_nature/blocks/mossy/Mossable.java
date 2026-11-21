@@ -10,6 +10,7 @@ import com.immersive_nature.util.PatchSpreader;
 import com.immersive_nature.util.Weatherable;
 import com.immersive_nature.util.WeatheringHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
@@ -115,9 +116,20 @@ public interface Mossable extends Weatherable {
         MOSSY;
     }
 
+    /** Moss grows faster while it rains on the block or right next to it. */
+    static float mossChance(float base, ServerLevel level, BlockPos pos) {
+        double mult = CommonConfigs.MOSS_RAIN_MULTIPLIER.get();
+        if (mult <= 1 || !level.isRaining()) return base;
+        if (level.isRainingAt(pos.above())) return (float) (base * mult);
+        for (Direction d : Direction.Plane.HORIZONTAL) {
+            if (level.isRainingAt(pos.relative(d))) return (float) (base * mult);
+        }
+        return base;
+    }
+
     @Override
     default void tryWeather(BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random) {
-        if (random.nextFloat() < this.getWeatherChanceSpeed()) {
+        if (random.nextFloat() < mossChance(this.getWeatherChanceSpeed(), serverLevel, pos)) {
             Optional<BlockState> opt = Optional.empty();
             if (this.getMossSpreader().getWantedWeatheringState(true, pos, serverLevel)) {
                 opt = this.getNextMossy(state);

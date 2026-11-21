@@ -1,0 +1,11 @@
+{
+  "builtin": "furnace_soot",
+  "tick_sources": [
+    "block_tick"
+  ],
+  "owners": [
+    "minecraft:furnace",
+    "minecraft:smoker",
+    "minecraft:blast_furnace"
+  ]
+}

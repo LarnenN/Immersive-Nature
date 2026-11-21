@@ -133,12 +133,29 @@ public final class DesirePaths {
         return pile.defaultBlockState().setValue(LayerBlock.LAYERS_8, layers - 1);
     }
 
-    /** Grassy silt -> silt and grassy sandy dirt -> sandy dirt; the plain soils don't wear any further. */
+    /** One wear step of a block with its own options. needed == 0 means that step is turned off. */
+    private record Step(@Nullable BlockState result, int needed) {
+    }
+
+    private static final Step NONE = null;
+
+    /**
+     * The built-in paths: grass block / podzol -> dirt -> coarse dirt, grassy silt -> silt,
+     * grassy sandy dirt -> sandy dirt, and sand. Null if the block is none of them.
+     */
     @Nullable
-    private static Block wornSoil(Block block) {
-        if (block == ModBlocks.GRASSY_SILT.get()) return ModBlocks.SILT.get();
-        if (block == ModBlocks.GRASSY_SANDY_DIRT.get()) return ModBlocks.SANDY_DIRT.get();
-        return null;
+    private static Step builtinStep(BlockState ground) {
+        Block block = ground.getBlock();
+        if (block == Blocks.GRASS_BLOCK) return new Step(Blocks.DIRT.defaultBlockState(), CommonConfigs.DESIRE_PATHS_GRASS_WEAR.get());
+        if (block == Blocks.PODZOL) return new Step(Blocks.DIRT.defaultBlockState(), CommonConfigs.DESIRE_PATHS_PODZOL_WEAR.get());
+        if (block == Blocks.DIRT) return new Step(Blocks.COARSE_DIRT.defaultBlockState(), CommonConfigs.DESIRE_PATHS_DIRT_WEAR.get());
+        if (block == ModBlocks.GRASSY_SILT.get()) return new Step(ModBlocks.SILT.get().defaultBlockState(), CommonConfigs.DESIRE_PATHS_SILT_WEAR.get());
+        if (block == ModBlocks.GRASSY_SANDY_DIRT.get()) return new Step(ModBlocks.SANDY_DIRT.get().defaultBlockState(), CommonConfigs.DESIRE_PATHS_SANDY_DIRT_WEAR.get());
+        if (block == Blocks.SAND || block == Blocks.RED_SAND || block == ModBlocks.SAND_LAYER_BLOCK.get() || block == ModBlocks.RED_SAND_LAYER_BLOCK.get()) {
+            BlockState pressed = CommonConfigs.DESIRE_PATHS_SAND.get() ? pressSand(ground) : null;
+            return new Step(pressed, pressed == null ? 0 : CommonConfigs.DESIRE_PATHS_SAND_WEAR.get());
+        }
+        return NONE;
     }
 
     private static void trample(Level level, BlockPos pos, LivingEntity entity) {
@@ -156,9 +173,6 @@ public final class DesirePaths {
         float moved = entity.walkDist - entity.walkDistO;
         if (moved <= 0) return;
         List<BlockRules.Rule> rules = RULES.get();
-        boolean sand = CommonConfigs.DESIRE_PATHS_SAND.get();
-        boolean soils = CommonConfigs.DESIRE_PATHS_SOILS.get();
-        if (rules.isEmpty() && !sand && !soils) return;
 
         float add = CommonConfigs.DESIRE_PATHS_SPEED_BASED.get() ? moved / WALK_SPEED : 1F;
         int featherFalling = EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, entity);
@@ -168,7 +182,7 @@ public final class DesirePaths {
         if (add <= 0) return;
 
         Level level = entity.level();
-        int needed = CommonConfigs.DESIRE_PATHS_WEAR.get();
+        int extraNeeded = CommonConfigs.DESIRE_PATHS_WEAR.get();
         Wear wear = null;
         AABB box = entity.getBoundingBox().deflate(0.1);
         int y = Mth.floor(entity.getY() - 1.0E-5);
@@ -178,50 +192,31 @@ public final class DesirePaths {
             for (int z = Mth.floor(box.minZ); z < box.maxZ; z++) {
                 pos.set(x, y, z);
                 BlockState ground = level.getBlockState(pos);
-                if (sand) {
-                    BlockState pressed = pressSand(ground);
-                    if (pressed != null) {
-                        if (wear == null) wear = wear(level);
-                        long key = pos.asLong();
-                        wear.lastTouched.put(key, level.getGameTime());
-                        if (wear.amount.addTo(key, add) + add < CommonConfigs.DESIRE_PATHS_SAND_WEAR.get()) continue;
-                        wear.amount.remove(key);
-                        wear.lastTouched.remove(key);
-                        level.setBlockAndUpdate(pos, pressed);
-                        continue;
-                    }
-                }
-                if (soils) {
-                    Block worn = wornSoil(ground.getBlock());
-                    if (worn != null) {
-                        if (wear == null) wear = wear(level);
-                        long key = pos.asLong();
-                        wear.lastTouched.put(key, level.getGameTime());
-                        if (wear.amount.addTo(key, add) + add < needed) continue;
-                        wear.amount.remove(key);
-                        wear.lastTouched.remove(key);
-                        level.setBlockAndUpdate(pos, worn.defaultBlockState());
-                        trample(level, pos, entity);
-                        continue;
-                    }
-                }
-                for (BlockRules.Rule rule : rules) {
-                    if (!rule.matches(ground)) continue;
-                    if (wear == null) wear = wear(level);
-                    long key = pos.asLong();
-                    wear.lastTouched.put(key, level.getGameTime());
-                    if (wear.amount.addTo(key, add) + add < needed) break;
-                    wear.amount.remove(key);
-                    wear.lastTouched.remove(key);
-                    level.setBlockAndUpdate(pos, rule.result().defaultBlockState());
-                    if (CommonConfigs.DESIRE_PATHS_BREAK_TALL_GRASS.get()) {
-                        BlockPos above = pos.above();
-                        if (level.getBlockState(above).is(TRAMPLED_PLANTS)) {
-                            level.destroyBlock(above, false, entity);
+                BlockState result = null;
+                int needed;
+                Step step = builtinStep(ground);
+                if (step != null) {
+                    if (step.result() == null || step.needed() <= 0) continue; // turned off
+                    result = step.result();
+                    needed = step.needed();
+                } else {
+                    for (BlockRules.Rule rule : rules) {
+                        if (rule.matches(ground)) {
+                            result = rule.result().defaultBlockState();
+                            break;
                         }
                     }
-                    break;
+                    if (result == null) continue;
+                    needed = extraNeeded;
                 }
+                if (wear == null) wear = wear(level);
+                long key = pos.asLong();
+                wear.lastTouched.put(key, level.getGameTime());
+                if (wear.amount.addTo(key, add) + add < needed) continue;
+                wear.amount.remove(key);
+                wear.lastTouched.remove(key);
+                level.setBlockAndUpdate(pos, result);
+                if (!result.isAir()) trample(level, pos, entity);
             }
         }
     }

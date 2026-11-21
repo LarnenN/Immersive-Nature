@@ -130,6 +130,10 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
             if (CommonConfigs.DISABLED_GROWTHS.get().contains(name.toLowerCase(Locale.ROOT))) continue;
 
             var json = e.getValue();
+            // Immersive Nature: the lone grass sprouting chance comes from the config
+            if (name.equals("grass_block_seeding") && json instanceof JsonObject seed && seed.has("growth_chance")) {
+                seed.addProperty("growth_chance", CommonConfigs.GRASS_SEEDING_CHANCE.get().floatValue());
+            }
             DataResult<? extends IBlockGrowth> result;
             if (json instanceof JsonObject jo && jo.has("builtin")) {
                 result = BuiltinBlockGrowth.CODEC.parse(RegistryOps.create(JsonOps.INSTANCE, registryAccess), json);

@@ -31,8 +31,13 @@ public interface CrackableMossable extends Mossable, Crackable {
 
     @Override
     default void tryWeather(BlockState state, ServerLevel serverLevel, BlockPos pos, RandomSource random) {
-        if (random.nextFloat() < this.getWeatherChanceSpeed()) {
+        float base = this.getWeatherChanceSpeed();
+        float roll = random.nextFloat();
+        if (roll < Mossable.mossChance(base, serverLevel, pos)) {
+            // the extra chance from rain only helps moss, not cracks
+            boolean rainOnly = roll >= base;
             boolean isMoss = this.getMossSpreader().getWantedWeatheringState(true, pos, serverLevel);
+            if (rainOnly && !isMoss) return;
             Optional<BlockState> opt = Optional.empty();
             if (isMoss) {
                 opt = this.getNextMossy(state);
