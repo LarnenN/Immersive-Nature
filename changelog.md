@@ -1,5 +1,9 @@
 # Immersive Nature changelog
 
+## 1.4.0
+### Fixed
+- Placing a snow layer by hand (snow item with no block data) crashed the game. Caused by a wrong check of the item data in 1.3.0.
+
 ## 1.3.0
 ### One mod
 - Immersive Weathering, Water Erosion, Overgrowth, Snow! Real Magic and Flowing Fluids are now one mod with one mod id, `immersive_nature`. The separate Snow! Real Magic and Flowing Fluids mods are marked incompatible.

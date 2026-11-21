@@ -530,7 +530,7 @@ public final class Hooks {
 		}
 		ItemStack stack = context.getItemInHand();
 		CompoundTag tag = BlockItem.getBlockEntityData(stack);
-		if (tag != null && (SnowRealMagic.MODID + ":snow_layer").equals(tag.getString("id")) || "snowrealmagic:snow".equals(tag.getString("id"))) {
+		if (tag != null && ((SnowRealMagic.MODID + ":snow_layer").equals(tag.getString("id")) || "snowrealmagic:snow".equals(tag.getString("id")))) {
 			return CoreModule.TILE_BLOCK.defaultBlockState();
 		}
 		if (SnowCommonConfig.fancySnowOnUpperSlab) {
