@@ -108,6 +108,10 @@ public class BlockGrowthHandler extends RegistryAccessJsonReloadListener {
                     Biome biome = level.getBiome(targetPos).value();
                     Biome.Precipitation precipitation = biome.getPrecipitationAt(targetPos);
                     source = precipitation == Biome.Precipitation.SNOW ? TickSource.SNOW : TickSource.RAIN;
+                } else if (isRaining && com.immersive_nature.util.NatureWeather.extraSnowstormAt.test(level, targetPos)) {
+                    source = TickSource.SNOW; // Weather2 snowstorm
+                } else if (isRaining && com.immersive_nature.util.NatureWeather.extraSandstormAt.test(level, targetPos)) {
+                    source = TickSource.RAIN; // Weather2 sandstorm: the sandy block growth runs on the rain tick
                 }
                 tickBlock(source, state, level, new BlockPos(targetPos));
             }

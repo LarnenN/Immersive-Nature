@@ -83,6 +83,7 @@ public class CommonConfigs {
     public static final Supplier<Boolean> WEATHER2_SAND;
     public static final Supplier<Double> MOSS_RAIN_MULTIPLIER;
     public static final Supplier<Double> GRASS_SEEDING_CHANCE;
+    public static final Supplier<Double> STORM_WEATHERING_MULTIPLIER;
     public static final Supplier<Double> ASH_SPAWN_CHANCE;
 
 
@@ -140,6 +141,8 @@ public class CommonConfigs {
                 .define("plant_growth_multiplier", 1.0, 0, 100);
         GRASS_SEEDING_CHANCE = builder.comment("Chance per random tick that a grass plant sprouts on a grass block with no plants within 2 blocks (the grass_block_seeding growth). 0 = off. Needs /reload or a restart to apply")
                 .define("grass_seeding_chance", 0.00002, 0, 1);
+        STORM_WEATHERING_MULTIPLIER = builder.comment("Blocks turn sandy this many times faster during a sandstorm (a thunderstorm in a desert or a Weather2 sandstorm), and snowy during a blizzard (a thunderstorm while it snows or a Weather2 snowstorm). 1 = no change")
+                .define("storm_sandy_snowy_multiplier", 3.0, 1, 100);
         WET_CLAY_WATER_LEVELS = builder.comment("How many water levels wet earthen clay leaves behind when broken (0 = none, 8 = a full water block). Uses Flowing Fluids levels")
                 .define("wet_earthen_clay_water_levels", 4, 0, 8);
         CREATIVE_TAB = builder.define("creative_tab", false);

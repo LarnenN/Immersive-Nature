@@ -38,7 +38,9 @@ public class SandGrowth extends BuiltinBlockGrowth {
 
     @Override
     public void tryGrowing(BlockPos pos, BlockState state, ServerLevel level, Supplier<Holder<Biome>> biome) {
-        if (!(growthChance == 1 || level.random.nextFloat() < growthChance)) return;
+        float chance = growthChance;
+        if (com.immersive_nature.util.NatureWeather.isStrongSandstormAt(level, pos)) chance *= com.immersive_nature.configs.CommonConfigs.STORM_WEATHERING_MULTIPLIER.get().floatValue();
+        if (!(chance >= 1 || level.random.nextFloat() < chance)) return;
 
         if (TemperatureManager.hasSandstorm(level, pos)) {
             var sandyBlock = Sandy.getSandy(state);

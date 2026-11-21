@@ -22,7 +22,7 @@ public class TemperatureManager {
     }
 
     public static boolean hasSandstorm(ServerLevel level, BlockPos pos) {
-        return level.isRaining() && level.getBiome(pos).is(ModTags.HAS_SANDSTORM);
+        return NatureWeather.isSandstormAt(level, pos);
     }
 
     /*
