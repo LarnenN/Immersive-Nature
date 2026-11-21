@@ -41,6 +41,7 @@ public class CommonConfigs {
     public static final Supplier<Boolean> DESIRE_PATHS_CROUCH_PREVENTS;
     public static final Supplier<Boolean> DESIRE_PATHS_BREAK_TALL_GRASS;
     public static final Supplier<List<String>> DESIRE_PATHS_TRANSFORMATIONS;
+    public static final Supplier<Boolean> DESIRE_PATHS_SOILS;
     public static final Supplier<Boolean> DESIRE_PATHS_SAND;
     public static final Supplier<Boolean> DESIRE_PATHS_SAND_BLOCKS;
     public static final Supplier<Integer> DESIRE_PATHS_SAND_WEAR;
@@ -294,9 +295,9 @@ public class CommonConfigs {
                 .define("transformations", List.of(
                         "minecraft:grass_block,minecraft:dirt",
                         "minecraft:podzol,minecraft:dirt",
-                        "minecraft:dirt,minecraft:coarse_dirt",
-                        "immersive_nature:grassy_sandy_dirt,immersive_nature:sandy_dirt",
-                        "immersive_nature:grassy_silt,immersive_nature:silt"));
+                        "minecraft:dirt,minecraft:coarse_dirt"));
+        DESIRE_PATHS_SOILS = builder.comment("Walking over grassy silt and grassy sandy dirt wears them down into silt and sandy dirt (grass can grow back on them later)")
+                .define("soil_paths", true);
         DESIRE_PATHS_SAND = builder.comment("Walking over sand piles (sand and red sand layers) presses them down: the pile loses one layer at a time")
                 .define("sand_layers", true);
         DESIRE_PATHS_SAND_BLOCKS = builder.comment("Walking over full sand and red sand blocks presses them into a pile of 7 layers, which then keeps losing layers (needs sand_layers). A pile of 8 layers is always a full sand block again")

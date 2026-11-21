@@ -4,7 +4,7 @@
 ### Added
 - Desire paths for sand: a full sand block counts as 8 layers. Walking over sand or red sand presses it into a pile of 7 layers, and the pile keeps losing one layer at a time until the last layer is gone. New `desire_paths` options: `sand_layers` (on by default), `sand_blocks` (full sand blocks too, on by default), `sand_wear_to_change` (500, about 100 walks per layer) and `sand_min_layers` (0 = the last layer can be walked away).
 - A sand or red sand pile that reaches 8 layers turns into a full sand block.
-- Desire paths: grassy sandy dirt wears down into sandy dirt, and grassy silt into silt (new entries in `desire_paths.transformations`).
+- Desire paths: grassy sandy dirt wears down into sandy dirt, and grassy silt into silt; grass can grow back on them later. New option `desire_paths.soil_paths` (on by default), so it works with old config files too.
 
 ### Fixed
 - Grass blocks spread onto silt, sandy dirt, earthen clay, permafrost and rooted dirt again, turning them into their grassy versions. The built-in snow code replaced the grass spreading code and only knew plain dirt.

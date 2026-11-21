@@ -133,6 +133,23 @@ public final class DesirePaths {
         return pile.defaultBlockState().setValue(LayerBlock.LAYERS_8, layers - 1);
     }
 
+    /** Grassy silt -> silt and grassy sandy dirt -> sandy dirt; the plain soils don't wear any further. */
+    @Nullable
+    private static Block wornSoil(Block block) {
+        if (block == ModBlocks.GRASSY_SILT.get()) return ModBlocks.SILT.get();
+        if (block == ModBlocks.GRASSY_SANDY_DIRT.get()) return ModBlocks.SANDY_DIRT.get();
+        return null;
+    }
+
+    private static void trample(Level level, BlockPos pos, LivingEntity entity) {
+        if (CommonConfigs.DESIRE_PATHS_BREAK_TALL_GRASS.get()) {
+            BlockPos above = pos.above();
+            if (level.getBlockState(above).is(TRAMPLED_PLANTS)) {
+                level.destroyBlock(above, false, entity);
+            }
+        }
+    }
+
     private static void wearDown(LivingEntity entity) {
         if (!CommonConfigs.DESIRE_PATHS.get()) return;
         // standing still wears nothing
@@ -140,7 +157,8 @@ public final class DesirePaths {
         if (moved <= 0) return;
         List<BlockRules.Rule> rules = RULES.get();
         boolean sand = CommonConfigs.DESIRE_PATHS_SAND.get();
-        if (rules.isEmpty() && !sand) return;
+        boolean soils = CommonConfigs.DESIRE_PATHS_SOILS.get();
+        if (rules.isEmpty() && !sand && !soils) return;
 
         float add = CommonConfigs.DESIRE_PATHS_SPEED_BASED.get() ? moved / WALK_SPEED : 1F;
         int featherFalling = EnchantmentHelper.getEnchantmentLevel(Enchantments.FALL_PROTECTION, entity);
@@ -170,6 +188,20 @@ public final class DesirePaths {
                         wear.amount.remove(key);
                         wear.lastTouched.remove(key);
                         level.setBlockAndUpdate(pos, pressed);
+                        continue;
+                    }
+                }
+                if (soils) {
+                    Block worn = wornSoil(ground.getBlock());
+                    if (worn != null) {
+                        if (wear == null) wear = wear(level);
+                        long key = pos.asLong();
+                        wear.lastTouched.put(key, level.getGameTime());
+                        if (wear.amount.addTo(key, add) + add < needed) continue;
+                        wear.amount.remove(key);
+                        wear.lastTouched.remove(key);
+                        level.setBlockAndUpdate(pos, worn.defaultBlockState());
+                        trample(level, pos, entity);
                         continue;
                     }
                 }
