@@ -6,15 +6,42 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.function.Supplier;
 
 public class SandLayerBlock extends LayerBlock {
 
     private final int particleColor;
+    /** The full block a pile of 8 layers turns into (sand for sand piles); null = stays a pile. */
+    @Nullable
+    private final Supplier<Block> fullBlock;
 
-    public SandLayerBlock( int particleColor, Properties properties) {
+    public SandLayerBlock(int particleColor, Properties properties) {
+        this(particleColor, null, properties);
+    }
+
+    public SandLayerBlock(int particleColor, @Nullable Supplier<Block> fullBlock, Properties properties) {
         super(properties);
         this.particleColor = particleColor;
+        this.fullBlock = fullBlock;
+    }
+
+    @Nullable
+    public Block getFullBlock() {
+        return fullBlock == null ? null : fullBlock.get();
+    }
+
+    /** 8 layers of sand are a full sand block: a pile that reaches 8 layers turns back into sand. */
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        if (fullBlock != null && !level.isClientSide && getLayers(state) >= getMaxLayers()) {
+            level.setBlock(pos, fullBlock.get().defaultBlockState(), 3);
+            return;
+        }
+        super.onPlace(state, level, pos, oldState, isMoving);
     }
 
     @Override

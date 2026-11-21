@@ -2,7 +2,8 @@
 
 ## 1.4.0
 ### Added
-- Desire paths for sand: walking over sand piles (sand and red sand layers) presses them down one layer at a time, until the last layer is gone. New `desire_paths` options: `sand_layers` (on by default), `sand_wear_to_change` (50, about 10 walks per layer) and `sand_min_layers` (0 = the last layer can be walked away).
+- Desire paths for sand: a full sand block counts as 8 layers. Walking over sand or red sand presses it into a pile of 7 layers, and the pile keeps losing one layer at a time until the last layer is gone. New `desire_paths` options: `sand_layers` (on by default), `sand_blocks` (full sand blocks too, on by default), `sand_wear_to_change` (50, about 10 walks per layer) and `sand_min_layers` (0 = the last layer can be walked away).
+- A sand or red sand pile that reaches 8 layers turns into a full sand block.
 
 ### Fixed
 - Placing a snow layer by hand (snow item with no block data) crashed the game. Caused by a wrong check of the item data in 1.3.0.

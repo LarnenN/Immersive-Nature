@@ -3,6 +3,7 @@ package com.immersive_nature.forge.desirepaths;
 import com.immersive_nature.ImmersiveNature;
 import com.immersive_nature.blocks.LayerBlock;
 import com.immersive_nature.blocks.SandLayerBlock;
+import com.immersive_nature.reg.ModBlocks;
 import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.util.BlockRules;
 import net.minecraft.core.BlockPos;
@@ -28,6 +29,7 @@ import it.unimi.dsi.fastutil.longs.Long2LongOpenHashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.List;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * Desire paths: grass and podzol under walking feet slowly wear down into dirt and coarse dirt,
@@ -104,6 +106,33 @@ public final class DesirePaths {
         return w;
     }
 
+    /**
+     * What a sand block or sand pile becomes when it is walked down one step, or null if it can't be.
+     * Full sand counts as 8 layers: sand -> pile of 7 -> 6 ... -> 1 -> gone (or stops at sand_min_layers).
+     */
+    @Nullable
+    private static BlockState pressSand(BlockState ground) {
+        Block block = ground.getBlock();
+        int layers;
+        SandLayerBlock pile;
+        if (block == ModBlocks.SAND_LAYER_BLOCK.get() || block == ModBlocks.RED_SAND_LAYER_BLOCK.get()) {
+            pile = (SandLayerBlock) block;
+            layers = ground.getValue(LayerBlock.LAYERS_8);
+        } else if (block == Blocks.SAND && CommonConfigs.DESIRE_PATHS_SAND_BLOCKS.get()) {
+            pile = (SandLayerBlock) ModBlocks.SAND_LAYER_BLOCK.get();
+            layers = 8;
+        } else if (block == Blocks.RED_SAND && CommonConfigs.DESIRE_PATHS_SAND_BLOCKS.get()) {
+            pile = (SandLayerBlock) ModBlocks.RED_SAND_LAYER_BLOCK.get();
+            layers = 8;
+        } else {
+            return null;
+        }
+        int min = CommonConfigs.DESIRE_PATHS_SAND_MIN.get();
+        if (min > 0 && layers <= min) return null;
+        if (layers <= 1) return Blocks.AIR.defaultBlockState();
+        return pile.defaultBlockState().setValue(LayerBlock.LAYERS_8, layers - 1);
+    }
+
     private static void wearDown(LivingEntity entity) {
         if (!CommonConfigs.DESIRE_PATHS.get()) return;
         // standing still wears nothing
@@ -131,20 +160,18 @@ public final class DesirePaths {
             for (int z = Mth.floor(box.minZ); z < box.maxZ; z++) {
                 pos.set(x, y, z);
                 BlockState ground = level.getBlockState(pos);
-                if (sand && ground.getBlock() instanceof SandLayerBlock) {
-                    int layers = ground.getValue(LayerBlock.LAYERS_8);
-                    int min = CommonConfigs.DESIRE_PATHS_SAND_MIN.get();
-                    if (min > 0 && layers <= min) continue;
-                    if (wear == null) wear = wear(level);
-                    long key = pos.asLong();
-                    wear.lastTouched.put(key, level.getGameTime());
-                    if (wear.amount.addTo(key, add) + add < CommonConfigs.DESIRE_PATHS_SAND_WEAR.get()) continue;
-                    wear.amount.remove(key);
-                    wear.lastTouched.remove(key);
-                    level.setBlockAndUpdate(pos, layers > 1
-                            ? ground.setValue(LayerBlock.LAYERS_8, layers - 1)
-                            : Blocks.AIR.defaultBlockState());
-                    continue;
+                if (sand) {
+                    BlockState pressed = pressSand(ground);
+                    if (pressed != null) {
+                        if (wear == null) wear = wear(level);
+                        long key = pos.asLong();
+                        wear.lastTouched.put(key, level.getGameTime());
+                        if (wear.amount.addTo(key, add) + add < CommonConfigs.DESIRE_PATHS_SAND_WEAR.get()) continue;
+                        wear.amount.remove(key);
+                        wear.lastTouched.remove(key);
+                        level.setBlockAndUpdate(pos, pressed);
+                        continue;
+                    }
                 }
                 for (BlockRules.Rule rule : rules) {
                     if (!rule.matches(ground)) continue;

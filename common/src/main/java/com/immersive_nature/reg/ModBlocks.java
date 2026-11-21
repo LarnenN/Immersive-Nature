@@ -110,7 +110,7 @@ public class ModBlocks {
     //layer stuff
 
     public static final Supplier<Block> SAND_LAYER_BLOCK = regWithItem("sand_layer_block", () ->
-        new SandLayerBlock(14406560, Properties.copy(Blocks.SAND).strength(0.5f)
+        new SandLayerBlock(14406560, () -> Blocks.SAND, Properties.copy(Blocks.SAND).strength(0.5f)
             .sound(SoundType.SAND).isSuffocating(NEVER)
             .isViewBlocking((blockState, blockView, blockPos) -> blockState.getValue(LayerBlock.LAYERS_8) >= 8)
             .noOcclusion().requiresCorrectToolForDrops()));
@@ -120,7 +120,7 @@ public class ModBlocks {
             .lightLevel(s -> s.getValue(ModBlockProperties.SMOLDERING) ? 3 : 0)
             .isViewBlocking((blockState, blockView, blockPos) -> blockState.getValue(LayerBlock.LAYERS_8) >= 8)));
     public static final Supplier<Block> RED_SAND_LAYER_BLOCK = regWithItem("red_sand_layer_block", () ->
-        new SandLayerBlock(11098145, Properties.copy(Blocks.RED_SAND).strength(0.5f)
+        new SandLayerBlock(11098145, () -> Blocks.RED_SAND, Properties.copy(Blocks.RED_SAND).strength(0.5f)
             .sound(SoundType.SAND).isSuffocating(NEVER)
             .isViewBlocking((blockState, blockView, blockPos) -> blockState.getValue(LayerBlock.LAYERS_8) >= 8)
             .noOcclusion().requiresCorrectToolForDrops()));

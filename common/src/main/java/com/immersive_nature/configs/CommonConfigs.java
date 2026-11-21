@@ -42,6 +42,7 @@ public class CommonConfigs {
     public static final Supplier<Boolean> DESIRE_PATHS_BREAK_TALL_GRASS;
     public static final Supplier<List<String>> DESIRE_PATHS_TRANSFORMATIONS;
     public static final Supplier<Boolean> DESIRE_PATHS_SAND;
+    public static final Supplier<Boolean> DESIRE_PATHS_SAND_BLOCKS;
     public static final Supplier<Integer> DESIRE_PATHS_SAND_WEAR;
     public static final Supplier<Integer> DESIRE_PATHS_SAND_MIN;
     public static final Supplier<List<String>> DISABLED_GROWTHS;
@@ -296,6 +297,8 @@ public class CommonConfigs {
                         "minecraft:dirt,minecraft:coarse_dirt"));
         DESIRE_PATHS_SAND = builder.comment("Walking over sand piles (sand and red sand layers) presses them down: the pile loses one layer at a time")
                 .define("sand_layers", true);
+        DESIRE_PATHS_SAND_BLOCKS = builder.comment("Walking over full sand and red sand blocks presses them into a pile of 7 layers, which then keeps losing layers (needs sand_layers). A pile of 8 layers is always a full sand block again")
+                .define("sand_blocks", true);
         DESIRE_PATHS_SAND_WEAR = builder.comment("Like wear_to_change, but for sand piles: how much walking takes one layer off. Sand is loose, so it wears faster than grass")
                 .define("sand_wear_to_change", 50, 1, 100000);
         DESIRE_PATHS_SAND_MIN = builder.comment("Sand piles are never walked down below this many layers. 0 = the last layer can be walked away completely")
