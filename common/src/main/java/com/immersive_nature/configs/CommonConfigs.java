@@ -299,8 +299,8 @@ public class CommonConfigs {
                 .define("sand_layers", true);
         DESIRE_PATHS_SAND_BLOCKS = builder.comment("Walking over full sand and red sand blocks presses them into a pile of 7 layers, which then keeps losing layers (needs sand_layers). A pile of 8 layers is always a full sand block again")
                 .define("sand_blocks", true);
-        DESIRE_PATHS_SAND_WEAR = builder.comment("Like wear_to_change, but for sand piles: how much walking takes one layer off. Sand is loose, so it wears faster than grass")
-                .define("sand_wear_to_change", 50, 1, 100000);
+        DESIRE_PATHS_SAND_WEAR = builder.comment("Like wear_to_change, but for sand: how much walking takes one layer off (about 5 ticks = one walk across a block)")
+                .define("sand_wear_to_change", 500, 1, 100000);
         DESIRE_PATHS_SAND_MIN = builder.comment("Sand piles are never walked down below this many layers. 0 = the last layer can be walked away completely")
                 .define("sand_min_layers", 0, 0, 7);
         builder.pop();
