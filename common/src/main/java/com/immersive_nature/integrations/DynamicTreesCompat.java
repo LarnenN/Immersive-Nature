@@ -115,6 +115,12 @@ public class DynamicTreesCompat {
       return result;
    }
 
+   /** Radius of a block with a "radius" property (Dynamic Trees branches), or 0. */
+   public static int getRadius(BlockState state) {
+      var radius = state.getBlock().getStateDefinition().getProperty("radius");
+      return radius != null && state.getValue(radius) instanceof Integer r ? r : 0;
+   }
+
    public static boolean isLoaded() {
       return LOADED && !broken;
    }

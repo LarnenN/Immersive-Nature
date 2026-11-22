@@ -79,6 +79,12 @@ public class CommonConfigs {
 
     public static final Supplier<Double> FIRE_CHARS_WOOD_CHANCE;
     public static final Supplier<Double> FURNACE_SOOT_CHANCE;
+    public static final Supplier<Boolean> DT_BRANCH_CHARRING;
+    public static final Supplier<Integer> DT_THIN_MAX_RADIUS;
+    public static final Supplier<Integer> DT_MEDIUM_MAX_RADIUS;
+    public static final Supplier<Double> DT_THIN_CHAR_CHANCE;
+    public static final Supplier<Double> DT_MEDIUM_CHAR_CHANCE;
+    public static final Supplier<Double> DT_THICK_CHAR_CHANCE;
     public static final Supplier<Boolean> WEATHER2_RAIN;
     public static final Supplier<Boolean> WEATHER2_SAND;
     public static final Supplier<Double> MOSS_RAIN_MULTIPLIER;
@@ -189,6 +195,21 @@ public class CommonConfigs {
                 .define("ash_spawn", 0.3, 0, 1);
         FURNACE_SOOT_CHANCE = builder.comment("Chance per random tick that a lit furnace, smoker or blast furnace leaves soot on the wall above its opening or on the ceiling above its front. 0 = off")
                 .define("furnace_soot", 0.3, 0, 1);
+        builder.comment("Dynamic Trees branches. Branch radius 1-8 is a branch inside one block (thickness = radius x 2 pixels, 8 = full block, oak tops out at 8); radius 9-24 is a thick trunk wider than one block (up to 3x3, e.g. dark oak)")
+                .push("dynamic_trees");
+        DT_BRANCH_CHARRING = builder.comment("Burning branches can turn into charred branches of the same thickness")
+                .define("branch_charring", true);
+        DT_THIN_MAX_RADIUS = builder.comment("Branches with a radius up to this value are thin")
+                .define("thin_max_radius", 3, 1, 24);
+        DT_MEDIUM_MAX_RADIUS = builder.comment("Branches with a radius above thin_max_radius and up to this value are medium; anything thicker is thick")
+                .define("medium_max_radius", 8, 1, 24);
+        DT_THIN_CHAR_CHANCE = builder.comment("Chance that a burning thin branch turns charred instead of burning away")
+                .define("thin_char_chance", 0.3, 0, 1);
+        DT_MEDIUM_CHAR_CHANCE = builder.comment("Chance that a burning medium branch turns charred instead of burning away")
+                .define("medium_char_chance", 0.3, 0, 1);
+        DT_THICK_CHAR_CHANCE = builder.comment("Chance that a burning thick branch turns charred instead of burning away")
+                .define("thick_char_chance", 0.3, 0, 1);
+        builder.pop();
         builder.pop();
 
 
