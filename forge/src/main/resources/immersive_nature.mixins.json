@@ -13,6 +13,7 @@
     "Weather2SandMixin",
     "BlockEntityLegacyIdMixin",
     "DTRootyLightMixin",
+    "DTCharredBranchMixin",
     "FluidInteractionRegistryMixin",
     "SelfRustableMixin",
     "WebMixin",

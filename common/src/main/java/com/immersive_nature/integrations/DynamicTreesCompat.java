@@ -74,6 +74,47 @@ public class DynamicTreesCompat {
       }
    }
 
+   /** Dynamic Trees branch blocks (all families, thin and thick). */
+   private static final ClassValue<Boolean> BRANCH = new ClassValue<>() {
+      @Override
+      protected Boolean computeValue(Class<?> type) {
+         for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+            if (c.getName().equals("com.ferreusveritas.dynamictrees.block.branch.BranchBlock")) return true;
+         }
+         return false;
+      }
+   };
+   private static final ResourceLocation CHARRED_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "charred_branch");
+   private static final ResourceLocation STRIPPED_CHARRED_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "stripped_charred_branch");
+
+   /** True for the branches of Immersive Nature's charred Dynamic Trees family. */
+   public static boolean isCharredBranch(Block block) {
+      if (!LOADED) return false;
+      ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+      return id.equals(CHARRED_BRANCH) || id.equals(STRIPPED_CHARRED_BRANCH);
+   }
+
+   /**
+    * What a burning Dynamic Trees branch turns into: a charred branch of the same thickness (radius),
+    * or null if the block is no Dynamic Trees branch (or already charred).
+    */
+   @Nullable
+   public static BlockState getCharredBranch(BlockState state) {
+      if (!LOADED || !BRANCH.get(state.getBlock().getClass()) || isCharredBranch(state.getBlock())) return null;
+      var radius = state.getBlock().getStateDefinition().getProperty("radius");
+      if (radius == null || !(state.getValue(radius) instanceof Integer r)) return null;
+      Block charred = BuiltInRegistries.BLOCK.get(CHARRED_BRANCH);
+      if (charred == Blocks.AIR) return null;
+      BlockState result = charred.defaultBlockState();
+      var target = charred.getStateDefinition().getProperty("radius");
+      if (target instanceof net.minecraft.world.level.block.state.properties.IntegerProperty ip) {
+         int max = ip.getPossibleValues().stream().mapToInt(Integer::intValue).max().orElse(8);
+         int min = ip.getPossibleValues().stream().mapToInt(Integer::intValue).min().orElse(1);
+         result = result.setValue(ip, Math.max(min, Math.min(max, r)));
+      }
+      return result;
+   }
+
    public static boolean isLoaded() {
       return LOADED && !broken;
    }

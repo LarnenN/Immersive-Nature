@@ -429,5 +429,7 @@
   "immersive_nature.fluids.start.disabled": "вимкнено",
   "immersive_nature.rain_water.cannot_disable": "На цьому сервері дощову воду не можна вимкнути",
   "immersive_nature.rain_water.disabled": "Дощову воду вимкнено",
-  "immersive_nature.rain_water.enabled": "Дощову воду увімкнено"
+  "immersive_nature.rain_water.enabled": "Дощову воду увімкнено",
+  "block.immersive_nature.charred_branch": "Обвуглена гілка",
+  "block.immersive_nature.stripped_charred_branch": "Обтесана обвуглена гілка"
 }

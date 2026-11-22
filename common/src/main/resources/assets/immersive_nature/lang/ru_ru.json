@@ -554,5 +554,7 @@
   "immersive_nature.fluids.start.disabled": "выключена",
   "immersive_nature.rain_water.cannot_disable": "На этом сервере дождевую воду нельзя выключить",
   "immersive_nature.rain_water.disabled": "Дождевая вода выключена",
-  "immersive_nature.rain_water.enabled": "Дождевая вода включена"
+  "immersive_nature.rain_water.enabled": "Дождевая вода включена",
+  "block.immersive_nature.charred_branch": "Обугленная ветка",
+  "block.immersive_nature.stripped_charred_branch": "Обтёсанная обугленная ветка"
 }

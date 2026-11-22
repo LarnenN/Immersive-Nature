@@ -555,5 +555,7 @@
   "immersive_nature.rain_water.cannot_disable": "Rain water can't be switched off on this server",
   "immersive_nature.rain_water.disabled": "Rain water disabled",
   "immersive_nature.rain_water.enabled": "Rain water enabled",
-  "block.immersive_nature.snow_layer": "Snow"
+  "block.immersive_nature.snow_layer": "Snow",
+  "block.immersive_nature.charred_branch": "Charred Branch",
+  "block.immersive_nature.stripped_charred_branch": "Stripped Charred Branch"
 }

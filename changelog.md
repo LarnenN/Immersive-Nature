@@ -9,6 +9,7 @@
 - Weather2 compat: Weather2 storms (rain, lightning, high wind and hail) count as rain under them, even when vanilla weather is clear: rain water puddles, Flowing Fluids rain refill, moss, mud, rain block growths and the other rain effects work there. Sandstorms pile up Immersive Nature sand piles instead of Weather2's own sand layer, and a pile of 8 layers becomes a sand block. New config section `weather2` (`storms_are_rain`, `sandstorms_make_sand_piles`).
 - Blocks turn sandy 3 times faster during a sandstorm (a thunderstorm in a desert-like biome, or a Weather2 sandstorm) and snowy 3 times faster during a blizzard (a thunderstorm while it snows, or a Weather2 snowstorm). Weather2 sandstorms and snowstorms also make blocks sandy and snowy while vanilla weather is clear. New option `general.storm_sandy_snowy_multiplier`.
 - Moss spreads 3 times faster while it rains on the block or right next to it. New option `mossy_blocks.rain_multiplier`.
+- Dynamic Trees compat: burning branches can turn into charred branches of the same thickness instead of burning away (chance from `charring.fire_chars_wood`). Charred branches stay connected to the rest of the tree.
 
 ### Changed
 - Lone grass plants sprout 5 times less often on grass blocks with no plants around (0.0001 -> 0.00002). New option `general.grass_seeding_chance` (0 = off, needs /reload).

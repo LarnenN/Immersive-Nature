@@ -435,6 +435,12 @@ public class ModEvents {
 
             var state = event.getState();
             double charChance = CommonConfigs.FIRE_CHARS_WOOD_CHANCE.get();
+            // Dynamic Trees: a burning branch turns into a charred branch of the same thickness
+            BlockState charredBranch = com.immersive_nature.integrations.DynamicTreesCompat.getCharredBranch(state);
+            if (charredBranch != null) {
+                if (charChance > 0 && serverLevel.random.nextFloat() < charChance) event.setFinalState(charredBranch);
+                return;
+            }
             BlockState charred = WeatheringHelper.getCharredState(state);
             if (charred == null) {
                 double ashChance = CommonConfigs.ASH_SPAWN_CHANCE.get();
