@@ -34,7 +34,7 @@ public final class Weather2Compat {
     private static Method getStorms;      // WeatherManager.getStormObjects()
     private static Class<?> stormClass;   // StormObject
     private static Method isPrecipitating;
-    private static Field isDead, pos, size;
+    private static Field isDead, pos, size, stage;
     private static Class<?> particleStormClass; // WeatherObjectParticleStorm (sandstorm / snowstorm)
     private static Method getType, getSize;
 
@@ -42,6 +42,8 @@ public final class Weather2Compat {
     private static final class Storms {
         long time = -1000;
         double[] data = new double[0];
+        /** Intensity stage of each raining storm in data (0 rain, 1 thunder, 2 high wind, 3 hail, 4+ forming / tornado). */
+        int[] stages = new int[0];
         double[] sand = new double[0];
         double[] snow = new double[0];
     }
@@ -63,6 +65,11 @@ public final class Weather2Compat {
             getStorms = Class.forName("weather2.weathersystem.WeatherManager").getMethod("getStormObjects");
             stormClass = Class.forName("weather2.weathersystem.storm.StormObject");
             isPrecipitating = stormClass.getMethod("isPrecipitating");
+            try {
+                stage = stormClass.getField("levelCurIntensityStage");
+            } catch (Throwable t) {
+                stage = null;
+            }
             Class<?> weatherObject = Class.forName("weather2.weathersystem.storm.WeatherObject");
             isDead = weatherObject.getField("isDead");
             pos = weatherObject.getField("pos");
@@ -77,6 +84,9 @@ public final class Weather2Compat {
             loaded = true;
             NatureWeather.extraRain = level -> level instanceof ServerLevel sl && (stormData(sl).length > 0 || storms(sl).sand.length > 0 || storms(sl).snow.length > 0);
             NatureWeather.extraPrecipitationAt = (level, p) -> level instanceof ServerLevel sl && stormRainsAt(sl, p);
+            NatureWeather.extraRainWaterAt = (level, p) -> level instanceof ServerLevel sl ? rainWaterAt(sl, p) : -1;
+            NatureWeather.maxExtraRainWater = () -> !CommonConfigs.WEATHER2_RAIN.get() ? 0 : Math.max(Math.max(CommonConfigs.WEATHER2_WATER_RAIN.get(), CommonConfigs.WEATHER2_WATER_LIGHTNING.get()),
+                    Math.max(Math.max(CommonConfigs.WEATHER2_WATER_HIGHWIND.get(), CommonConfigs.WEATHER2_WATER_HAIL.get()), CommonConfigs.WEATHER2_WATER_TORNADO.get()));
             NatureWeather.extraSandstormAt = (level, p) -> level instanceof ServerLevel sl && inside(storms(sl).sand, p);
             NatureWeather.extraSnowstormAt = (level, p) -> level instanceof ServerLevel sl && inside(storms(sl).snow, p);
             ImmersiveNature.LOGGER.info("Weather2 found: its storms count as rain, sandstorms make Immersive Nature sand piles");
@@ -106,17 +116,20 @@ public final class Weather2Compat {
         long time = level.getGameTime();
         if (time - s.time < 20 && time >= s.time) return s;
         double[] data = EMPTY, sand = EMPTY, snow = EMPTY;
+        int[] stages = new int[0];
         try {
             Object manager = getManager.invoke(null, level);
             if (manager != null) {
                 List<?> storms = (List<?>) getStorms.invoke(manager);
                 double[] tmp = new double[storms.size() * 3], tSand = new double[storms.size() * 3], tSnow = new double[storms.size() * 3];
+                int[] tStages = new int[storms.size()];
                 int n = 0, nSand = 0, nSnow = 0;
                 for (Object o : storms) {
                     if (isDead.getBoolean(o)) continue;
                     if (stormClass.isInstance(o)) {
                         if (!(Boolean) isPrecipitating.invoke(o)) continue;
                         Vec3 p = (Vec3) pos.get(o);
+                        tStages[n / 3] = stage != null ? stage.getInt(o) : 0;
                         tmp[n++] = p.x;
                         tmp[n++] = p.z;
                         tmp[n++] = size.getInt(o);
@@ -135,6 +148,7 @@ public final class Weather2Compat {
                     }
                 }
                 data = java.util.Arrays.copyOf(tmp, n);
+                stages = java.util.Arrays.copyOf(tStages, n / 3);
                 sand = java.util.Arrays.copyOf(tSand, nSand);
                 snow = java.util.Arrays.copyOf(tSnow, nSnow);
             }
@@ -143,6 +157,7 @@ public final class Weather2Compat {
             ImmersiveNature.LOGGER.warn("Weather2 compat stopped working", t);
         }
         s.data = data;
+        s.stages = stages;
         s.sand = sand;
         s.snow = snow;
         s.time = time;
@@ -161,6 +176,28 @@ public final class Weather2Compat {
     public static boolean stormRainsAt(ServerLevel level, BlockPos p) {
         if (!loaded) return false;
         return inside(stormData(level), p);
+    }
+
+    /** Rain water amount of the strongest-raining storm over this position (config weather2.rain_water), or -1 if none. */
+    public static double rainWaterAt(ServerLevel level, BlockPos p) {
+        if (!loaded) return -1;
+        Storms s = storms(level);
+        double[] d = s.data;
+        double best = -1;
+        for (int i = 0; i < d.length; i += 3) {
+            double dx = p.getX() + 0.5 - d[i], dz = p.getZ() + 0.5 - d[i + 1];
+            if (dx * dx + dz * dz >= d[i + 2] * d[i + 2]) continue;
+            int st = i / 3 < s.stages.length ? s.stages[i / 3] : 0;
+            double m = switch (st) {
+                case 0 -> CommonConfigs.WEATHER2_WATER_RAIN.get();
+                case 1 -> CommonConfigs.WEATHER2_WATER_LIGHTNING.get();
+                case 2 -> CommonConfigs.WEATHER2_WATER_HIGHWIND.get();
+                case 3 -> CommonConfigs.WEATHER2_WATER_HAIL.get();
+                default -> CommonConfigs.WEATHER2_WATER_TORNADO.get();
+            };
+            best = Math.max(best, m);
+        }
+        return best;
     }
 
     /** Weather2's sand layer block -> Immersive Nature's sand pile (when enabled). */

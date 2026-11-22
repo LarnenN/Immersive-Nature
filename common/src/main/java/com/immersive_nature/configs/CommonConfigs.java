@@ -87,6 +87,11 @@ public class CommonConfigs {
     public static final Supplier<Double> DT_THICK_CHAR_CHANCE;
     public static final Supplier<Boolean> WEATHER2_RAIN;
     public static final Supplier<Boolean> WEATHER2_SAND;
+    public static final Supplier<Double> WEATHER2_WATER_RAIN;
+    public static final Supplier<Double> WEATHER2_WATER_LIGHTNING;
+    public static final Supplier<Double> WEATHER2_WATER_HIGHWIND;
+    public static final Supplier<Double> WEATHER2_WATER_HAIL;
+    public static final Supplier<Double> WEATHER2_WATER_TORNADO;
     public static final Supplier<Double> MOSS_RAIN_MULTIPLIER;
     public static final Supplier<Double> GRASS_SEEDING_CHANCE;
     public static final Supplier<Double> STORM_WEATHERING_MULTIPLIER;
@@ -357,6 +362,19 @@ public class CommonConfigs {
                 .define("storms_are_rain", true);
         WEATHER2_SAND = builder.comment("Weather2 sandstorms pile up Immersive Nature sand piles (8 layers = a sand block) instead of Weather2's own sand layer")
                 .define("sandstorms_make_sand_piles", true);
+        builder.comment("How much rain water each kind of Weather2 storm makes, compared with normal rain (rain_water.chance): 1 = the same as normal rain, 2 = twice as much, 0.5 = half, 0 = no rain water under this storm. Works with storms_are_rain = true")
+                .push("rain_water");
+        WEATHER2_WATER_RAIN = builder.comment("Rain storm (/weather2 summon storm_rain)")
+                .define("storm_rain", 1.0, 0, 20);
+        WEATHER2_WATER_LIGHTNING = builder.comment("Thunderstorm (/weather2 summon storm_lightning)")
+                .define("storm_lightning", 1.0, 0, 20);
+        WEATHER2_WATER_HIGHWIND = builder.comment("High wind storm (/weather2 summon storm_highwind)")
+                .define("storm_highwind", 1.0, 0, 20);
+        WEATHER2_WATER_HAIL = builder.comment("Hail storm (/weather2 summon storm_hail)")
+                .define("storm_hail", 1.0, 0, 20);
+        WEATHER2_WATER_TORNADO = builder.comment("Tornadoes and hurricanes, and storms that are forming into one (/weather2 summon tornado_f0 ... tornado_f5)")
+                .define("tornado", 1.0, 0, 20);
+        builder.pop();
         builder.pop();
 
         // overgrowth, snow and fluids

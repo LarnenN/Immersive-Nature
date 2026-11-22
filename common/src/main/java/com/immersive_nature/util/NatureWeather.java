@@ -19,6 +19,11 @@ public final class NatureWeather {
     public static java.util.function.BiPredicate<Level, net.minecraft.core.BlockPos> extraSandstormAt = (level, pos) -> false;
     public static java.util.function.BiPredicate<Level, net.minecraft.core.BlockPos> extraSnowstormAt = (level, pos) -> false;
 
+    /** Set by the platform: how much rain water a weather mod storm over this column makes (1 = normal rain), or -1 if no storm is there. */
+    public static java.util.function.ToDoubleBiFunction<Level, net.minecraft.core.BlockPos> extraRainWaterAt = (level, pos) -> -1;
+    /** Set by the platform: the highest rain water amount any weather mod storm can make (to know how many tries a tick needs). */
+    public static java.util.function.DoubleSupplier maxExtraRainWater = () -> 0;
+
     private NatureWeather() {
     }
 
@@ -44,5 +49,11 @@ public final class NatureWeather {
     /** Vanilla rain or snow, or a weather mod storm over this column (biome decides rain or snow). */
     public static boolean precipitatesAt(Level level, net.minecraft.core.BlockPos pos) {
         return level.isRaining() || extraPrecipitationAt.test(level, pos);
+    }
+
+    /** How much rain water falls on this column: 1 under vanilla rain, the storm's config value under a weather mod storm (the larger one if both), 0 if dry. */
+    public static double rainWaterAt(Level level, net.minecraft.core.BlockPos pos) {
+        double m = level.isRaining() ? 1 : 0;
+        return Math.max(m, extraRainWaterAt.applyAsDouble(level, pos));
     }
 }

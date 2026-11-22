@@ -44,8 +44,19 @@ public final class RainWater {
         if (player.getPersistentData().getBoolean(DISABLED_TAG)) return;
 
         RandomSource random = level.random;
-        if (random.nextInt(CommonConfigs.RAIN_WATER_CHANCE.get()) != 0) return;
+        // Each try makes water with the base chance (1 in rain_water.chance) times the local amount:
+        // 1 under normal rain, the storm's weather2.rain_water value under a Weather2 storm.
+        // Amounts above 1 need several tries per tick (try i covers the part of the amount between i and i + 1).
+        double max = Math.max(level.isRaining() ? 1 : 0, com.immersive_nature.util.NatureWeather.maxExtraRainWater.getAsDouble());
+        int tries = (int) Math.ceil(max);
+        int chance = CommonConfigs.RAIN_WATER_CHANCE.get();
+        for (int i = 0; i < tries; i++) {
+            if (random.nextInt(chance) != 0) continue;
+            tryRainWater(level, player, random, i);
+        }
+    }
 
+    private static void tryRainWater(ServerLevel level, ServerPlayer player, RandomSource random, int tryIndex) {
         int radius = CommonConfigs.RAIN_WATER_RADIUS.get();
         int x = player.getBlockX() + random.nextInt(radius * 2 + 1) - radius;
         int z = player.getBlockZ() + random.nextInt(radius * 2 + 1) - radius;
@@ -54,6 +65,8 @@ public final class RainWater {
         BlockPos pos = new BlockPos(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
         // must actually be raining here: open sky and a rainy (not snowy or dry) biome
         if (!level.isRainingAt(pos)) return;
+        double part = com.immersive_nature.util.NatureWeather.rainWaterAt(level, pos) - tryIndex;
+        if (part <= 0 || (part < 1 && random.nextDouble() >= part)) return;
         if (!level.getBlockState(pos).isAir()) return;
         BlockState below = level.getBlockState(pos.below());
         int amount = CommonConfigs.RAIN_WATER_AMOUNT.get();
