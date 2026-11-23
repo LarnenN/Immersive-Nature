@@ -209,11 +209,11 @@ public class CommonConfigs {
         DT_MEDIUM_MAX_RADIUS = builder.comment("Branches with a radius above thin_max_radius and up to this value are medium; anything thicker is thick")
                 .define("medium_max_radius", 8, 1, 24);
         DT_THIN_CHAR_CHANCE = builder.comment("Chance that a burning thin branch turns charred instead of burning away")
-                .define("thin_char_chance", 0.7, 0, 1);
+                .define("thin_char_chance", 1.0, 0, 1);
         DT_MEDIUM_CHAR_CHANCE = builder.comment("Chance that a burning medium branch turns charred instead of burning away")
-                .define("medium_char_chance", 0.9, 0, 1);
+                .define("medium_char_chance", 1.0, 0, 1);
         DT_THICK_CHAR_CHANCE = builder.comment("Chance that a burning thick branch turns charred instead of burning away")
-                .define("thick_char_chance", 0.95, 0, 1);
+                .define("thick_char_chance", 1.0, 0, 1);
         builder.pop();
         builder.pop();
 

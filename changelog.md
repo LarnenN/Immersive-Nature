@@ -1,5 +1,12 @@
 # Immersive Nature changelog
 
+## 1.5.0
+### Changed
+- Dynamic Trees: burning branches always char for now (`thin_char_chance`, `medium_char_chance` and `thick_char_chance` default to 1).
+
+### Fixed
+- Dynamic Trees: roots under a charred trunk turned black. Before the bottom trunk piece chars, the rooty block now saves which tree grew there, so its roots keep their color. Roots under trunks that charred before this fix are drawn plain gray instead of black.
+
 ## 1.4.0
 ### Added
 - Desire paths: a full sand block counts as 8 layers. Walking over sand or red sand presses it into a pile of 7 layers, and the pile keeps losing one layer at a time until the last layer is gone. A sand or red sand pile that reaches 8 layers turns into a full sand block.

@@ -88,6 +88,101 @@ public class DynamicTreesCompat {
    private static final ResourceLocation STRIPPED_CHARRED_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "stripped_charred_branch");
 
    /** True for the branches of Immersive Nature's charred Dynamic Trees family. */
+   private static final ResourceLocation CHARRED_FAMILY = new ResourceLocation(ImmersiveNature.MOD_ID, "charred");
+
+   private static Method call(Object target, String name, Class<?>... types) throws ReflectiveOperationException {
+      String key = name + types.length;
+      Method m = METHODS_BY_NAME.computeIfAbsent(target.getClass().getName() + "#" + key, k -> {
+         try {
+            return target.getClass().getMethod(name, types);
+         } catch (NoSuchMethodException e) {
+            return null;
+         }
+      });
+      return m;
+   }
+
+   private static final Map<String, Method> METHODS_BY_NAME = new ConcurrentHashMap<>();
+
+   /**
+    * Root overlay color of a Dynamic Trees rooty block whose trunk above was charred. DT takes the root color
+    * from the family of the branch above, so charred trunks turned the roots black; this keeps the color of the
+    * tree that grew there (the species saved in the rooty block). Null when the trunk above is not charred.
+    */
+   @Nullable
+   public static Integer charredRootColor(Object rooty, BlockState state, net.minecraft.world.level.BlockGetter level, BlockPos pos) {
+      if (!LOADED || broken) return null;
+      try {
+         Method getFam = call(rooty, "getFamily", BlockState.class, net.minecraft.world.level.BlockGetter.class, BlockPos.class);
+         Object family = getFam == null ? null : getFam.invoke(rooty, state, level, pos);
+         if (family == null || !CHARRED_FAMILY.equals(registryName(family))) return null;
+         Object be = level.getBlockEntity(pos);
+         if (be != null) {
+            Method getSpecies = call(be, "getSpecies");
+            Object species = getSpecies == null ? null : getSpecies.invoke(be);
+            Method speciesFamily = species == null ? null : call(species, "getFamily");
+            Object original = speciesFamily == null ? null : speciesFamily.invoke(species);
+            Method valid = original == null ? null : call(original, "isValid");
+            if (original != null && valid != null && (Boolean) valid.invoke(original) && !CHARRED_FAMILY.equals(registryName(original))) {
+               Method fromBark = call(rooty, "getColorFromBark");
+               Method rootColor = call(original, "getRootColor", BlockState.class, boolean.class);
+               if (fromBark != null && rootColor != null) return (Integer) rootColor.invoke(original, state, fromBark.invoke(rooty));
+            }
+         }
+         return -1; // tree unknown: plain, untinted roots instead of black ones
+      } catch (Throwable t) {
+         return null;
+      }
+   }
+
+   private static final ClassValue<Boolean> ROOTY = new ClassValue<>() {
+      @Override
+      protected Boolean computeValue(Class<?> type) {
+         for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+            if (c.getName().equals("com.ferreusveritas.dynamictrees.block.rooty.RootyBlock")) return true;
+         }
+         return false;
+      }
+   };
+
+   /**
+    * Called right before the trunk piece at branchPos chars. Dynamic Trees only keeps the species in a rooty block
+    * when it differs from the family's usual one ("is_variant"); otherwise it reads the tree from the trunk above,
+    * which is about to become charred. So the rooty block under it is switched to a variant that stores the species,
+    * and its roots keep their color (see {@link #charredRootColor}).
+    */
+   public static void rememberTreeUnder(ServerLevel level, BlockPos branchPos) {
+      if (!LOADED || broken) return;
+      BlockPos pos = branchPos.below();
+      BlockState rooty = level.getBlockState(pos);
+      Block block = rooty.getBlock();
+      if (!ROOTY.get(block.getClass())) return;
+      try {
+         Method getSpecies = call(block, "getSpecies", BlockState.class, LevelAccessor.class, BlockPos.class);
+         Method setSpecies = call(block, "setSpecies", Level.class, BlockPos.class, getSpecies == null ? Object.class : getSpecies.getReturnType());
+         if (getSpecies == null || setSpecies == null) return;
+         Object species = getSpecies.invoke(block, rooty, level, pos);
+         Method valid = species == null ? null : call(species, "isValid");
+         if (valid == null || !(Boolean) valid.invoke(species)) return;
+         var variant = block.getStateDefinition().getProperty("is_variant");
+         if (variant instanceof net.minecraft.world.level.block.state.properties.BooleanProperty v && !rooty.getValue(v)) {
+            rooty = rooty.setValue(v, true);
+            level.setBlock(pos, rooty, 2 | 16);
+         }
+         setSpecies.invoke(block, level, pos, species);
+         var be = level.getBlockEntity(pos);
+         if (be != null) be.setChanged();
+         level.sendBlockUpdated(pos, rooty, rooty, 2);
+      } catch (Throwable t) {
+         // leave the roots as they are
+      }
+   }
+
+   private static Object registryName(Object entry) throws ReflectiveOperationException {
+      Method m = call(entry, "getRegistryName");
+      return m == null ? null : m.invoke(entry);
+   }
+
    public static boolean isCharredBranch(Block block) {
       if (!LOADED) return false;
       ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
