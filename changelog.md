@@ -5,6 +5,8 @@
 - Dynamic Trees: burning branches always char for now (`thin_char_chance`, `medium_char_chance` and `thick_char_chance` default to 1).
 
 ### Fixed
+- Dynamic Trees: burning trees often lost their whole top instead of charring. Fire burns a block in two ways: it removes it, or replaces it with fire. Only the first way could char, and when a branch was replaced by fire, Dynamic Trees dropped everything above it as a burning falling tree. Now a branch can char both ways.
+- Dynamic Trees: charred branches have no leaves, so the tree slowly rotted them away. Charred branches no longer rot, and a burnt tree stays as a charred skeleton.
 - Dynamic Trees: roots under a charred trunk turned black. Before the bottom trunk piece chars, the rooty block now saves which tree grew there, so its roots keep their color. Roots under trunks that charred before this fix are drawn plain gray instead of black.
 
 ## 1.4.0

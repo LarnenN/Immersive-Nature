@@ -438,15 +438,8 @@ public class ModEvents {
             // Dynamic Trees: a burning branch turns into a charred branch of the same thickness
             BlockState charredBranch = com.immersive_nature.integrations.DynamicTreesCompat.getCharredBranch(state);
             if (charredBranch != null) {
-                if (!CommonConfigs.DT_BRANCH_CHARRING.get()) return;
-                int radius = com.immersive_nature.integrations.DynamicTreesCompat.getRadius(state);
-                double branchChance = radius <= CommonConfigs.DT_THIN_MAX_RADIUS.get() ? CommonConfigs.DT_THIN_CHAR_CHANCE.get()
-                        : radius <= CommonConfigs.DT_MEDIUM_MAX_RADIUS.get() ? CommonConfigs.DT_MEDIUM_CHAR_CHANCE.get()
-                        : CommonConfigs.DT_THICK_CHAR_CHANCE.get();
-                if (branchChance > 0 && serverLevel.random.nextFloat() < branchChance) {
-                    com.immersive_nature.integrations.DynamicTreesCompat.rememberTreeUnder(serverLevel, event.getPos());
-                    event.setFinalState(charredBranch);
-                }
+                BlockState charredNow = com.immersive_nature.integrations.DynamicTreesCompat.tryCharBranch(serverLevel, event.getPos(), state);
+                if (charredNow != null) event.setFinalState(charredNow);
                 return;
             }
             BlockState charred = WeatheringHelper.getCharredState(state);

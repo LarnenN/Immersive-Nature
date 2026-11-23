@@ -135,6 +135,24 @@ public class DynamicTreesCompat {
       }
    }
 
+   /**
+    * A Dynamic Trees branch burned by fire: with the chance for its size (config charring.dynamic_trees) it becomes a
+    * charred branch of the same thickness. Returns that state, or null if it burns away. Fire burns a block in two ways
+    * (removes it, or replaces it with fire), so this is used for both.
+    */
+   @Nullable
+   public static BlockState tryCharBranch(ServerLevel level, BlockPos pos, BlockState state) {
+      BlockState charred = getCharredBranch(state);
+      if (charred == null || !com.immersive_nature.configs.CommonConfigs.DT_BRANCH_CHARRING.get()) return null;
+      int radius = getRadius(state);
+      double chance = radius <= com.immersive_nature.configs.CommonConfigs.DT_THIN_MAX_RADIUS.get() ? com.immersive_nature.configs.CommonConfigs.DT_THIN_CHAR_CHANCE.get()
+            : radius <= com.immersive_nature.configs.CommonConfigs.DT_MEDIUM_MAX_RADIUS.get() ? com.immersive_nature.configs.CommonConfigs.DT_MEDIUM_CHAR_CHANCE.get()
+            : com.immersive_nature.configs.CommonConfigs.DT_THICK_CHAR_CHANCE.get();
+      if (chance <= 0 || level.random.nextFloat() >= chance) return null;
+      rememberTreeUnder(level, pos);
+      return charred;
+   }
+
    private static final ClassValue<Boolean> ROOTY = new ClassValue<>() {
       @Override
       protected Boolean computeValue(Class<?> type) {

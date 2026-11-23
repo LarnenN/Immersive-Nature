@@ -26,4 +26,5 @@ public abstract class DTCharredBranchMixin {
             cir.setReturnValue(true);
         }
     }
+
 }
