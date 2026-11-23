@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import net.mehvahdjukaar.moonlight.api.platform.PlatHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -84,6 +85,93 @@ public class DynamicTreesCompat {
          return false;
       }
    };
+   private static final ClassValue<Boolean> TRUNK_SHELL = new ClassValue<>() {
+      @Override
+      protected Boolean computeValue(Class<?> type) {
+         for (Class<?> c = type; c != null; c = c.getSuperclass()) {
+            if (c.getName().equals("com.ferreusveritas.dynamictrees.block.branch.TrunkShellBlock")) return true;
+         }
+         return false;
+      }
+   };
+
+   /** A branch thinner than a full block: falling piles (ash, sand) pass through it. */
+   private static boolean isThinBranch(BlockGetter level, BlockPos pos, BlockState state) {
+      return BRANCH.get(state.getBlock().getClass())
+            && !Block.isFaceFull(state.getCollisionShape(level, pos), net.minecraft.core.Direction.UP);
+   }
+
+   private static boolean isFreeForPile(BlockState state) {
+      return state.isAir() || (state.canBeReplaced() && state.getFluidState().isEmpty());
+   }
+
+   /**
+    * Where a pile (ash, sand) resting at pos should move, or null if it stays.
+    * - On a thin Dynamic Trees branch it falls through the branch (and any thin branches under it) to the free
+    *   space below, instead of sitting on the branch as a floating square.
+    * - On the trunk shell of a thick trunk (the blocks around a trunk wider than one block) it slides off sideways,
+    *   away from the middle of the trunk, instead of hanging on the side of the trunk.
+    */
+   @Nullable
+   public static BlockPos pileTarget(Level level, BlockPos pos) {
+      if (!LOADED) return null;
+      BlockPos belowPos = pos.below();
+      BlockState below = level.getBlockState(belowPos);
+      if (isThinBranch(level, belowPos, below)) return throughBranches(level, belowPos);
+      if (TRUNK_SHELL.get(below.getBlock().getClass())) return offShell(level, below, pos);
+      return null;
+   }
+
+   /**
+    * A falling pile (entity) that came to rest inside a thin branch or a trunk shell block at pos: where it should
+    * carry on falling from, or null if it lands normally.
+    */
+   @Nullable
+   public static BlockPos fallingPileTarget(Level level, BlockPos pos) {
+      if (!LOADED) return null;
+      BlockState state = level.getBlockState(pos);
+      if (isThinBranch(level, pos, state)) return throughBranches(level, pos);
+      if (TRUNK_SHELL.get(state.getBlock().getClass())) return offShell(level, state, pos);
+      return null;
+   }
+
+   /** The free space under the thin branches starting at pos, or null if there is none. */
+   @Nullable
+   private static BlockPos throughBranches(Level level, BlockPos pos) {
+      BlockPos p = pos;
+      BlockState s = level.getBlockState(p);
+      while (isThinBranch(level, p, s) && p.getY() > level.getMinBuildHeight()) {
+         p = p.below();
+         s = level.getBlockState(p);
+      }
+      return isFreeForPile(s) ? p : null;
+   }
+
+   /** A free spot next to pos, away from the middle of the thick trunk the shell block belongs to. */
+   @Nullable
+   private static BlockPos offShell(Level level, BlockState shell, BlockPos pos) {
+      // CORE_DIR points from the shell block to the middle of the trunk; slide the other way
+      int awayX = 0, awayZ = 0;
+      var coreDir = shell.getBlock().getStateDefinition().getProperty("coredir");
+      if (coreDir != null) {
+         String d = shell.getValue(coreDir).toString().toLowerCase(java.util.Locale.ROOT);
+         if (d.contains("n")) awayZ = 1;
+         if (d.contains("s")) awayZ = -1;
+         if (d.contains("e")) awayX = -1;
+         if (d.contains("w")) awayX = 1;
+      }
+      java.util.List<BlockPos> away = new java.util.ArrayList<>();
+      java.util.List<BlockPos> other = new java.util.ArrayList<>();
+      for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.Plane.HORIZONTAL) {
+         BlockPos n = pos.relative(dir);
+         if (!isFreeForPile(level.getBlockState(n))) continue;
+         boolean isAway = (awayX != 0 && dir.getStepX() == awayX) || (awayZ != 0 && dir.getStepZ() == awayZ);
+         (isAway ? away : other).add(n);
+      }
+      java.util.List<BlockPos> pick = !away.isEmpty() ? away : other;
+      return pick.isEmpty() ? null : pick.get(level.random.nextInt(pick.size()));
+   }
+
    private static final ResourceLocation CHARRED_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "charred_branch");
    private static final ResourceLocation STRIPPED_CHARRED_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "stripped_charred_branch");
    private static final ResourceLocation SMOLDERING_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "smoldering_charred_branch");

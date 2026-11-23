@@ -134,6 +134,13 @@ public class LayerBlock extends FallingBlock {
                 pos = pos.above();
                 state = level.getBlockState(pos);
             }
+            return;
+        }
+        // Dynamic Trees: fall through thin branches, slide off the sides of thick trunks
+        BlockPos target = com.immersive_nature.integrations.DynamicTreesCompat.pileTarget(level, pos);
+        if (target != null) {
+            level.removeBlock(pos, false);
+            level.setBlock(target, state, 3);
         }
     }
 

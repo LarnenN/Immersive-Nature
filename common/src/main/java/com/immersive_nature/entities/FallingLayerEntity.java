@@ -124,6 +124,15 @@ public class FallingLayerEntity extends FallingBlockEntity {
                 }
                 //place
             } else {
+                // Dynamic Trees: keep falling through thin branches, slide off the sides of thick trunks
+                // (a pile that lands in free space on top of them is moved by LayerBlock.tick once placed)
+                BlockPos through = com.immersive_nature.integrations.DynamicTreesCompat.fallingPileTarget(level, pos);
+                if (through != null && this.time < 600) {
+                    this.setPos(through.getX() + 0.5D, through.getY(), through.getZ() + 0.5D);
+                    this.setDeltaMovement(0, -0.04D, 0);
+                    this.setOnGround(false);
+                    return;
+                }
                 BlockState onState = level.getBlockState(pos);
                 this.setDeltaMovement(this.getDeltaMovement().multiply(0.7D, -0.5D, 0.7D));
                 if (!onState.is(Blocks.MOVING_PISTON)) {

@@ -9,6 +9,8 @@
 - Dynamic Trees: burning branches always char for now (`thin_char_chance`, `medium_char_chance` and `thick_char_chance` default to 1).
 
 ### Fixed
+- Dynamic Trees: ash, sand and leaf piles no longer sit on thin branches as floating squares; they fall through branches thinner than a full block down to the free space below (both piles that land there and piles that fall from above).
+- Dynamic Trees: piles no longer hang on the sides of thick trunks (trunks wider than one block); they slide off away from the middle of the trunk and fall down.
 - Dynamic Trees: burning trees often lost their whole top instead of charring. Fire burns a block in two ways: it removes it, or replaces it with fire. Only the first way could char, and when a branch was replaced by fire, Dynamic Trees dropped everything above it as a burning falling tree. Now a branch can char both ways.
 - Dynamic Trees: charred branches have no leaves, so the tree slowly rotted them away. Charred branches no longer rot, and a burnt tree stays as a charred skeleton.
 - Dynamic Trees: charred branches could catch fire and burn again, and a burnt branch makes Dynamic Trees drop the whole tree above it. So most trees charred and then fell anyway. Charred branches no longer burn.
