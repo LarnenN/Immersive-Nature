@@ -1,5 +1,6 @@
 package com.immersive_nature.data.block_growths.growths.builtin;
 
+import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.data.block_growths.TickSource;
 import com.immersive_nature.reg.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -29,26 +30,8 @@ public class CampfireSootGrowth extends BuiltinBlockGrowth {
         if (!(growthChance == 1 || level.random.nextFloat() < growthChance)) return;
         //we are accessing with tag so always check if this is campfire
         if (state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT)) {
-            RandomSource random = level.random;
-
-            int smokeHeight = state.getValue(CampfireBlock.SIGNAL_FIRE) ? 23 : 8;
-
-            FireSootGrowth.spawnSootAboveFire(level, pos, smokeHeight);
-
-            BlockPos sootBlock = pos.above(random.nextInt(smokeHeight) + 1);
-            int rand = random.nextInt(4);
-            Direction sootDir = Direction.from2DDataValue(rand);
-            BlockPos testPos = sootBlock.relative(sootDir);
-            BlockState testBlock = level.getBlockState(testPos);
-
-            if (Block.isFaceFull(testBlock.getCollisionShape(level, testPos), sootDir.getOpposite())) {
-                BlockState currentState = level.getBlockState(sootBlock);
-                if (currentState.is(ModBlocks.SOOT.get())) {
-                    level.setBlock(sootBlock, currentState.setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(sootDir), true), Block.UPDATE_CLIENTS);
-                } else if (currentState.isAir()) {
-                    level.setBlock(sootBlock, ModBlocks.SOOT.get().defaultBlockState().setValue(PipeBlock.PROPERTY_BY_DIRECTION.get(sootDir), true), Block.UPDATE_CLIENTS);
-                }
-            }
+            int height = state.getValue(CampfireBlock.SIGNAL_FIRE) ? Math.max(23, CommonConfigs.SOOT_HEIGHT.get()) : CommonConfigs.SOOT_HEIGHT.get();
+            FireSootGrowth.spawnSootInSmoke(level, pos, CommonConfigs.SOOT_RADIUS.get(), height);
         }
     }
 

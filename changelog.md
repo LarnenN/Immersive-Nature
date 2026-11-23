@@ -5,6 +5,7 @@
 - Dynamic Trees: smoldering charred branches, like the smoldering charred log. A branch that just charred keeps smoldering with a chance (new option `charring.dynamic_trees.smoldering_chance`, 0.5). Smoldering branches have an animated glowing texture, give a little light, give off embers and burn mobs that step on them. Rain, a wet biome or water next to them put them out; fire or magma next to them, a flint and steel or a fire charge light them again.
 
 ### Changed
+- Soot from campfires, furnaces, smokers and blast furnaces lands on walls and ceilings anywhere in a circle of radius 2 around the smoke and up to 10 blocks above the campfire or the furnace opening, instead of only right above them. The smoke stops at the first ceiling, so no soot appears above a roof. Signal campfires still reach up to 23 blocks. New options `charring.soot_radius` (2) and `charring.soot_height` (10).
 - Dynamic Trees: burning branches always char for now (`thin_char_chance`, `medium_char_chance` and `thick_char_chance` default to 1).
 
 ### Fixed

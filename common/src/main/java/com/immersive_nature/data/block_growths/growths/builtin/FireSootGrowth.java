@@ -45,4 +45,68 @@ public class FireSootGrowth extends BuiltinBlockGrowth {
             }
         }
     }
+
+    /**
+     * Soot left by smoke rising from origin (a campfire, or the opening of a furnace): on a wall or a ceiling
+     * somewhere inside a circle of the given radius around the smoke column, up to maxHeight blocks above origin.
+     * The smoke stops at the first ceiling straight above origin, so no soot ends up above a roof.
+     */
+    public static void spawnSootInSmoke(ServerLevel level, BlockPos origin, int radius, int maxHeight) {
+        var random = level.random;
+        // how high the smoke rises: up to the first solid ceiling above the origin
+        int limit = 0;
+        for (int y = 1; y <= maxHeight; y++) {
+            BlockPos p = origin.above(y);
+            BlockState s = level.getBlockState(p);
+            if (!s.isAir() && !s.is(ModBlocks.SOOT.get())) break;
+            limit = y;
+        }
+        if (limit == 0) return;
+        int dx, dz;
+        do {
+            dx = random.nextInt(radius * 2 + 1) - radius;
+            dz = random.nextInt(radius * 2 + 1) - radius;
+        } while (dx * dx + dz * dz > radius * radius);
+        BlockPos pos = origin.offset(dx, 1 + random.nextInt(limit), dz);
+        if (!canHoldSoot(level.getBlockState(pos))) return;
+
+        Direction face = randomFullFace(level, pos, random);
+        if (face == null) {
+            // in the open air: the smoke rises along this column to the ceiling, if there is one in range
+            for (int y = pos.getY() + 1; y <= origin.getY() + limit; y++) {
+                BlockPos p = new BlockPos(pos.getX(), y, pos.getZ());
+                if (!canHoldSoot(level.getBlockState(p))) return;
+                if (Block.isFaceFull(level.getBlockState(p.above()).getCollisionShape(level, p.above()), Direction.DOWN)) {
+                    pos = p;
+                    face = Direction.UP;
+                    break;
+                }
+            }
+            if (face == null) return;
+        }
+        BlockState current = level.getBlockState(pos);
+        var side = net.minecraft.world.level.block.PipeBlock.PROPERTY_BY_DIRECTION.get(face);
+        if (current.is(ModBlocks.SOOT.get())) {
+            if (!current.getValue(side)) level.setBlock(pos, current.setValue(side, true), Block.UPDATE_CLIENTS);
+        } else {
+            level.setBlock(pos, ModBlocks.SOOT.get().defaultBlockState().setValue(side, true), Block.UPDATE_CLIENTS);
+        }
+    }
+
+    private static boolean canHoldSoot(BlockState state) {
+        return state.isAir() || state.is(ModBlocks.SOOT.get());
+    }
+
+    /** A random side of pos (ceiling or wall, not floor) that has a full block face to stick to, or null. */
+    @Nullable
+    private static Direction randomFullFace(ServerLevel level, BlockPos pos, net.minecraft.util.RandomSource random) {
+        Direction[] dirs = {Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST};
+        int start = random.nextInt(dirs.length);
+        for (int i = 0; i < dirs.length; i++) {
+            Direction d = dirs[(start + i) % dirs.length];
+            BlockPos n = pos.relative(d);
+            if (Block.isFaceFull(level.getBlockState(n).getCollisionShape(level, n), d.getOpposite())) return d;
+        }
+        return null;
+    }
 }

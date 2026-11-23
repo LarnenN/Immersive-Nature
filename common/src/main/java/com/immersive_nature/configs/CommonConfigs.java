@@ -79,6 +79,8 @@ public class CommonConfigs {
 
     public static final Supplier<Double> FIRE_CHARS_WOOD_CHANCE;
     public static final Supplier<Double> FURNACE_SOOT_CHANCE;
+    public static final Supplier<Integer> SOOT_RADIUS;
+    public static final Supplier<Integer> SOOT_HEIGHT;
     public static final Supplier<Boolean> DT_BRANCH_CHARRING;
     public static final Supplier<Integer> DT_THIN_MAX_RADIUS;
     public static final Supplier<Integer> DT_MEDIUM_MAX_RADIUS;
@@ -199,8 +201,12 @@ public class CommonConfigs {
         FIRE_CHARS_WOOD_CHANCE = builder.define("fire_chars_wood", 0.3, 0, 1);
         ASH_SPAWN_CHANCE = builder.comment("Chance for a pile of ash to be left when fire burns a block that has no charred variant")
                 .define("ash_spawn", 0.3, 0, 1);
-        FURNACE_SOOT_CHANCE = builder.comment("Chance per random tick that a lit furnace, smoker or blast furnace leaves soot on the wall above its opening or on the ceiling above its front. 0 = off")
+        FURNACE_SOOT_CHANCE = builder.comment("Chance per random tick that a lit furnace, smoker or blast furnace leaves soot in the smoke above its opening. 0 = off")
                 .define("furnace_soot", 0.3, 0, 1);
+        SOOT_RADIUS = builder.comment("Campfires and furnaces leave soot on walls and ceilings inside a circle of this radius around the smoke")
+                .define("soot_radius", 2, 0, 8);
+        SOOT_HEIGHT = builder.comment("...and up to this many blocks above the campfire or the furnace opening (the smoke stops at the first ceiling). Signal campfires reach up to 23 blocks")
+                .define("soot_height", 10, 1, 32);
         builder.comment("Dynamic Trees branches. Branch radius 1-8 is a branch inside one block (thickness = radius x 2 pixels, 8 = full block, oak tops out at 8); radius 9-24 is a thick trunk wider than one block (up to 3x3, e.g. dark oak)")
                 .push("dynamic_trees");
         DT_BRANCH_CHARRING = builder.comment("Burning branches can turn into charred branches of the same thickness")

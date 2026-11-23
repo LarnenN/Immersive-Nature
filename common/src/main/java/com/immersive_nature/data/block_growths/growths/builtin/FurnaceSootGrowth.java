@@ -19,8 +19,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 /**
- * Lit furnaces, smokers and blast furnaces leave soot where their smoke goes: on the wall right above
- * the opening and on the ceiling above the front.
+ * Lit furnaces, smokers and blast furnaces leave soot where their smoke goes: on walls and ceilings
+ * in a circle around the smoke rising from the opening (config charring.soot_radius / soot_height).
  */
 public class FurnaceSootGrowth extends BuiltinBlockGrowth {
 
@@ -34,24 +34,8 @@ public class FurnaceSootGrowth extends BuiltinBlockGrowth {
         double chance = CommonConfigs.FURNACE_SOOT_CHANCE.get() * growthChance;
         if (chance <= 0 || level.random.nextFloat() >= chance) return;
 
-        Direction facing = state.getValue(AbstractFurnaceBlock.FACING);
-        BlockPos front = pos.relative(facing);
-        if (level.random.nextBoolean()) {
-            // smoke rises from the opening and sticks to the ceiling
-            FireSootGrowth.spawnSootAboveFire(level, front, 4);
-            return;
-        }
-        // soot on the wall right above the opening
-        BlockPos sootPos = front.above();
-        Direction toWall = facing.getOpposite();
-        BlockPos wall = sootPos.relative(toWall);
-        if (!Block.isFaceFull(level.getBlockState(wall).getCollisionShape(level, wall), facing)) return;
-        BlockState current = level.getBlockState(sootPos);
-        var side = PipeBlock.PROPERTY_BY_DIRECTION.get(toWall);
-        if (current.is(ModBlocks.SOOT.get())) {
-            if (!current.getValue(side)) level.setBlock(sootPos, current.setValue(side, true), Block.UPDATE_CLIENTS);
-        } else if (current.isAir()) {
-            level.setBlock(sootPos, ModBlocks.SOOT.get().defaultBlockState().setValue(side, true), Block.UPDATE_CLIENTS);
-        }
+        // smoke comes out of the opening and rises
+        BlockPos front = pos.relative(state.getValue(AbstractFurnaceBlock.FACING));
+        FireSootGrowth.spawnSootInSmoke(level, front, CommonConfigs.SOOT_RADIUS.get(), CommonConfigs.SOOT_HEIGHT.get());
     }
 }
