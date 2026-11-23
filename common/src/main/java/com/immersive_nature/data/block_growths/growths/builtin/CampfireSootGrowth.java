@@ -27,11 +27,12 @@ public class CampfireSootGrowth extends BuiltinBlockGrowth {
 
     @Override
     public void tryGrowing(BlockPos pos, BlockState state, ServerLevel level, Supplier<Holder<Biome>> biome) {
-        if (!(growthChance == 1 || level.random.nextFloat() < growthChance)) return;
+        int attempts = FireSootGrowth.sootAttempts(level.random, growthChance);
+        if (attempts == 0) return;
         //we are accessing with tag so always check if this is campfire
         if (state.getBlock() instanceof CampfireBlock && state.getValue(CampfireBlock.LIT)) {
             int height = state.getValue(CampfireBlock.SIGNAL_FIRE) ? Math.max(23, CommonConfigs.SOOT_HEIGHT.get()) : CommonConfigs.SOOT_HEIGHT.get();
-            FireSootGrowth.spawnSootInSmoke(level, pos, CommonConfigs.SOOT_RADIUS.get(), height);
+            for (int i = 0; i < attempts; i++) FireSootGrowth.spawnSootInSmoke(level, pos, CommonConfigs.SOOT_RADIUS.get(), height);
         }
     }
 

@@ -31,11 +31,11 @@ public class FurnaceSootGrowth extends BuiltinBlockGrowth {
     @Override
     public void tryGrowing(BlockPos pos, BlockState state, ServerLevel level, Supplier<Holder<Biome>> biome) {
         if (!(state.getBlock() instanceof AbstractFurnaceBlock) || !state.getValue(AbstractFurnaceBlock.LIT)) return;
-        double chance = CommonConfigs.FURNACE_SOOT_CHANCE.get() * growthChance;
-        if (chance <= 0 || level.random.nextFloat() >= chance) return;
+        int attempts = FireSootGrowth.sootAttempts(level.random, CommonConfigs.FURNACE_SOOT_CHANCE.get() * growthChance);
+        if (attempts == 0) return;
 
         // smoke comes out of the opening and rises
         BlockPos front = pos.relative(state.getValue(AbstractFurnaceBlock.FACING));
-        FireSootGrowth.spawnSootInSmoke(level, front, CommonConfigs.SOOT_RADIUS.get(), CommonConfigs.SOOT_HEIGHT.get());
+        for (int i = 0; i < attempts; i++) FireSootGrowth.spawnSootInSmoke(level, front, CommonConfigs.SOOT_RADIUS.get(), CommonConfigs.SOOT_HEIGHT.get());
     }
 }

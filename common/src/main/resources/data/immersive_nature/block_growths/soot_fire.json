@@ -5,7 +5,7 @@
     },
     "type": "neighbor_based_generation"
   },
-  "growth_chance": 0.05,
+  "growth_chance": 0.2,
   "growth_for_face": [
     {
       "direction": "east",

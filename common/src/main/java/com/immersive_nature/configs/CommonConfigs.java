@@ -46,6 +46,7 @@ public class CommonConfigs {
     public static final Supplier<Integer> DESIRE_PATHS_DIRT_WEAR;
     public static final Supplier<Integer> DESIRE_PATHS_SILT_WEAR;
     public static final Supplier<Integer> DESIRE_PATHS_SANDY_DIRT_WEAR;
+    public static final Supplier<Integer> DESIRE_PATHS_LOAM_WEAR;
     public static final Supplier<Boolean> DESIRE_PATHS_SAND;
     public static final Supplier<Boolean> DESIRE_PATHS_SAND_BLOCKS;
     public static final Supplier<Integer> DESIRE_PATHS_SAND_WEAR;
@@ -81,6 +82,7 @@ public class CommonConfigs {
     public static final Supplier<Double> FURNACE_SOOT_CHANCE;
     public static final Supplier<Integer> SOOT_RADIUS;
     public static final Supplier<Integer> SOOT_HEIGHT;
+    public static final Supplier<Double> SOOT_MULTIPLIER;
     public static final Supplier<Boolean> DT_BRANCH_CHARRING;
     public static final Supplier<Integer> DT_THIN_MAX_RADIUS;
     public static final Supplier<Integer> DT_MEDIUM_MAX_RADIUS;
@@ -207,6 +209,8 @@ public class CommonConfigs {
                 .define("soot_radius", 2, 0, 8);
         SOOT_HEIGHT = builder.comment("...and up to this many blocks above the campfire or the furnace opening (the smoke stops at the first ceiling). Signal campfires reach up to 23 blocks")
                 .define("soot_height", 10, 1, 32);
+        SOOT_MULTIPLIER = builder.comment("How much soot campfires, furnaces and fire leave: 1 = the base amount, 4 = four times as much. (Soot on the walls next to fire is the data-driven growth soot_fire.json; its chance already includes the default 4)")
+                .define("soot_multiplier", 4.0, 0, 64);
         builder.comment("Dynamic Trees branches. Branch radius 1-8 is a branch inside one block (thickness = radius x 2 pixels, 8 = full block, oak tops out at 8); radius 9-24 is a thick trunk wider than one block (up to 3x3, e.g. dark oak)")
                 .push("dynamic_trees");
         DT_BRANCH_CHARRING = builder.comment("Burning branches can turn into charred branches of the same thickness")
@@ -328,7 +332,7 @@ public class CommonConfigs {
         builder.pop();
 
         builder.push("desire_paths");
-        DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, grassy silt and grassy sandy dirt into silt and sandy dirt, and presses sand down, forming trails where people and mobs walk often")
+        DESIRE_PATHS = builder.comment("Walking over grass and podzol slowly wears it down into dirt and then coarse dirt, grassy silt and grassy sandy dirt into silt and sandy dirt, loam into dirt and then coarse dirt, and presses sand down, forming trails where people and mobs walk often")
                 .define("enabled", true);
         DESIRE_PATHS_WEAR = builder.comment("Wear speed of the extra entries in transformations below. Every block remembers how much it was walked on: each tick someone walks on it adds 1 (sprinting more, sneaking less), and at this amount it wears down one step. About 5 ticks = one walk across a block, so 100 = about 20 walks")
                 .define("wear_to_change", 100, 1, 100000);
@@ -342,6 +346,8 @@ public class CommonConfigs {
                 .define("grassy_silt_wear_to_change", 100, 0, 100000);
         DESIRE_PATHS_SANDY_DIRT_WEAR = builder.comment("How much walking turns grassy sandy dirt into sandy dirt (grass can grow back on it later). 0 = off")
                 .define("grassy_sandy_dirt_wear_to_change", 100, 0, 100000);
+        DESIRE_PATHS_LOAM_WEAR = builder.comment("How much walking turns loam into dirt (which then wears into coarse dirt). 0 = off")
+                .define("loam_wear_to_change", 100, 0, 100000);
         DESIRE_PATHS_MOBS = builder.comment("Mobs wear down paths too (except the ones in the entity tag immersive_nature:no_desire_paths, sheep by default). If false, only players and mobs in immersive_nature:makes_desire_paths do")
                 .define("mobs_make_paths", true);
         DESIRE_PATHS_FORGET = builder.comment("Minutes after which a block forgets that it was walked on, if nobody walks on it again")

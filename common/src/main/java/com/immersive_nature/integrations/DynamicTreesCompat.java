@@ -109,6 +109,7 @@ public class DynamicTreesCompat {
     * Where a pile (ash, sand) resting at pos should move, or null if it stays.
     * - On a thin Dynamic Trees branch it falls through the branch (and any thin branches under it) to the free
     *   space below, instead of sitting on the branch as a floating square.
+    * - On top of a trunk (or any branch a full block thick) it rolls off to a free side.
     * - On the trunk shell of a thick trunk (the blocks around a trunk wider than one block) it slides off sideways,
     *   away from the middle of the trunk, instead of hanging on the side of the trunk.
     */
@@ -119,7 +120,19 @@ public class DynamicTreesCompat {
       BlockState below = level.getBlockState(belowPos);
       if (isThinBranch(level, belowPos, below)) return throughBranches(level, belowPos);
       if (TRUNK_SHELL.get(below.getBlock().getClass())) return offShell(level, below, pos);
+      // on top of a trunk or a full-block branch: roll off to a free side
+      if (BRANCH.get(below.getBlock().getClass())) return freeSide(level, pos);
       return null;
+   }
+
+   @Nullable
+   private static BlockPos freeSide(Level level, BlockPos pos) {
+      java.util.List<BlockPos> free = new java.util.ArrayList<>(4);
+      for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.Plane.HORIZONTAL) {
+         BlockPos n = pos.relative(dir);
+         if (isFreeForPile(level.getBlockState(n))) free.add(n);
+      }
+      return free.isEmpty() ? null : free.get(level.random.nextInt(free.size()));
    }
 
    /**

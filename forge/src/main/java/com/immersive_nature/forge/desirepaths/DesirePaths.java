@@ -151,6 +151,7 @@ public final class DesirePaths {
         if (block == Blocks.DIRT) return new Step(Blocks.COARSE_DIRT.defaultBlockState(), CommonConfigs.DESIRE_PATHS_DIRT_WEAR.get());
         if (block == ModBlocks.GRASSY_SILT.get()) return new Step(ModBlocks.SILT.get().defaultBlockState(), CommonConfigs.DESIRE_PATHS_SILT_WEAR.get());
         if (block == ModBlocks.GRASSY_SANDY_DIRT.get()) return new Step(ModBlocks.SANDY_DIRT.get().defaultBlockState(), CommonConfigs.DESIRE_PATHS_SANDY_DIRT_WEAR.get());
+        if (block == ModBlocks.LOAM.get()) return new Step(Blocks.DIRT.defaultBlockState(), CommonConfigs.DESIRE_PATHS_LOAM_WEAR.get());
         if (block == Blocks.SAND || block == Blocks.RED_SAND || block == ModBlocks.SAND_LAYER_BLOCK.get() || block == ModBlocks.RED_SAND_LAYER_BLOCK.get()) {
             BlockState pressed = CommonConfigs.DESIRE_PATHS_SAND.get() ? pressSand(ground) : null;
             return new Step(pressed, pressed == null ? 0 : CommonConfigs.DESIRE_PATHS_SAND_WEAR.get());

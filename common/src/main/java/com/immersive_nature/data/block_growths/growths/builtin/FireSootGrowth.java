@@ -1,5 +1,6 @@
 package com.immersive_nature.data.block_growths.growths.builtin;
 
+import com.immersive_nature.configs.CommonConfigs;
 import com.immersive_nature.data.block_growths.TickSource;
 import com.immersive_nature.reg.ModBlocks;
 import net.minecraft.core.BlockPos;
@@ -25,11 +26,23 @@ public class FireSootGrowth extends BuiltinBlockGrowth {
 
     @Override
     public void tryGrowing(BlockPos pos, BlockState state, ServerLevel level, Supplier<Holder<Biome>> biome) {
-        if (!(growthChance == 1 || level.random.nextFloat() < growthChance)) return;
+        if (sootAttempts(level.random, growthChance) == 0) return;
 
         if (level.getGameRules().getBoolean(GameRules.RULE_DOFIRETICK)) {
             spawnSootAboveFire(level, pos, 6);
         }
+    }
+
+    /**
+     * How many times to try to leave soot this tick: on average chance x charring.soot_multiplier
+     * (the whole part every time, the rest as a chance).
+     */
+    public static int sootAttempts(net.minecraft.util.RandomSource random, double chance) {
+        double expected = chance * CommonConfigs.SOOT_MULTIPLIER.get();
+        if (expected <= 0) return 0;
+        int n = (int) expected;
+        if (random.nextDouble() < expected - n) n++;
+        return n;
     }
 
     public static void spawnSootAboveFire(ServerLevel level, BlockPos pos, int smokeHeight) {

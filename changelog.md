@@ -2,14 +2,17 @@
 
 ## 1.5.0
 ### Added
+- Desire paths: loam wears down into dirt and then coarse dirt. New option `desire_paths.loam_wear_to_change` (100).
 - Dynamic Trees: smoldering charred branches, like the smoldering charred log. A branch that just charred keeps smoldering with a chance (new option `charring.dynamic_trees.smoldering_chance`, 0.5). Smoldering branches have an animated glowing texture, give a little light, give off embers and burn mobs that step on them. Rain, a wet biome or water next to them put them out; fire or magma next to them, a flint and steel or a fire charge light them again.
 
 ### Changed
+- Soot appears 4 times as often from all sources: campfires, furnaces, smokers, blast furnaces and fire. New option `charring.soot_multiplier` (4); the wall soot next to fire (`soot_fire.json`) has its chance raised from 0.05 to 0.2.
 - Soot from campfires, furnaces, smokers and blast furnaces lands on walls and ceilings anywhere in a circle of radius 2 around the smoke and up to 10 blocks above the campfire or the furnace opening, instead of only right above them. The smoke stops at the first ceiling, so no soot appears above a roof. Signal campfires still reach up to 23 blocks. New options `charring.soot_radius` (2) and `charring.soot_height` (10).
 - Dynamic Trees: burning branches always char for now (`thin_char_chance`, `medium_char_chance` and `thick_char_chance` default to 1).
 
 ### Fixed
 - Dynamic Trees: ash, sand and leaf piles no longer sit on thin branches as floating squares; they fall through branches thinner than a full block down to the free space below (both piles that land there and piles that fall from above).
+- Dynamic Trees: piles no longer stay on top of trunks (or any branch a full block thick); they roll off to a free side and fall.
 - Dynamic Trees: piles no longer hang on the sides of thick trunks (trunks wider than one block); they slide off away from the middle of the trunk and fall down.
 - Dynamic Trees: burning trees often lost their whole top instead of charring. Fire burns a block in two ways: it removes it, or replaces it with fire. Only the first way could char, and when a branch was replaced by fire, Dynamic Trees dropped everything above it as a burning falling tree. Now a branch can char both ways.
 - Dynamic Trees: charred branches have no leaves, so the tree slowly rotted them away. Charred branches no longer rot, and a burnt tree stays as a charred skeleton.
