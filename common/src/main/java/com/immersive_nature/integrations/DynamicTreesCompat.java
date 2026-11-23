@@ -86,9 +86,16 @@ public class DynamicTreesCompat {
    };
    private static final ResourceLocation CHARRED_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "charred_branch");
    private static final ResourceLocation STRIPPED_CHARRED_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "stripped_charred_branch");
+   private static final ResourceLocation SMOLDERING_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "smoldering_charred_branch");
+   private static final ResourceLocation STRIPPED_SMOLDERING_BRANCH = new ResourceLocation(ImmersiveNature.MOD_ID, "stripped_smoldering_charred_branch");
 
    /** True for the branches of Immersive Nature's charred Dynamic Trees family. */
    private static final ResourceLocation CHARRED_FAMILY = new ResourceLocation(ImmersiveNature.MOD_ID, "charred");
+   private static final ResourceLocation SMOLDERING_FAMILY = new ResourceLocation(ImmersiveNature.MOD_ID, "smoldering_charred");
+
+   private static boolean isCharredFamily(Object name) {
+      return CHARRED_FAMILY.equals(name) || SMOLDERING_FAMILY.equals(name);
+   }
 
    private static Method call(Object target, String name, Class<?>... types) throws ReflectiveOperationException {
       String key = name + types.length;
@@ -115,7 +122,7 @@ public class DynamicTreesCompat {
       try {
          Method getFam = call(rooty, "getFamily", BlockState.class, net.minecraft.world.level.BlockGetter.class, BlockPos.class);
          Object family = getFam == null ? null : getFam.invoke(rooty, state, level, pos);
-         if (family == null || !CHARRED_FAMILY.equals(registryName(family))) return null;
+         if (family == null || !isCharredFamily(registryName(family))) return null;
          Object be = level.getBlockEntity(pos);
          if (be != null) {
             Method getSpecies = call(be, "getSpecies");
@@ -123,7 +130,7 @@ public class DynamicTreesCompat {
             Method speciesFamily = species == null ? null : call(species, "getFamily");
             Object original = speciesFamily == null ? null : speciesFamily.invoke(species);
             Method valid = original == null ? null : call(original, "isValid");
-            if (original != null && valid != null && (Boolean) valid.invoke(original) && !CHARRED_FAMILY.equals(registryName(original))) {
+            if (original != null && valid != null && (Boolean) valid.invoke(original) && !isCharredFamily(registryName(original))) {
                Method fromBark = call(rooty, "getColorFromBark");
                Method rootColor = call(original, "getRootColor", BlockState.class, boolean.class);
                if (fromBark != null && rootColor != null) return (Integer) rootColor.invoke(original, state, fromBark.invoke(rooty));
@@ -150,6 +157,10 @@ public class DynamicTreesCompat {
             : com.immersive_nature.configs.CommonConfigs.DT_THICK_CHAR_CHANCE.get();
       if (chance <= 0 || level.random.nextFloat() >= chance) return null;
       rememberTreeUnder(level, pos);
+      if (level.random.nextFloat() < com.immersive_nature.configs.CommonConfigs.DT_SMOLDERING_CHANCE.get()) {
+         BlockState lit = withSmoldering(charred, true);
+         if (lit != null) return lit;
+      }
       return charred;
    }
 
@@ -204,7 +215,97 @@ public class DynamicTreesCompat {
    public static boolean isCharredBranch(Block block) {
       if (!LOADED) return false;
       ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
-      return id.equals(CHARRED_BRANCH) || id.equals(STRIPPED_CHARRED_BRANCH);
+      return id.equals(CHARRED_BRANCH) || id.equals(STRIPPED_CHARRED_BRANCH) || id.equals(SMOLDERING_BRANCH) || id.equals(STRIPPED_SMOLDERING_BRANCH);
+   }
+
+   /** True for the glowing (smoldering) charred branches. */
+   public static boolean isSmolderingBranch(Block block) {
+      if (!LOADED) return false;
+      ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+      return id.equals(SMOLDERING_BRANCH) || id.equals(STRIPPED_SMOLDERING_BRANCH);
+   }
+
+   /**
+    * The same charred branch (same thickness, water, stripped or not), smoldering or put out;
+    * null if the block is no charred branch.
+    */
+   @Nullable
+   public static BlockState withSmoldering(BlockState state, boolean lit) {
+      if (!isCharredBranch(state.getBlock())) return null;
+      ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
+      boolean stripped = id.equals(STRIPPED_CHARRED_BRANCH) || id.equals(STRIPPED_SMOLDERING_BRANCH);
+      ResourceLocation targetId = lit ? (stripped ? STRIPPED_SMOLDERING_BRANCH : SMOLDERING_BRANCH) : (stripped ? STRIPPED_CHARRED_BRANCH : CHARRED_BRANCH);
+      if (targetId.equals(id)) return state;
+      Block target = BuiltInRegistries.BLOCK.get(targetId);
+      if (target == Blocks.AIR) return null;
+      return copyBranchProperties(state, target.defaultBlockState());
+   }
+
+   private static BlockState copyBranchProperties(BlockState from, BlockState to) {
+      for (var prop : from.getProperties()) {
+         var targetProp = to.getBlock().getStateDefinition().getProperty(prop.getName());
+         if (targetProp != null) to = copyValue(from, prop, to, targetProp);
+      }
+      return to;
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   private static BlockState copyValue(BlockState from, net.minecraft.world.level.block.state.properties.Property prop, BlockState to, net.minecraft.world.level.block.state.properties.Property targetProp) {
+      Comparable value = from.getValue(prop);
+      if (targetProp.getPossibleValues().contains(value)) return to.setValue(targetProp, value);
+      if (value instanceof Integer i && targetProp instanceof net.minecraft.world.level.block.state.properties.IntegerProperty ip) {
+         int max = ip.getPossibleValues().stream().mapToInt(Integer::intValue).max().orElse(8);
+         int min = ip.getPossibleValues().stream().mapToInt(Integer::intValue).min().orElse(1);
+         return to.setValue(ip, Math.max(min, Math.min(max, i)));
+      }
+      return to;
+   }
+
+   /** Flint and steel, fire charges and extinguishing items on charred branches (Moonlight's lightable logic). */
+   public static final net.mehvahdjukaar.moonlight.api.block.ILightable CHARRED_BRANCH_LIGHT = new net.mehvahdjukaar.moonlight.api.block.ILightable() {
+      @Override
+      public boolean isLitUp(BlockState state) {
+         return isSmolderingBranch(state.getBlock());
+      }
+
+      @Override
+      public BlockState toggleLitState(BlockState state, boolean lit) {
+         BlockState other = withSmoldering(state, lit);
+         return other == null ? state : other;
+      }
+   };
+
+   /** Light level of a smoldering charred branch (the same as a smoldering charred log). */
+   public static final int SMOLDERING_LIGHT = 3;
+
+   /**
+    * Random tick of a charred branch, like the charred log: rain, a wet biome or water next to it put a smoldering
+    * branch out; fire or magma next to it (and nothing wet) lights it again.
+    */
+   public static void charredBranchRandomTick(BlockState state, ServerLevel level, BlockPos pos) {
+      int temperature = 0;
+      boolean wet = state.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+      boolean wetBiome = level.getBiome(pos).is(com.immersive_nature.reg.ModTags.WET);
+      for (net.minecraft.core.Direction dir : net.minecraft.core.Direction.values()) {
+         BlockPos p = pos.relative(dir);
+         BlockState n = level.getBlockState(p);
+         boolean water = n.getFluidState().is(net.minecraft.tags.FluidTags.WATER);
+         if (level.isRainingAt(p) || water) wet = true;
+         if (level.isRainingAt(p) || wetBiome || water) temperature--;
+         else if (n.is(com.immersive_nature.reg.ModTags.MAGMA_SOURCE) || n.is(BlockTags.FIRE)) temperature++;
+      }
+      boolean lit = isSmolderingBranch(state.getBlock());
+      BlockState next = null;
+      if ((temperature < 0 || wet) && lit) next = withSmoldering(state, false);
+      else if (temperature > 0 && !lit) next = withSmoldering(state, true);
+      if (next != null && next != state) level.setBlock(pos, next, 3);
+   }
+
+   /** Embers rising from a smoldering branch (client). */
+   public static void smolderingBranchParticles(BlockState state, Level level, BlockPos pos, RandomSource random) {
+      if (!isSmolderingBranch(state.getBlock()) || random.nextInt(3) != 0) return;
+      level.addParticle(com.immersive_nature.reg.ModParticles.EMBERSPARK.get(), pos.getX() + random.nextDouble(), pos.getY() + random.nextDouble(),
+            pos.getZ() + random.nextDouble(), 0.1D, 3D, 0.1D);
    }
 
    /**

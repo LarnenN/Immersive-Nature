@@ -1,0 +1,7 @@
+{
+  "loader": "dynamictrees:branch",
+  "textures": {
+    "bark": "immersive_nature:block/charred_log_lit",
+    "rings": "immersive_nature:block/charred_log_top_lit"
+  }
+}

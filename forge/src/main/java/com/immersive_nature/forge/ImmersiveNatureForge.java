@@ -80,6 +80,16 @@ public class ImmersiveNatureForge {
 
     @SubscribeEvent(priority = EventPriority.LOW)
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        // flint and steel / fire charge light a charred Dynamic Trees branch, extinguishing items put it out
+        var clicked = event.getLevel().getBlockState(event.getPos());
+        if (com.immersive_nature.integrations.DynamicTreesCompat.isCharredBranch(clicked.getBlock())) {
+            var lit = com.immersive_nature.integrations.DynamicTreesCompat.CHARRED_BRANCH_LIGHT.interactWithPlayer(clicked, event.getLevel(), event.getPos(), event.getEntity(), event.getHand());
+            if (lit != InteractionResult.PASS) {
+                event.setCanceled(true);
+                event.setCancellationResult(lit);
+                return;
+            }
+        }
         var ret = com.immersive_nature.events.ModEvents.onBlockCLicked(event.getItemStack(),
                 event.getEntity(), event.getLevel(), event.getHand(), event.getHitVec());
         if (ret != InteractionResult.PASS) {

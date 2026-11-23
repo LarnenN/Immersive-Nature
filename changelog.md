@@ -1,6 +1,9 @@
 # Immersive Nature changelog
 
 ## 1.5.0
+### Added
+- Dynamic Trees: smoldering charred branches, like the smoldering charred log. A branch that just charred keeps smoldering with a chance (new option `charring.dynamic_trees.smoldering_chance`, 0.5). Smoldering branches have an animated glowing texture, give a little light, give off embers and burn mobs that step on them. Rain, a wet biome or water next to them put them out; fire or magma next to them, a flint and steel or a fire charge light them again.
+
 ### Changed
 - Dynamic Trees: burning branches always char for now (`thin_char_chance`, `medium_char_chance` and `thick_char_chance` default to 1).
 

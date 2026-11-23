@@ -85,6 +85,7 @@ public class CommonConfigs {
     public static final Supplier<Double> DT_THIN_CHAR_CHANCE;
     public static final Supplier<Double> DT_MEDIUM_CHAR_CHANCE;
     public static final Supplier<Double> DT_THICK_CHAR_CHANCE;
+    public static final Supplier<Double> DT_SMOLDERING_CHANCE;
     public static final Supplier<Boolean> WEATHER2_RAIN;
     public static final Supplier<Boolean> WEATHER2_SAND;
     public static final Supplier<Double> WEATHER2_WATER_RAIN;
@@ -214,6 +215,8 @@ public class CommonConfigs {
                 .define("medium_char_chance", 1.0, 0, 1);
         DT_THICK_CHAR_CHANCE = builder.comment("Chance that a burning thick branch turns charred instead of burning away")
                 .define("thick_char_chance", 1.0, 0, 1);
+        DT_SMOLDERING_CHANCE = builder.comment("Chance that a branch that just charred keeps smoldering (glows and gives off embers, like a smoldering charred log). Rain and water put it out, fire next to it or a flint and steel light it again")
+                .define("smoldering_chance", 0.5, 0, 1);
         builder.pop();
         builder.pop();
 

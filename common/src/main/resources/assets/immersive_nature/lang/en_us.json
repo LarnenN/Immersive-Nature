@@ -557,5 +557,7 @@
   "immersive_nature.rain_water.enabled": "Rain water enabled",
   "block.immersive_nature.snow_layer": "Snow",
   "block.immersive_nature.charred_branch": "Charred Branch",
-  "block.immersive_nature.stripped_charred_branch": "Stripped Charred Branch"
+  "block.immersive_nature.stripped_charred_branch": "Stripped Charred Branch",
+  "block.immersive_nature.smoldering_charred_branch": "Smoldering Charred Branch",
+  "block.immersive_nature.stripped_smoldering_charred_branch": "Stripped Smoldering Charred Branch"
 }

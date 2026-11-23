@@ -431,5 +431,7 @@
   "immersive_nature.rain_water.disabled": "Дощову воду вимкнено",
   "immersive_nature.rain_water.enabled": "Дощову воду увімкнено",
   "block.immersive_nature.charred_branch": "Обвуглена гілка",
-  "block.immersive_nature.stripped_charred_branch": "Обтесана обвуглена гілка"
+  "block.immersive_nature.stripped_charred_branch": "Обтесана обвуглена гілка",
+  "block.immersive_nature.smoldering_charred_branch": "Тліюча обвуглена гілка",
+  "block.immersive_nature.stripped_smoldering_charred_branch": "Обтесана тліюча обвуглена гілка"
 }

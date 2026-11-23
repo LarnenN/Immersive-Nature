@@ -556,5 +556,7 @@
   "immersive_nature.rain_water.disabled": "Дождевая вода выключена",
   "immersive_nature.rain_water.enabled": "Дождевая вода включена",
   "block.immersive_nature.charred_branch": "Обугленная ветка",
-  "block.immersive_nature.stripped_charred_branch": "Обтёсанная обугленная ветка"
+  "block.immersive_nature.stripped_charred_branch": "Обтёсанная обугленная ветка",
+  "block.immersive_nature.smoldering_charred_branch": "Тлеющая обугленная ветка",
+  "block.immersive_nature.stripped_smoldering_charred_branch": "Обтёсанная тлеющая обугленная ветка"
 }
